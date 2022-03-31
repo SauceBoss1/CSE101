@@ -2,6 +2,9 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+// Exported Types -------------------------------------------------------------
+typedef struct ListObj* List;
+
 // Constructors-Destructors ---------------------------------------------------
 List newList(void);
 void freeList(List* pL);
