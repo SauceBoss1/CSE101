@@ -58,3 +58,12 @@ List newList(void){
   L->index = -1;
 }
 
+void freeList(List* pL){
+  if(pL != NULL && *pL!=NULL){
+    for(Node curr = pL->front; curr->next != NULL; curr = curr->next){
+      freeNode(*curr);
+    }
+    free(*pL);
+    *pL = NULL;
+  }
+}
