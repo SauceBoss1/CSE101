@@ -67,3 +67,58 @@ void freeList(List* pL){
     *pL = NULL;
   }
 }
+
+// Access functions -----------------------------------------------------------
+
+int length(List l){
+  if(l == NULL){
+    printf("ERROR: Checking the length of a NULL list.\n");
+    exit(EXIT_FAILURE);
+  }
+  return l->length;
+}
+
+int index(List l){
+  if(l == NULL){
+    printf("ERROR: Checking the index of a NULL list.\n");
+    exit(EXIT_FAILURE);
+  }
+  return l->index;
+}
+
+int front(List l){
+  if(l == NULL){
+    printf("ERROR: Checking the front element of a NULL list.\n");
+    exit(EXIT_FAILURE);
+  }
+  if(length(l) < 0){
+    printf("ERROR: The length of the list is 0");
+    exit(EXIT_FAILURE);
+  }
+  return l->front->data;
+}
+
+int back(List l){
+  if(l == NULL){
+    printf("ERROR: Checking the back element of a NULL list.\n");
+    exit(EXIT_FAILURE);
+  }
+  if(length(l) < 0){
+    printf("ERROR: The length of the list is 0");
+    exit(EXIT_FAILURE);
+  }
+  return l->back->data;
+}
+
+int get(List L){
+  if(l == NULL){
+    printf("ERROR: Getting the element of a NULL list.\n");
+    exit(EXIT_FAILURE);
+  }
+  if(length(l) < 0){
+    printf("ERROR: The length of the list is 0");
+    exit(EXIT_FAILURE);
+  }
+  return L->cursor->data;
+}
+
