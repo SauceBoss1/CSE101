@@ -123,3 +123,65 @@ int get(List L){
 }
 
 //TODO bool equals()
+
+// Manipulation procedures ----------------------------------------------------
+
+void clear(List l){
+  if(l == NULL){
+    printf("ERROR: Clearing a NULL list.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(length(l) == 0){
+    printf("ERROR: Clearing an already empty list.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  for (Node curr = l->front; curr->next != NULL; curr->curr->next){
+    freeNode(*curr);
+  }
+  l->front = l->cursor = l->back = NULL;
+  l->index = -1;
+  l->length = 0;
+
+  return;
+}
+
+void set(List l, int x){
+  if(l == NULL){
+    printf("ERROR: Setting an element of a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+  if (length(l) < 0 ){ //You may need to just use prepend or append instead but check later
+    printf("ERROR: Setting an element to an empty list.\n");
+    exit(EXIT_FAILURE);
+  }
+
+  l->cursor->data = x;
+
+  return;
+}
+
+void moveFront(List l){
+  if(l == NULL){
+    printf("ERROR: Trying to move cursor to the front of a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+  if (length(l) > 0){
+    l->cursor = l->front;
+    l->index = 0;
+  }
+
+  return;
+}
+
+void moveBack(List l){
+  if(l == NULL){
+    printf("ERROR: Trying to move cursor to the back of a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+  if (length(l) > 0){
+    l->cursor = l->back;
+    l->index = length(l) - 1;
+  }
+}
