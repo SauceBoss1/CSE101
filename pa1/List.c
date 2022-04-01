@@ -122,3 +122,4 @@ int get(List L){
   return L->cursor->data;
 }
 
+//TODO bool equals()
