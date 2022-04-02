@@ -163,7 +163,7 @@ void set(List l, int x){
 }
 
 /*
-  REMEMBER: Chec for the length just in case someone tries to move curson on an empty List.
+  REMEMBER: Chec for the length just in case someone tries to move cursor on an empty List.
 */
 void moveFront(List l){
   if(l == NULL){
@@ -218,4 +218,160 @@ void moveNext(List l){
     l->cursor = l->cursor->next;
     l->index++;
   }
+  return;
 }
+
+void prepend(List l, int x){
+  if(l==NULL){
+    printf("ERROR: Trying to prepend to a NULL list");
+    exit(EXIT_FAILURE);
+  }
+  
+  Node n = newNode(x);
+  if(l->front == NULL && l->back==NULL && length(l) == 0){
+    l->front = n;
+    l->back = n;
+    l->length++;
+  } else {
+    l->front->prev = n;
+    n->next = l->front;
+    l->front = n;
+    l->length++;
+  }
+  return;
+}
+
+void append(List l, int x){
+  if(l==NULL){
+    printf("ERROR: Trying to append to a NULL list");
+    exit(EXIT_FAILURE);
+  }
+
+  Node n = newNode(x);
+  if(l->front == NULL && l->back == NULL && length(l) == 0){
+    l->front = l->back = n;
+    l->length++;
+  } else {
+    l->back->next = n;
+    n->prev = l->back;
+    l->back = n;
+  }
+  return;
+}
+
+void insertBefore(List l, int x){
+  if(l==NULL){
+    printf("ERROR: Trying to insert before cursor on a NULL list");
+    exit(EXIT_FAILURE);
+  }
+
+  if(l->cursor->prev == NULL && length(l) > 0 && index(l) >=0){
+    prepend(l,x);
+  } else if(length(l) > 0 && index(l) >=0){
+    Node n = newNode(x);
+
+    n->next = l->cursor;
+    n->prev = l->cursor->prev;
+    l->cursor->prev = n;
+    n->prev->next = n;
+    l->index++;
+    l->length++;
+  }
+  return;
+}
+
+void insertAfter(List l, int x){
+  if(l==NULL){
+    printf("ERROR: Trying to insert after cursor on a NULL list");
+    exit(EXIT_FAILURE);
+  }
+
+  if(l->cursor->next == NULL && length(l) > 0 && index(l) >= 0){
+    append(l,x);
+  } else if(length(l) > 0 && index(l) >=0){
+    Node n = newNode(x);
+
+    n->prev = l->cursor;
+    n->next = l->cursor->next;
+    l->cursor->next = n;
+    n->next->prev = n;
+    l->length++;
+  }
+  return;
+}
+
+
+//TODO: CHECK IF CURSOR IS FRONT OR BACK
+void deleteFront(List l){
+  if(l==NULL){
+    printf("ERROR: Trying to delete front on a NULL list");
+    exit(EXIT_FAILURE);
+  }
+
+  if(length(l) > 0 && l->front->next == NULL){
+    freeNode(l->front);
+    l->front = NULL;
+    l->back = NULL;
+    l->cursor = NULL;
+    l->index = -1;
+    l->length--;
+    return;
+  }
+
+  if(length(l) > 0){
+    Node tempNode = l->front;
+    l->front = l->front->next;
+    freeNode(*tempNode);
+    l->length--;
+  }
+  return;
+}
+
+void deleteBack(List l){
+  if(l==NULL){
+    printf("ERROR: Trying to delete back on a NULL list");
+    exit(EXIT_FAILURE);
+  }
+
+  if(length(l) > 0 && l->back->prev == NULL){
+    freeNode(l->back);
+    l->front = NULL;
+    l->back = NULL;
+    l->cursor = NULL;
+    l->index = -1;
+    l->length--;
+    return;
+  }
+
+  if(length(l) > 0){
+    Node tempNode = l->back;
+    l->back = l->back->prev;
+    freeNode(*tempNode);
+    l->length--;
+  }
+  return;
+}
+
+void delete(List l){
+  if(l==NULL){
+    printf("ERROR: Trying to delete cursor element on a NULL list");
+    exit(EXIT_FAILURE);
+  }
+
+  if(l->cursor->next == NULL && l->cursor->prev == NULL && length(l) > 0 && index(l) >= 0){
+    freeNode(l->cursor);
+    l->front = NULL;
+    l->back = NULL;
+    l->cursor = NULL;
+    l->index = -1;
+    l->length--;
+  } else if(l->cursor->next == NULL && length(l) > 0 && index(l) >= 0){
+    deleteBack(l);
+  } else if (l->cursor->prev == NULL && length(l) > 0 && index(l) >= 0){
+    deleteFront(l);
+  }
+  return;
+}
+
+// Other operations -----------------------------------------------------------
+
