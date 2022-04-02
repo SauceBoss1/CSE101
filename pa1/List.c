@@ -46,7 +46,7 @@ Node newNode(int data){
 
 void freeNode(Node* pN){
   if( pN != NULL && *pN != NULL){
-    free(pN);
+    free(*pN);
     *pN=NULL;
   }
 }
@@ -61,8 +61,8 @@ List newList(void){
 
 void freeList(List* pL){
   if(pL != NULL && *pL!=NULL){
-    for(Node curr = (*pL)->front; curr != NULL; curr = curr->next){
-      freeNode(&curr);
+    while( length(*pL) > 0){
+      deleteBack(*pL);
     }
     free(*pL);
     *pL = NULL;
@@ -137,14 +137,17 @@ void clear(List l){
     printf("ERROR: Clearing an already empty list.\n");
     exit(EXIT_FAILURE);
   }
-
-  for (Node curr = l->front; curr != NULL; curr = curr->next){
+  
+  /*for (Node curr = l->front; curr != NULL; curr = curr->next){
+    printf("Node: %d\n",curr->data);
     freeNode(&curr);
+  }*/
+  while( length(l) > 0){
+    deleteBack(l);
   }
   l->front = l->cursor = l->back = NULL;
   l->index = -1;
   l->length = 0;
-
   return;
 }
 
@@ -256,6 +259,7 @@ void append(List l, int x){
     l->back->next = n;
     n->prev = l->back;
     l->back = n;
+    l->length++;
   }
   return;
 }
@@ -370,6 +374,14 @@ void delete(List l){
     deleteBack(l);
   } else if (l->cursor->prev == NULL && length(l) > 0 && index(l) >= 0){
     deleteFront(l);
+  } else if(length(l) > 0){
+    Node temp = l->cursor;
+    l->cursor->next->prev = l->cursor->prev;
+    l->cursor->prev->next = l->cursor->next;
+    freeNode(&temp);
+    l->cursor = NULL;
+    l->index = -1;
+    l->length--;
   }
   return;
 }
@@ -385,18 +397,20 @@ void printList(FILE* out, List l){
   for(Node curr = l->front; curr != NULL; curr = curr->next){
     fprintf(out, "%d ",curr->data);
   }
-  fprintf(out,"\n");
   return;
 }
 
+//FIX THIS
 List copyList(List l){
   List newL = newList();
 
   newL->front = l->front;
   newL->back = l->back;
   for(Node curr = l->front; curr != NULL; curr = curr->next){
+    printf("Here!\n");
     append(newL, curr->data);
   }
+  printf("Done!\n");
 
   return newL;
 }

@@ -32,12 +32,11 @@ int main(int argc, char* argv[]){
       printf("%d ", get(B));
    }
    printf("\n");
-
-   C = copyList(A);
+  
+   //C = copyList(A);
    //printf("%s\n", equals(A,B)?"true":"false");
    //printf("%s\n", equals(B,C)?"true":"false");
    //printf("%s\n", equals(C,A)?"true":"false");
-
 
    moveFront(A);
    for(i=0; i<5; i++) moveNext(A); // at index 5
