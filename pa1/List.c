@@ -400,7 +400,7 @@ void printList(FILE* out, List l){
   return;
 }
 
-//FIX THIS
+//FIX THIS (use pre-existing functions)
 List copyList(List l){
   List newL = newList();
 
