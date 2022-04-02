@@ -93,7 +93,7 @@ int front(List l){
     exit(EXIT_FAILURE);
   }
   if(length(l) < 0){
-    printf("ERROR: The length of the list is 0");
+    printf("ERROR: The length of the list is 0\n");
     exit(EXIT_FAILURE);
   }
   return l->front->data;
@@ -105,7 +105,7 @@ int back(List l){
     exit(EXIT_FAILURE);
   }
   if(length(l) < 0){
-    printf("ERROR: The length of the list is 0");
+    printf("ERROR: The length of the list is 0\n");
     exit(EXIT_FAILURE);
   }
   return l->back->data;
@@ -117,13 +117,32 @@ int get(List l){
     exit(EXIT_FAILURE);
   }
   if(length(l) < 0){
-    printf("ERROR: The length of the list is 0");
+    printf("ERROR: The length of the list is 0\n");
     exit(EXIT_FAILURE);
   }
   return l->cursor->data;
 }
 
-//TODO bool equals()
+bool equals(List A, List B){
+  bool eq = false;
+  Node N = NULL;
+  Node M = NULL;
+
+  if(A == NULL || B == NULL){
+    printf("ERROR: Either List A or List B is NULL\n");
+  }
+
+  eq = (length(A) == length(B));
+  N = A->front;
+  M = B->front;
+  while ( eq && N != NULL){
+    eq = (N->data == M->data);
+    N = N->next;
+    M = M->next;
+  }
+
+  return eq;
+}
 
 // Manipulation procedures ----------------------------------------------------
 
@@ -138,10 +157,6 @@ void clear(List l){
     exit(EXIT_FAILURE);
   }
   
-  /*for (Node curr = l->front; curr != NULL; curr = curr->next){
-    printf("Node: %d\n",curr->data);
-    freeNode(&curr);
-  }*/
   while( length(l) > 0){
     deleteBack(l);
   }
@@ -227,7 +242,7 @@ void moveNext(List l){
 
 void prepend(List l, int x){
   if(l==NULL){
-    printf("ERROR: Trying to prepend to a NULL list");
+    printf("ERROR: Trying to prepend to a NULL list\n");
     exit(EXIT_FAILURE);
   }
   
@@ -247,7 +262,7 @@ void prepend(List l, int x){
 
 void append(List l, int x){
   if(l==NULL){
-    printf("ERROR: Trying to append to a NULL list");
+    printf("ERROR: Trying to append to a NULL list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -266,7 +281,7 @@ void append(List l, int x){
 
 void insertBefore(List l, int x){
   if(l==NULL){
-    printf("ERROR: Trying to insert before cursor on a NULL list");
+    printf("ERROR: Trying to insert before cursor on a NULL list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -287,7 +302,7 @@ void insertBefore(List l, int x){
 
 void insertAfter(List l, int x){
   if(l==NULL){
-    printf("ERROR: Trying to insert after cursor on a NULL list");
+    printf("ERROR: Trying to insert after cursor on a NULL list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -309,7 +324,7 @@ void insertAfter(List l, int x){
 //TODO: CHECK IF CURSOR IS FRONT OR BACK
 void deleteFront(List l){
   if(l==NULL){
-    printf("ERROR: Trying to delete front on a NULL list");
+    printf("ERROR: Trying to delete front on a NULL list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -334,7 +349,7 @@ void deleteFront(List l){
 
 void deleteBack(List l){
   if(l==NULL){
-    printf("ERROR: Trying to delete back on a NULL list");
+    printf("ERROR: Trying to delete back on a NULL list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -359,7 +374,7 @@ void deleteBack(List l){
 
 void delete(List l){
   if(l==NULL){
-    printf("ERROR: Trying to delete cursor element on a NULL list");
+    printf("ERROR: Trying to delete cursor element on a NULL list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -390,7 +405,7 @@ void delete(List l){
 
 void printList(FILE* out, List l){
   if(l==NULL){
-    printf("ERROR: Trying to print a NULL list");
+    printf("ERROR: Trying to print a NULL list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -402,11 +417,11 @@ void printList(FILE* out, List l){
 
 //FIX THIS (use pre-existing functions)
 List copyList(List l){
+  if(l == NULL){
+    printf("ERROR: Trying to copy a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
   List newL = newList();
-/*
-  newL->front = l->front;
-  newL->back = l->back;
-*/
   for(Node curr = l->front; curr != NULL; curr = curr->next){
     append(newL, curr->data);
   }
