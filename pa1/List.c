@@ -185,3 +185,34 @@ void moveBack(List l){
     l->index = length(l) - 1;
   }
 }
+
+void movePrev(List l){
+  if(l == NULL){
+    printf("ERROR: Trying to move cursor one step to the front of a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(l->cursor != NULL && l->cursor->prev == NULL){
+    l->cursor = NULL;
+    l->index = -1;
+  } else if(l->cursor != NULL && l->cursor->prev != NULL){
+    l->cursor = l->cursor->prev;
+    l->index--;
+  } 
+  return;
+}
+
+void moveNext(List l){
+  if(l == NULL){
+    printf("ERROR: Trying to move cursor one step to the back of a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(l->cursor != NULL && l->cursor->next == NULL){
+    l->cursor = NULL;
+    l->index = -1;
+  } else if(l->cursor->next != NULL && l->cursor != NULL){
+    l->cursor = l->cursor->next;
+    l->index++;
+  }
+}
