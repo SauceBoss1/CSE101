@@ -162,6 +162,9 @@ void set(List l, int x){
   return;
 }
 
+/*
+  REMEMBER: Chec for the length just in case someone tries to move curson on an empty List.
+*/
 void moveFront(List l){
   if(l == NULL){
     printf("ERROR: Trying to move cursor to the front of a NULL list\n");
