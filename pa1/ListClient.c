@@ -33,7 +33,7 @@ int main(int argc, char* argv[]){
    }
    printf("\n");
   
-   //C = copyList(A);
+   C = copyList(A);
    //printf("%s\n", equals(A,B)?"true":"false");
    //printf("%s\n", equals(B,C)?"true":"false");
    //printf("%s\n", equals(C,A)?"true":"false");

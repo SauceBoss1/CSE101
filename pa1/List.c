@@ -403,14 +403,13 @@ void printList(FILE* out, List l){
 //FIX THIS (use pre-existing functions)
 List copyList(List l){
   List newL = newList();
-
+/*
   newL->front = l->front;
   newL->back = l->back;
+*/
   for(Node curr = l->front; curr != NULL; curr = curr->next){
-    printf("Here!\n");
     append(newL, curr->data);
   }
-  printf("Done!\n");
 
   return newL;
 }
