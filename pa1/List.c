@@ -32,7 +32,7 @@ typedef struct ListObj{
   Node front, cursor, back;
   int index;
   int length;
-}
+} ListObj;
 
 // Constructors-Deconstructors --------------------------------
 
@@ -45,8 +45,8 @@ Node newNode(int data){
 }
 
 void freeNode(Node* pN){
-  if( pN != NULL && pN* != NULL){
-    free(*pN);
+  if( pN != NULL && *pN != NULL){
+    free(pN);
     *pN=NULL;
   }
 }
@@ -56,12 +56,13 @@ List newList(void){
   L->cursor = L->front = L->back = NULL;
   L->length = 0;
   L->index = -1;
+  return L;
 }
 
 void freeList(List* pL){
   if(pL != NULL && *pL!=NULL){
-    for(Node curr = pL->front; curr->next != NULL; curr = curr->next){
-      freeNode(*curr);
+    for(Node curr = (*pL)->front; curr != NULL; curr = curr->next){
+      freeNode(&curr);
     }
     free(*pL);
     *pL = NULL;
@@ -110,7 +111,7 @@ int back(List l){
   return l->back->data;
 }
 
-int get(List L){
+int get(List l){
   if(l == NULL){
     printf("ERROR: Getting the element of a NULL list.\n");
     exit(EXIT_FAILURE);
@@ -119,7 +120,7 @@ int get(List L){
     printf("ERROR: The length of the list is 0");
     exit(EXIT_FAILURE);
   }
-  return L->cursor->data;
+  return l->cursor->data;
 }
 
 //TODO bool equals()
@@ -137,8 +138,8 @@ void clear(List l){
     exit(EXIT_FAILURE);
   }
 
-  for (Node curr = l->front; curr->next != NULL; curr->curr->next){
-    freeNode(*curr);
+  for (Node curr = l->front; curr != NULL; curr = curr->next){
+    freeNode(&curr);
   }
   l->front = l->cursor = l->back = NULL;
   l->index = -1;
@@ -309,7 +310,7 @@ void deleteFront(List l){
   }
 
   if(length(l) > 0 && l->front->next == NULL){
-    freeNode(l->front);
+    freeNode(&(l->front));
     l->front = NULL;
     l->back = NULL;
     l->cursor = NULL;
@@ -321,7 +322,7 @@ void deleteFront(List l){
   if(length(l) > 0){
     Node tempNode = l->front;
     l->front = l->front->next;
-    freeNode(*tempNode);
+    freeNode(&tempNode);
     l->length--;
   }
   return;
@@ -334,7 +335,7 @@ void deleteBack(List l){
   }
 
   if(length(l) > 0 && l->back->prev == NULL){
-    freeNode(l->back);
+    freeNode(&(l->back));
     l->front = NULL;
     l->back = NULL;
     l->cursor = NULL;
@@ -346,7 +347,7 @@ void deleteBack(List l){
   if(length(l) > 0){
     Node tempNode = l->back;
     l->back = l->back->prev;
-    freeNode(*tempNode);
+    freeNode(&tempNode);
     l->length--;
   }
   return;
@@ -359,7 +360,7 @@ void delete(List l){
   }
 
   if(l->cursor->next == NULL && l->cursor->prev == NULL && length(l) > 0 && index(l) >= 0){
-    freeNode(l->cursor);
+    freeNode(&(l->cursor));
     l->front = NULL;
     l->back = NULL;
     l->cursor = NULL;
@@ -375,3 +376,27 @@ void delete(List l){
 
 // Other operations -----------------------------------------------------------
 
+void printList(FILE* out, List l){
+  if(l==NULL){
+    printf("ERROR: Trying to print a NULL list");
+    exit(EXIT_FAILURE);
+  }
+
+  for(Node curr = l->front; curr != NULL; curr = curr->next){
+    fprintf(out, "%d ",curr->data);
+  }
+  fprintf(out,"\n");
+  return;
+}
+
+List copyList(List l){
+  List newL = newList();
+
+  newL->front = l->front;
+  newL->back = l->back;
+  for(Node curr = l->front; curr != NULL; curr = curr->next){
+    append(newL, curr->data);
+  }
+
+  return newL;
+}

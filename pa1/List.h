@@ -25,7 +25,7 @@ void set(List l, int x);
 void moveFront(List l);
 void moveBack(List l);
 void movePrev(List l);
-void moveNext(list l);
+void moveNext(List l);
 void prepend(List l, int x);
 void append(List l, int x);
 void insertBefore(List l, int x);
