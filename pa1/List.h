@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA1 
+* List.h 
+* Header file for the List ADT 
+*********************************************************************************/
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>

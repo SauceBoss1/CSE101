@@ -1,10 +1,9 @@
-/*
-Derfel Terciano
-Created: 2022
-v1
-
-CSE 101 - Tantalo
-*/
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA1 
+* List.c 
+* Implementation for the List ADT 
+*********************************************************************************/
 
 
 #include <stdio.h>

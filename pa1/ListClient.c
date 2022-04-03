@@ -1,6 +1,8 @@
 /****************************************************************************************
+*  Derfel Terciano, dtercian
+*  2022 Spring CSE101 PA1
 *  ListClient.c
-*  Test client for List ADT
+*  Test client for List ADT (File originally from Prof. Tantalo)
 *****************************************************************************************/
 #include<stdio.h>
 #include<stdlib.h>
