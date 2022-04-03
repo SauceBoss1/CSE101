@@ -65,17 +65,17 @@ int main(int argc, char * argv[]){
 
     buffer[strlen(buffer)-1] = '\0';
     file_lines[i] = malloc(strlen(buffer));
-    strcpy(file_lines[i], buffer);
+    strcpy(file_lines[i], buffer); //there are some valgrind errors here
     printf("%s\n",file_lines[i]);
   }
+  
 
   // List Sorting ---------------------------------------------------
   List final_list = newList();
   prepend(final_list, 0);
-  
+
   for(int i = 1; i < line_count; ++i){
     int prev_list_len = length(final_list);
-
     for(moveFront(final_list); index(final_list) >= 0 && prev_list_len == length(final_list); moveNext(final_list)){
       if (strcmp(file_lines[i], file_lines[get(final_list)]) < 0){
         insertBefore(final_list, i);
@@ -91,18 +91,18 @@ int main(int argc, char * argv[]){
   }
 
   printList(stdout, final_list);
-  fprintf(out,"\n");
+  fprintf(stdout,"\n");
 
-  freeList(&final_list);
 
   for(int i = 0; i < line_count; i++){
     free(file_lines[i]);
-    file_lines = NULL;
+    file_lines[i] = NULL;
   }
 
   free(file_lines);
   file_lines = NULL;
 
+  freeList(&final_list);
 
   fclose(in);
   fclose(out);
