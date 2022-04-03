@@ -64,9 +64,12 @@ int main(int argc, char * argv[]){
       return EXIT_FAILURE;
     }
 
-    line = strtok(buffer, "\n");
-    file_lines[i] = malloc(strlen(line));
+    if((line = strtok(buffer, "\n")) == NULL){
+      line = "";
+    }
+    file_lines[i] = malloc(strlen(line) + 1);
     strcpy(file_lines[i], line); //there are some valgrind errors here
+    //printf("%s\n",file_lines[i]);
   }
   
 
