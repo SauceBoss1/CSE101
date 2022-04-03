@@ -30,4 +30,4 @@ checkClient :
 	valgrind --leak-check=full ListClient
 
 checkLex :
-	valgrind --leak-check=full Lex in1 blah1
+	valgrind --leak-check=full Lex in3 blah3

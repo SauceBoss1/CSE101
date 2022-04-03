@@ -57,16 +57,16 @@ int main(int argc, char * argv[]){
 
   for(int i = 0; i < line_count; ++i){
     char buffer[MAX_LEN];
+    char* line;
 
     if(fgets(buffer, MAX_LEN, in) == NULL){
       printf("ERROR: null at fgets()\n");
       return EXIT_FAILURE;
     }
 
-    buffer[strlen(buffer)-1] = '\0';
-    file_lines[i] = malloc(strlen(buffer));
-    strcpy(file_lines[i], buffer); //there are some valgrind errors here
-    printf("%s\n",file_lines[i]);
+    line = strtok(buffer, "\n");
+    file_lines[i] = malloc(strlen(line));
+    strcpy(file_lines[i], line); //there are some valgrind errors here
   }
   
 
@@ -90,9 +90,14 @@ int main(int argc, char * argv[]){
     }
   }
 
-  printList(stdout, final_list);
-  fprintf(stdout,"\n");
+  // OUTPUTTING RESULTS --------------------------------------------
 
+  for(moveFront(final_list); index(final_list) >=0; moveNext(final_list)){
+    fprintf(out, "%s\n", file_lines[get(final_list)]);
+  }
+
+
+  // CLOSING PROCEDURES --------------------------------------------
 
   for(int i = 0; i < line_count; i++){
     free(file_lines[i]);
