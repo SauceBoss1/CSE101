@@ -44,6 +44,65 @@ int main(int argc, char * argv[]){
     line_count++;
   }
   
+  // INPUT ARRAY ---------------------------------------------------
+  fseek(in, 0, SEEK_SET);
+
+  //TODO
+  //remember to free all the elements and then free the array
+  char **file_lines = malloc(line_count * sizeof(char *));
+  if (file_lines == NULL){
+    printf("ERROR: Unable to create an array for the input file\n");
+    return EXIT_FAILURE;
+  }
+
+  for(int i = 0; i < line_count; ++i){
+    char buffer[MAX_LEN];
+
+    if(fgets(buffer, MAX_LEN, in) == NULL){
+      printf("ERROR: null at fgets()\n");
+      return EXIT_FAILURE;
+    }
+
+    buffer[strlen(buffer)-1] = '\0';
+    file_lines[i] = malloc(strlen(buffer));
+    strcpy(file_lines[i], buffer);
+    printf("%s\n",file_lines[i]);
+  }
+
+  // List Sorting ---------------------------------------------------
+  List final_list = newList();
+  prepend(final_list, 0);
+  
+  for(int i = 1; i < line_count; ++i){
+    int prev_list_len = length(final_list);
+
+    for(moveFront(final_list); index(final_list) >= 0 && prev_list_len == length(final_list); moveNext(final_list)){
+      if (strcmp(file_lines[i], file_lines[get(final_list)]) < 0){
+        insertBefore(final_list, i);
+      }
+    }
+
+    int updated_list_len = length(final_list);
+
+    //check if the current index is bigger than the last element of the list
+    if(prev_list_len == updated_list_len && strcmp(file_lines[i], file_lines[back(final_list)]) > 0){
+      append(final_list, i);
+    }
+  }
+
+  printList(stdout, final_list);
+  fprintf(out,"\n");
+
+  freeList(&final_list);
+
+  for(int i = 0; i < line_count; i++){
+    free(file_lines[i]);
+    file_lines = NULL;
+  }
+
+  free(file_lines);
+  file_lines = NULL;
+
 
   fclose(in);
   fclose(out);
