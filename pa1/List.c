@@ -256,6 +256,9 @@ void prepend(List l, int x){
     l->front = n;
     l->length++;
   }
+  if(index(l) >= 0 ){
+    l->index++;
+  }
   return;
 }
 
