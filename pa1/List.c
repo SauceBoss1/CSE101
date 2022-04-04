@@ -379,6 +379,11 @@ void delete(List l){
     printf("ERROR: Trying to delete cursor element on a NULL list\n");
     exit(EXIT_FAILURE);
   }
+  
+  if(l->cursor == NULL){
+    fprintf(stderr, "ERROR: Can't delete a null cursor\n");
+    exit(EXIT_FAILURE);
+  }
 
   if(l->cursor->next == NULL && l->cursor->prev == NULL && length(l) > 0 && index(l) >= 0){
     freeNode(&(l->cursor));
@@ -391,7 +396,7 @@ void delete(List l){
     deleteBack(l);
   } else if (l->cursor->prev == NULL && length(l) > 0 && index(l) >= 0){
     deleteFront(l);
-  } else if(length(l) > 0){
+  } else if(length(l) > 0 && l->cursor != NULL){
     Node temp = l->cursor;
     l->cursor->next->prev = l->cursor->prev;
     l->cursor->prev->next = l->cursor->next;
@@ -400,6 +405,7 @@ void delete(List l){
     l->index = -1;
     l->length--;
   }
+
   return;
 }
 
