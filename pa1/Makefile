@@ -27,7 +27,7 @@ clean :
 	rm -f Lex ListClient Lex.o ListClient.o List.o
 
 submit :
-	git add Lex.c List.c List.h README.md Makefile
+	git add Lex.c List.c List.h README.md Makefile ListTest.c
 	git commit -m "updating"
 	git push
 
