@@ -343,6 +343,7 @@ void deleteFront(List l){
   if(length(l) > 0){
     Node tempNode = l->front;
     l->front = l->front->next;
+    l->front->prev = NULL;
     freeNode(&tempNode);
     l->length--;
   }
@@ -368,6 +369,7 @@ void deleteBack(List l){
   if(length(l) > 0){
     Node tempNode = l->back;
     l->back = l->back->prev;
+    l->back->next = NULL;
     freeNode(&tempNode);
     l->length--;
   }
