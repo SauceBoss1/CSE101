@@ -23,6 +23,12 @@ ListClient.o : ListClient.c List.h
 List.o : List.c List.h
 	gcc -std=c17 -Wall -c List.c
 
+ListTest : ListTest.o List.o
+	gcc -std=c17 -Wall -o ListTest ListTest.o List.o
+
+ListTest.o : ListTest.c List.h
+	gcc -std=c17 -Wall -c ListTest.c
+
 clean :
 	rm -f Lex ListTest ListClient Lex.o ListClient.o List.o blah3
 
