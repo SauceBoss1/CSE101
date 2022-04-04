@@ -151,10 +151,12 @@ void clear(List l){
     exit(EXIT_FAILURE);
   }
 
+  /*
   if(length(l) == 0){
     printf("ERROR: Clearing an already empty list.\n");
     exit(EXIT_FAILURE);
   }
+  */
   
   while( length(l) > 0){
     deleteBack(l);
@@ -396,8 +398,12 @@ void delete(List l){
     l->length--;
   } else if(l->cursor->next == NULL && length(l) > 0 && index(l) >= 0){
     deleteBack(l);
+    l->cursor = NULL;
+    l->index = -1;
   } else if (l->cursor->prev == NULL && length(l) > 0 && index(l) >= 0){
     deleteFront(l);
+    l->cursor = NULL;
+    l->index = -1;
   } else if(length(l) > 0 && l->cursor != NULL){
     Node temp = l->cursor;
     l->cursor->next->prev = l->cursor->prev;
