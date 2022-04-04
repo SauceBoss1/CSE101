@@ -24,7 +24,7 @@ List.o : List.c List.h
 	gcc -std=c17 -Wall -c List.c
 
 clean :
-	rm -f Lex ListTest ListClient Lex.o ListClient.o List.o
+	rm -f Lex ListTest ListClient Lex.o ListClient.o List.o blah3
 
 submit :
 	git add Lex.c List.c List.h README.md Makefile ListTest.c
@@ -35,4 +35,6 @@ checkClient :
 	valgrind --leak-check=full ListClient
 
 checkLex :
+	make Lex
 	valgrind --leak-check=full Lex in3 blah3
+	make clean
