@@ -25,11 +25,17 @@ int main(void){
   for (i = 0; i <= 50; ++i){
     prepend(B, i);
   }
+
+  C = copyList(A);
   printf("-----------------LISTS A & B-----------------\n");
   printList(stdout, A);
   printf("\n");
   printList(stdout, B);
+  printf("\n");
   printf("----------------------------------------------\n");
 
+  freeList(&A);
+  freeList(&B);
+  freeList(&C);
   return 0;
 }

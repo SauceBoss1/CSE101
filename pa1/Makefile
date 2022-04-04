@@ -40,6 +40,11 @@ submit :
 checkClient : 
 	valgrind --leak-check=full ListClient
 
+checkTest :
+	make ListTest
+	valgrind --leak-check=full ListTest
+	make clean
+
 checkLex :
 	make Lex
 	valgrind --leak-check=full Lex in3 blah3
