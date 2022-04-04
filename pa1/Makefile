@@ -26,6 +26,11 @@ List.o : List.c List.h
 clean :
 	rm -f Lex ListClient Lex.o ListClient.o List.o
 
+submit :
+	git add Lex.c List.c List.h README.md Makefile
+	git commit -m "updating"
+	git push
+
 checkClient : 
 	valgrind --leak-check=full ListClient
 
