@@ -24,7 +24,7 @@ List.o : List.c List.h
 	gcc -std=c17 -Wall -c List.c
 
 clean :
-	rm -f Lex ListClient Lex.o ListClient.o List.o
+	rm -f Lex ListTest ListClient Lex.o ListClient.o List.o
 
 submit :
 	git add Lex.c List.c List.h README.md Makefile ListTest.c
