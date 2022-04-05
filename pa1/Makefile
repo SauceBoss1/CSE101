@@ -31,6 +31,7 @@ ListTest.o : ListTest.c List.h
 
 clean :
 	rm -f Lex ListTest ListClient *.txt *.o blah3
+	echo "Removed Files!"
 
 submit :
 	git add Lex.c List.c List.h README.md Makefile ListTest.c
