@@ -1,7 +1,7 @@
 # Programming Assignment 1:
 ## Building an integer List ADT to alphabetize lines in a file.
 
-## Description/Synopsis:
+### Description/Synopsis:
 This program takes in a random "un-alphabetized" file and sorts in the correct alphabetical order.
 
 I've test the program with the source code files itself and it works perfectly.
@@ -19,18 +19,18 @@ I've test the program with the source code files itself and it works perfectly.
 - ListTest.c
   - This file is a dummy client file that tests the List ADT.
 
-## Usage:
+### Usage:
 - When all the files are obtained, type in `make` into the terminal.
 - When the executable is produced use the following:
   - `./Lex <input file> <output file>`
 - When you are done using the program, use the following command:
   - `make clean`
 
-## Bonus make commands:
+### Bonus make commands:
 - `make ListTest`
   - Creates the executable to test the List ADT.
     - Use `./ListTest` to run the executable.
 
-## Errors/Problems:
+### Errors/Problems:
 
 So far, there are no memory leaks or problems with either the List ADT or the Lex program itself. :)
