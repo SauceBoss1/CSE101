@@ -30,7 +30,7 @@ ListTest.o : ListTest.c List.h
 	gcc -std=c17 -Wall -c ListTest.c
 
 clean :
-	rm -f Lex ListTest ListClient *.o blah3
+	rm -f Lex ListTest ListClient *.txt *.o blah3
 
 submit :
 	git add Lex.c List.c List.h README.md Makefile ListTest.c
