@@ -150,13 +150,6 @@ void clear(List l){
     printf("ERROR: Clearing a NULL list.\n");
     exit(EXIT_FAILURE);
   }
-
-  /*
-  if(length(l) == 0){
-    printf("ERROR: Clearing an already empty list.\n");
-    exit(EXIT_FAILURE);
-  }
-  */
   
   while( length(l) > 0){
     deleteBack(l);
@@ -324,8 +317,6 @@ void insertAfter(List l, int x){
   return;
 }
 
-
-//TODO: CHECK IF CURSOR IS FRONT OR BACK
 void deleteFront(List l){
   if(l==NULL){
     printf("ERROR: Trying to delete front on a NULL list\n");
@@ -444,7 +435,6 @@ void printList(FILE* out, List l){
   return;
 }
 
-//FIX THIS (use pre-existing functions)
 List copyList(List l){
   if(l == NULL){
     printf("ERROR: Trying to copy a NULL list\n");
