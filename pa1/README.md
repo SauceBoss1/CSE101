@@ -1,6 +1,11 @@
 # Programming Assignment 1:
 ## Building an integer List ADT to alphabetize lines in a file.
 
+## Description/Synopsis:
+This program takes in a random "un-alphabetized" file and sorts in the correct alphabetical order.
+
+I've test the program with the source code files itself and it works perfectly.
+
 ### Files:
 - List.h
   - A header file that contains all the ***public*** functions avaliable to the client
