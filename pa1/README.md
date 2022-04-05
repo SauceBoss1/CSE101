@@ -3,4 +3,4 @@
 
 ### File
 - List.h
--- A header file that contains all the ***public*** functions avaliable to the client
+  - A header file that contains all the ***public*** functions avaliable to the client
