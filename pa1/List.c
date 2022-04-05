@@ -332,6 +332,11 @@ void deleteFront(List l){
     exit(EXIT_FAILURE);
   }
 
+  if(index(l) == 0){
+    l->cursor = NULL;
+    l->index = -1;
+  }
+
   if(length(l) > 0 && l->front->next == NULL){
     freeNode(&(l->front));
     l->front = NULL;
@@ -348,6 +353,9 @@ void deleteFront(List l){
     l->front->prev = NULL;
     freeNode(&tempNode);
     l->length--;
+    if(index(l) != -1){
+      l->index--;
+    }
   }
   return;
 }
@@ -356,6 +364,11 @@ void deleteBack(List l){
   if(l==NULL){
     printf("ERROR: Trying to delete back on a NULL list\n");
     exit(EXIT_FAILURE);
+  }
+
+  if(index(l) == length(l) - 1){
+    l->cursor = NULL;
+    l->index = -1;
   }
 
   if(length(l) > 0 && l->back->prev == NULL){
