@@ -47,5 +47,6 @@ void deleteBack(List l);
 void delete(List l);
 
 // Other operations -----------------------------------------------------------
+
 void printList(FILE* out, List l);
 List copyList(List l);
