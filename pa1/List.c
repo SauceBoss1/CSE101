@@ -35,6 +35,10 @@ typedef struct ListObj{
 
 // Constructors-Deconstructors --------------------------------
 
+/*
+newNode(int data)
+creates a new Node and returns the new node
+*/
 Node newNode(int data){
   Node N = malloc(sizeof(NodeObj));
   N->data = data;
@@ -43,6 +47,10 @@ Node newNode(int data){
   return(N);
 }
 
+/*
+freeNode(Node* pN)
+"deletes" and free a given node
+*/
 void freeNode(Node* pN){
   if( pN != NULL && *pN != NULL){
     free(*pN);
@@ -50,6 +58,10 @@ void freeNode(Node* pN){
   }
 }
 
+/*
+newList()
+Creates a new list and returns it
+*/
 List newList(void){
   List L = malloc(sizeof(ListObj));
   L->cursor = L->front = L->back = NULL;
@@ -58,6 +70,13 @@ List newList(void){
   return L;
 }
 
+/*
+freeList(List* pL)
+"Deletes" and frees a list
+
+The implementation is similar to that of the Queue example
+given to us by prof. Tantalo
+*/
 void freeList(List* pL){
   if(pL != NULL && *pL!=NULL){
     while( length(*pL) > 0){
@@ -70,6 +89,12 @@ void freeList(List* pL){
 
 // Access functions -----------------------------------------------------------
 
+/*
+length(List l)
+Returns the length of a list
+
+Pre: l == NULL
+*/
 int length(List l){
   if(l == NULL){
     printf("ERROR: Checking the length of a NULL list.\n");
@@ -78,6 +103,13 @@ int length(List l){
   return l->length;
 }
 
+/*
+index(List l)
+Returns the index of the list
+
+index = -1 if undefined
+Pre: l == NULL
+*/
 int index(List l){
   if(l == NULL){
     printf("ERROR: Checking the index of a NULL list.\n");
@@ -86,6 +118,12 @@ int index(List l){
   return l->index;
 }
 
+/*
+front(list l)
+Returns the front element
+
+Pre: l == NULL & length < 0
+*/
 int front(List l){
   if(l == NULL){
     printf("ERROR: Checking the front element of a NULL list.\n");
@@ -98,6 +136,12 @@ int front(List l){
   return l->front->data;
 }
 
+/*
+back(List l)
+Returns the back element
+
+Pre: l == NULL & length < 0
+*/
 int back(List l){
   if(l == NULL){
     printf("ERROR: Checking the back element of a NULL list.\n");
@@ -110,6 +154,12 @@ int back(List l){
   return l->back->data;
 }
 
+/*
+get(List l)
+Returns the element that is currently at the cursor
+
+Pre: l == NULL & length < 0
+*/
 int get(List l){
   if(l == NULL){
     printf("ERROR: Getting the element of a NULL list.\n");
@@ -122,6 +172,12 @@ int get(List l){
   return l->cursor->data;
 }
 
+/*
+equals(List A, List B)
+Deteremines where or not two lists are equal or not
+
+Pre: A == NULL or B == NULL
+*/
 bool equals(List A, List B){
   bool eq = false;
   Node N = NULL;
@@ -145,6 +201,12 @@ bool equals(List A, List B){
 
 // Manipulation procedures ----------------------------------------------------
 
+/*
+clear(List l)
+Resets the list to its empty state
+
+Pre: l == NULL
+*/
 void clear(List l){
   if(l == NULL){
     printf("ERROR: Clearing a NULL list.\n");
@@ -160,23 +222,33 @@ void clear(List l){
   return;
 }
 
+/*
+set(List l, int x)
+Replaces the cursors data with x
+
+Pre: l == NULL & length < 0
+*/
 void set(List l, int x){
   if(l == NULL){
     printf("ERROR: Setting an element of a NULL list\n");
     exit(EXIT_FAILURE);
   }
-  if (length(l) < 0 ){ //You may need to just use prepend or append instead but check later
+  if (length(l) < 0 ){ 
     printf("ERROR: Setting an element to an empty list.\n");
     exit(EXIT_FAILURE);
   }
 
-  l->cursor->data = x;
-
+  if(index(l) != -1){
+    l->cursor->data = x;
+  }
   return;
 }
 
 /*
-  REMEMBER: Chec for the length just in case someone tries to move cursor on an empty List.
+moveFront(List l)
+Moves the cursor to the front
+
+Pre: l == NULL
 */
 void moveFront(List l){
   if(l == NULL){
@@ -191,6 +263,12 @@ void moveFront(List l){
   return;
 }
 
+/*
+moveBack(List l)
+Moves the cursor to the front
+
+Pre: l == NULL
+*/
 void moveBack(List l){
   if(l == NULL){
     printf("ERROR: Trying to move cursor to the back of a NULL list\n");
@@ -202,6 +280,12 @@ void moveBack(List l){
   }
 }
 
+/*
+movePrev(List l)
+Moves the cursor to the previous element
+
+Pre: l == NULL
+*/
 void movePrev(List l){
   if(l == NULL){
     printf("ERROR: Trying to move cursor one step to the front of a NULL list\n");
@@ -218,6 +302,12 @@ void movePrev(List l){
   return;
 }
 
+/*
+moveNext(List l)
+Moves the cursor to the next element
+
+Pre: l == NULL
+*/
 void moveNext(List l){
   if(l == NULL){
     printf("ERROR: Trying to move cursor one step to the back of a NULL list\n");
@@ -234,6 +324,12 @@ void moveNext(List l){
   return;
 }
 
+/*
+prepend(List l, int x)
+Adds a new element to the beginning of the list
+
+Pre: l == NULL
+*/
 void prepend(List l, int x){
   if(l==NULL){
     printf("ERROR: Trying to prepend to a NULL list\n");
@@ -241,7 +337,7 @@ void prepend(List l, int x){
   }
   
   Node n = newNode(x);
-  if(l->front == NULL && l->back==NULL && length(l) == 0){
+  if(l->front == NULL && l->back==NULL && length(l) == 0){ //if we are adding to an empty list
     l->front = n;
     l->back = n;
     l->length++;
@@ -257,6 +353,12 @@ void prepend(List l, int x){
   return;
 }
 
+/*
+append(List l, int x)
+Adds a new element to the end of the list
+
+Pre: l == NULL
+*/
 void append(List l, int x){
   if(l==NULL){
     printf("ERROR: Trying to append to a NULL list\n");
@@ -264,7 +366,7 @@ void append(List l, int x){
   }
 
   Node n = newNode(x);
-  if(l->front == NULL && l->back == NULL && length(l) == 0){
+  if(l->front == NULL && l->back == NULL && length(l) == 0){ //if the list is empty
     l->front = l->back = n;
     l->length++;
   } else {
@@ -276,9 +378,25 @@ void append(List l, int x){
   return;
 }
 
+/*
+insertBefore(List l, int x)
+Inserts a new element before the cursor
+
+Pre: l == NULL & length < 0 & index == -1
+*/
 void insertBefore(List l, int x){
   if(l==NULL){
     printf("ERROR: Trying to insert before cursor on a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(length(l) < 0){
+    printf("ERROR: Inserting to an empty list\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(index(l) == -1){
+    printf("ERROR: Inserting to an undefined cursor\n");
     exit(EXIT_FAILURE);
   }
 
@@ -297,9 +415,25 @@ void insertBefore(List l, int x){
   return;
 }
 
+/*
+insertAfter(List l, int x)
+Inserts a new element after the cursor
+
+Pre: l == NULL & length < 0 & index == -1
+*/
 void insertAfter(List l, int x){
   if(l==NULL){
     printf("ERROR: Trying to insert after cursor on a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(length(l) < 0){
+    printf("ERROR: Inserting to an empty list\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if(index(l) == -1){
+    printf("ERROR: Inserting to an undefined cursor\n");
     exit(EXIT_FAILURE);
   }
 
@@ -317,9 +451,19 @@ void insertAfter(List l, int x){
   return;
 }
 
+/*
+deleteFront(List l)
+deletes the front element
+
+Pre: l==NULL & length < 0
+*/
 void deleteFront(List l){
   if(l==NULL){
     printf("ERROR: Trying to delete front on a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+  if(length(l) < 0){
+    printf("ERROR: Deleting the front element of an empty list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -351,9 +495,19 @@ void deleteFront(List l){
   return;
 }
 
+/*
+deleteBack(List l)
+deletes the back element
+
+Pre: l==NULL & length < 0
+*/
 void deleteBack(List l){
   if(l==NULL){
     printf("ERROR: Trying to delete back on a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+  if(length(l) < 0){
+    printf("ERROR: Deleting the back element of an empty list\n");
     exit(EXIT_FAILURE);
   }
 
@@ -382,9 +536,19 @@ void deleteBack(List l){
   return;
 }
 
+/*
+delete(List l)
+Deletes the element at the cursor
+
+Pre: l==NULL & length < 0 & index < 0
+*/
 void delete(List l){
   if(l==NULL){
     printf("ERROR: Trying to delete cursor element on a NULL list\n");
+    exit(EXIT_FAILURE);
+  }
+  if(length(l) < 0){
+    printf("ERROR: Deleting the back element of an empty list\n");
     exit(EXIT_FAILURE);
   }
   
@@ -423,6 +587,12 @@ void delete(List l){
 
 // Other operations -----------------------------------------------------------
 
+/*
+printList(FILE* out, List l)
+Prints the List to out
+
+Pre: l==NULL
+*/
 void printList(FILE* out, List l){
   if(l==NULL){
     printf("ERROR: Trying to print a NULL list\n");
@@ -435,6 +605,12 @@ void printList(FILE* out, List l){
   return;
 }
 
+/*
+copyList(List l)
+Copys the items of List l and returns a new list
+
+Pre: l == NULL
+*/
 List copyList(List l){
   if(l == NULL){
     printf("ERROR: Trying to copy a NULL list\n");
