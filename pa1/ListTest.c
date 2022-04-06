@@ -90,7 +90,8 @@ int main(void){
   clear(B);
   printList(stdout, B);
   printf("\n");
-
+  
+  // delete(B);
   /*
   Things to look out for:
     check delete functions and their outputs to an empty list
