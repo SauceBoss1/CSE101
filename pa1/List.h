@@ -9,6 +9,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#pragma once
+
 // Exported Types -------------------------------------------------------------
 
 typedef struct ListObj* List;
