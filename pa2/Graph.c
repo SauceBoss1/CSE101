@@ -59,3 +59,42 @@ void freeGraph(Graph *pG){
 }
 
 /*** Access functions ***/
+
+int getOrder(Graph G){
+  if(G == NULL){
+    printf("GRAPH ERROR: Getting the order of a NULL Graph\n");
+    exit(EXIT_FAILURE);
+  }
+  return G->order;
+}
+
+int getSize(Graph G){
+  if(G == NULL){
+    printf("GRAPH ERROR: Getting the size of a NULL Graph\n");
+    exit(EXIT_FAILURE);
+  }
+  return G->size;
+}
+
+int getSource(Graph G){
+  if(G==NULL){
+    printf("GRAPH ERROR: Getting the source of a NULL Graph\n");
+    exit(EXIT_FAILURE);
+  }
+}
+
+int getParent(Graph G, int u){
+  if(G==NULL){
+    printf("GRAPH ERROR: Getting the parent of a NULL Graph\n");
+    exit(EXIT_FAILURE);
+  }
+  return G->p[u];
+}
+
+int getDist(Graph G, int u){
+  if(G==NULL){
+    printf("GRAPH ERROR: Getting the distance of a NULL Graph\n");
+  }
+  return G->distance[u];
+}
+
