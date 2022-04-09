@@ -3,6 +3,9 @@
 #include <stdbool.h>
 
 #include "List.h"
+
+#pragma once
+
 /*** Exported Types ***/
 typedef struct GraphObj* Graph;
 

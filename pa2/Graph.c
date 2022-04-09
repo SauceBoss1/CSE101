@@ -111,3 +111,4 @@ void getPath(List L, Graph G, int u){
   return;
 }
 
+/*** Manipulation procedures ***/
