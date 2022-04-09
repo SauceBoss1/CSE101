@@ -98,3 +98,16 @@ int getDist(Graph G, int u){
   return G->distance[u];
 }
 
+//TODO
+void getPath(List L, Graph G, int u){
+  if(G->source == u){
+    prepend(L,G->source);
+  } else if (G->p[u] == NIL){
+    prepend(L,NIL);
+  } else {
+    getPath(L,G,G->p[u]);
+    prepend(L,u);
+  }
+  return;
+}
+
