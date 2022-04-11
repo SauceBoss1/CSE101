@@ -40,6 +40,10 @@ Graph newGraph (int n){
    G->color = calloc(n+1, sizeof(int));
    G->p = calloc(n+1, sizeof(int));
    G->distance = calloc(n+1, sizeof(int));
+   for(int i = 1; i < n+1; ++i){
+      G->p[i] = NIL;
+      G->distance[i] = INF;
+   }
 
    G->order = n;
    G->size = 0;
@@ -81,11 +85,16 @@ int getSource(Graph G){
       printf("GRAPH ERROR: Getting the source of a NULL Graph\n");
       exit(EXIT_FAILURE);
    }
+   return G->source;
 }
 
 int getParent(Graph G, int u){
    if(G==NULL){
       printf("GRAPH ERROR: Getting the parent of a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   if( u < 1 || u > getOrder(G)){
+      printf("GRAPH ERROR: getParent() requires u to be between 1 and %d\n",getOrder(G));
       exit(EXIT_FAILURE);
    }
    return G->p[u];
@@ -96,18 +105,36 @@ int getDist(Graph G, int u){
       printf("GRAPH ERROR: Getting the distance of a NULL Graph\n");
       exit(EXIT_FAILURE);
    }
+   if( u < 1 || u > getOrder(G)){
+      printf("GRAPH ERROR: getDistance() requires u to be between 1 and %d\n",getOrder(G));
+      exit(EXIT_FAILURE);
+   }
    return G->distance[u];
 }
 
 //TODO
 void getPath(List L, Graph G, int u){
-   if(G->source == u){
-      prepend(L,G->source);
-   } else if (G->p[u] == NIL){
-      prepend(L,NIL);
-   } else {
-      getPath(L,G,G->p[u]);
-      prepend(L,u);
+   if(G==NULL){
+      printf("GRAPH ERROR: Getting the path of a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   if( u < 1 || u > getOrder(G)){
+      printf("GRAPH ERROR: getPath() requires u to be between 1 and %d\n",getOrder(G));
+      exit(EXIT_FAILURE);
+   }
+
+   if(getSource(G) != NIL){
+      if(G->source == u){
+         prepend(L,G->source);
+      } else if (G->p[u] == NIL){
+         prepend(L,NIL);
+      } else {
+         getPath(L,G,G->p[u]);
+         prepend(L,u);
+      }
+   } else{
+      printf("GRAPH ERROR: BFS must be ran first before obtaining the path\n");
+      exit(EXIT_FAILURE);
    }
    return;
 }
@@ -119,6 +146,7 @@ void makeNull(Graph G){
       printf("GRAPH ERROR: Making G NULL of an already NULL Graph\n");
       exit(EXIT_FAILURE);
    }
+
    int i;
 
    for(i = 0; i < G->order + 1; ++i){
@@ -168,12 +196,30 @@ void addArcHelper(Graph G, int u, int v){
 }
 
 void addArc(Graph G, int u, int v){
+   if(G==NULL){
+      printf("GRAPH ERROR: Adding an Arc to a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+
+   if(u < 1 || u > getOrder(G) || v < 1 || v > getOrder(G)){
+      printf("GRAPH ERROR: addArc(): u or v is not between 1 and %d\n", getOrder(G));
+      exit(EXIT_FAILURE);
+   }
+
    addArcHelper(G,u,v);
    G->size++;
    return;
 }
 
 void addEdge(Graph G, int u, int v){
+   if(G==NULL){
+      printf("GRAPH ERROR: Adding an Edge to a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   if(u < 1 || u > getOrder(G) || v < 1 || v > getOrder(G)){
+      printf("GRAPH ERROR: addEdge(): u or v is not between 1 and %d\n", getOrder(G));
+      exit(EXIT_FAILURE);
+   }
    addArcHelper(G,u,v);
    addArcHelper(G,v,u);
    G->size++;
