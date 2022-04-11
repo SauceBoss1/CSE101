@@ -179,3 +179,41 @@ void addEdge(Graph G, int u, int v){
   G->size++;
   return;
 }
+
+void BFS(Graph G, int s){
+  for(int i = 1; i < G->order + 1; ++i){
+    if(i != s){
+      G->color[i] = WHITE;
+      G->distance[i] = INF;
+      G->p[i] = NIL;
+    }
+  }
+
+  G->color[s] = GRAY;
+  G->distance[s] = 0;
+  G->p[s] = NIL;
+  List Q = newList();
+
+  append(Q,s);
+  while(length(Q) > 0){
+    int x = front(Q);
+    deleteFront(Q);
+
+    List adj_list = G->adj_vertices[x];
+
+    for(moveFront(adj_list);index(adj_list) >= 0; moveNext(adj_list)){
+      int y = get(adj_list);
+
+      if (G->color[y] == WHITE){
+        G->color[y] = GRAY;
+        G->distance[y] = G->distance[x] + 1;
+        G->p[y] = x;
+        append(Q, y);
+      }
+    }
+    G->color[x] = BLACK;
+  }
+
+  freeList(&Q);
+  return;
+}
