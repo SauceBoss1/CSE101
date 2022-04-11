@@ -40,7 +40,7 @@ Graph newGraph (int n){
    G->color = calloc(n+1, sizeof(int));
    G->p = calloc(n+1, sizeof(int));
    G->distance = calloc(n+1, sizeof(int));
-   
+
    for(int i = 1; i < n+1; ++i){
       G->p[i] = NIL;
       G->distance[i] = INF;
@@ -56,9 +56,12 @@ void freeGraph(Graph *pG){
    for(int i = 0; i < (*pG)->order; ++i){
       freeList(&((*pG)->adj_vertices[i]));
    }
+   free((*pG)->adj_vertices);
    free((*pG)->color);
    free((*pG)->p);
    free((*pG)->distance);
+   (*pG)->adj_vertices = NULL;
+   (*pG)->color = (*pG)->p = (*pG)->distance = NULL;
    free(*pG);
    *pG = NULL;
    return;
