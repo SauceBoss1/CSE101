@@ -268,7 +268,7 @@ void BFS(Graph G, int s){
    }
 
    freeList(&Q);
-  return;
+   return;
 }
 
 /*** Other operations ***/
