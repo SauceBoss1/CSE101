@@ -53,7 +53,7 @@ Graph newGraph (int n){
 }
 
 void freeGraph(Graph *pG){
-   for(int i = 0; i < (*pG)->order; ++i){
+   for(int i = 0; i < (*pG)->order + 1; ++i){
       freeList(&((*pG)->adj_vertices[i]));
    }
    free((*pG)->adj_vertices);
