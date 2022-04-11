@@ -22,7 +22,10 @@ int main(void){
    addEdge(G, 17, 13);
    addEdge(G, 14, 33);
    printGraph(stdout, G);
-   
+
+   makeNull(G);
+   printGraph(stdout, G);
+
    freeGraph(&G);
 
    return EXIT_SUCCESS;
