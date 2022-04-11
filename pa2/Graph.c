@@ -40,6 +40,7 @@ Graph newGraph (int n){
    G->color = calloc(n+1, sizeof(int));
    G->p = calloc(n+1, sizeof(int));
    G->distance = calloc(n+1, sizeof(int));
+   
    for(int i = 1; i < n+1; ++i){
       G->p[i] = NIL;
       G->distance[i] = INF;
