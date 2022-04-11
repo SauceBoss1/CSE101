@@ -48,6 +48,7 @@ Graph newGraph (int n){
    G->order = n;
    G->size = 0;
    G->source = NIL;
+   return G;
 }
 
 void freeGraph(Graph *pG){
