@@ -94,6 +94,7 @@ int getParent(Graph G, int u){
 int getDist(Graph G, int u){
   if(G==NULL){
     printf("GRAPH ERROR: Getting the distance of a NULL Graph\n");
+    exit(EXIT_FAILURE);
   }
   return G->distance[u];
 }
@@ -113,3 +114,68 @@ void getPath(List L, Graph G, int u){
 
 /*** Manipulation procedures ***/
 
+void makeNull(Graph G){
+  if(G==NULL){
+    printf("GRAPH ERROR: Making G NULL of an already NULL Graph\n");
+    exit(EXIT_FAILURE);
+  }
+  int i;
+
+  for(i = 0; i < G->order + 1; ++i){
+    clear(G->adj_vertices[i]);
+  }
+  free(G->color);
+  free(G->p);
+  free(G->distance);
+  G->color = G->p = G->distance = NULL;
+  G->size = 0;
+  G->source = NIL;
+  
+  int n = G->order;
+  G->color = calloc(n+1, sizeof(int));
+  G->p = calloc(n+1, sizeof(int));
+  G->distance = calloc(n+1, sizeof(int));
+  return;
+}
+
+/*
+addArcHelper(Graph G, int u, int v)
+Adds an arc to a graph without increasing its size
+This is done so the function can be used in other functions as well
+such as addEdge()
+
+*/
+void addArcHelper(Graph G, int u, int v){
+  List curr_list = G->adj_vertices[u];
+
+  int prev_len = length(curr_list);
+
+  if(prev_len == 0){
+    prepend(curr_list, v);
+  } else {
+    for(moveFront(curr_list); index(curr_list) >=0 && prev_len == length(curr_list); moveNext(curr_list)){
+      if(v < get(curr_list) && v != u){
+        insertBefore(curr_list, v);
+      }
+    }
+
+    int new_len = length(curr_list);
+    if (new_len == prev_len && v > back(curr_list) && v != u){
+      append(curr_list, v);
+    }
+  }
+  return;
+}
+
+void addArc(Graph G, int u, int v){
+  addArcHelper(G,u,v);
+  G->size++;
+  return;
+}
+
+void addEdge(Graph G, int u, int v){
+  addArcHelper(G,u,v);
+  addArcHelper(G,v,u);
+  G->size++;
+  return;
+}
