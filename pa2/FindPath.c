@@ -46,6 +46,6 @@ int main(int argc, char * argv[]){
    
    List L = newList;
    Graph G = newGraph(vertices);
-
+   
    return EXIT_SUCCESS;
 }
