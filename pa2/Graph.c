@@ -238,6 +238,11 @@ void addEdge(Graph G, int u, int v){
 }
 
 void BFS(Graph G, int s){
+   if(G==NULL){
+      printf("GRAPH ERROR: cannot call BFS() on a NULL graph\n");
+      exit(EXIT_FAILURE);
+   }
+   
    G->source = s;
 
    for(int i = 1; i < G->order + 1; ++i){
