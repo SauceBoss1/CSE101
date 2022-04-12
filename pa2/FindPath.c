@@ -44,7 +44,9 @@ int main(int argc, char * argv[]){
    }
    buffer[strlen(buffer) - 1] = '\0';
    vertices = strtol(buffer, NULL, 10);
-   
+   // -----------------------------------------------------------------------
+
+   /*** ADT INITIALIZATION ***/
    List L = newList();
    Graph G = newGraph(vertices);
    
@@ -52,25 +54,27 @@ int main(int argc, char * argv[]){
 
    u = v = -1;
 
+   /*** INITIALIZING EDGES OF GRAPH ***/
    while (v != 0 && u != 0){
-      if((input = fscanf(in, "%d %d\n", &u, &v)) != EOF){
+      if((input = fscanf(in, "%d %d\n", &u, &v)) != EOF){ //input is based on pairs of integers sepereated by a space
          if(input == 0){
             fprintf(stderr, "Malformed line while reading vertices\n");
             return EXIT_FAILURE;
          }
-         //fprintf(stderr,"u = %d  v = %d\n",u,v);
          if( u != 0 && v != 0){
             addEdge(G,u,v);
          }
       }
    }
 
+   /*** ADJACENCY LIST OUTPUT ***/
    printGraph(out, G);
    fprintf(out,"\n");
 
+   /*** FINDING SHORTEST PATH OF GIVEN SOURCES AND ITS DESTINATION ***/
    u = v = -1;
    while(v != 0 && u != 0){
-      if((input = fscanf(in, "%d %d\n", &u, &v)) != EOF){
+      if((input = fscanf(in, "%d %d\n", &u, &v)) != EOF){ //just like in adding edges, the source and destination are given as pairs of integers
          if(input == 0){
             fprintf(stderr, "Malformed line while reading source and destination\n");
             return EXIT_FAILURE;
@@ -80,7 +84,7 @@ int main(int argc, char * argv[]){
             BFS(G, u);
             getPath(L, G, v);
 
-            if(getDist(G,v) != INF){
+            if(getDist(G,v) != INF){ //we need to see if a shortest path is even possible
                fprintf(out,"The distance from %d to %d is %d\n", u, v, getDist(G,v));
                fprintf(out,"A shortest %d-%d path is: ",u, v);
                printList(out, L);
@@ -95,6 +99,9 @@ int main(int argc, char * argv[]){
       }
    }
 
+   // -----------------------------------------------------------------------
+
+   /*** EXIT PROCEDURES ***/
    freeGraph(&G);
    freeList(&L);
    fclose(in);
