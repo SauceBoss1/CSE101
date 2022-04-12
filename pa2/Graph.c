@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA2 
+* Graph.c 
+* Implementation for the Graph ADT 
+*********************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -275,9 +281,9 @@ void BFS(Graph G, int s){
 
 void printGraph(FILE* out, Graph G){
    for(int i = 1; i < G->order + 1; ++i){
-      printf("%d: ",i);
+      fprintf(out,"%d: ",i);
       printList(out, G->adj_vertices[i]);
-      printf("\n");
+      fprintf(out,"\n");
    }
    return;
 }

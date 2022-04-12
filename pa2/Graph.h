@@ -1,12 +1,19 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA2 
+* Graph.h
+* Interface for the Graph ADT
+*********************************************************************************/
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
 #include "List.h"
 
-#pragma once
 
 /*** Exported Types ***/
+
 typedef struct GraphObj* Graph;
 
 
