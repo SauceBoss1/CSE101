@@ -136,12 +136,12 @@ void getPath(List L, Graph G, int u){
 
    if(getSource(G) != NIL){
       if(G->source == u){
-         prepend(L,G->source);
+         append(L,G->source);
       } else if (G->p[u] == NIL){
-         prepend(L,NIL);
+         append(L,NIL);
       } else {
          getPath(L,G,G->p[u]);
-         prepend(L,u);
+         append(L,u);
       }
    } else{
       printf("GRAPH ERROR: BFS must be ran first before obtaining the path\n");
