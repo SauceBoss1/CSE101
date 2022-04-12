@@ -22,9 +22,15 @@ int main(void){
    addEdge(G, 17, 13);
    addEdge(G, 14, 33);
    printGraph(stdout, G);
+   List L = newList();
+   BFS(G,9);
+   getPath(L,G,31);
+   printList(stdout,L);
+   printf("\n");
+   freeList(&L);
 
-   makeNull(G);
-   printGraph(stdout, G);
+   // makeNull(G);
+   // printGraph(stdout, G);
 
    freeGraph(&G);
 
