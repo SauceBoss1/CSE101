@@ -38,7 +38,7 @@ $(BASE_OBJECTS) : $(BASE_SOURCES) $(HEADERS)
 	$(COMPILE) $(BASE_SOURCES)
 
 clean :
-	$(REMOVE) FindPath GraphClient GraphTest *.o 
+	$(REMOVE) FindPath GraphClient GraphTest *.o *.txt
 
 checkFind : FindPath
 	$(MEMCHECK) ./FindPath in7 junk7

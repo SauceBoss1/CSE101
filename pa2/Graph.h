@@ -11,6 +11,8 @@
 
 #include "List.h"
 
+#define NIL -1
+#define INF -2
 
 /*** Exported Types ***/
 
