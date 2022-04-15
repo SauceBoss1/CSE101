@@ -12,7 +12,7 @@
 #include "List.h"
 
 int main(void){
-   int i, s, max, min, d, n=35;
+   int i, n=35;
    // List  C = newList(); // central vertices 
    // List  P = newList(); // peripheral vertices 
    // List  E = newList(); // eccentricities 
@@ -31,8 +31,15 @@ int main(void){
    List L = newList();
    BFS(G,9);
    getPath(L,G,31);
+   printf("Path of 9-31: ");
    printList(stdout,L);
-   printf("\n");
+   printf("\n\n");
+
+   printf("Order: %d\n",getOrder(G));
+   printf("Size: %d\n",getSize(G));
+   printf("Parent of 31: %d\n",getParent(G,31));
+   printf("Distance of 9-31: %d\n", getDist(G,31));
+
    freeList(&L);
 
    // makeNull(G);
