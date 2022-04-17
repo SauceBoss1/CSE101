@@ -11,7 +11,7 @@
 
 /*** Exported Types ***/
 
-typedef struct GraohObj* Graph;
+typedef struct GraphObj* Graph;
 
 /*** Constructors-Destructors ***/
 
