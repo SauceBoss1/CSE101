@@ -14,7 +14,7 @@
 // private GraphObj type
 typedef struct GraphObj{
    List* adj;
-   int* color;
+   int* color; //colors: WHITE, GRAY, BLACK
    int* parent;
    int* discover;
    int* finish;
@@ -74,4 +74,74 @@ void freeGraph(Graph* pG){
    free(G);
    G = NULL;
    return;
+}
+
+/*** Access Function **/
+
+/**
+ * int getOrder(Graph G)
+ * Returns the order of the graph G
+ */
+int getOrder(Graph G){
+   if(G == NULL){
+      fprintf(stderr, "GRAPH ERROR: Getting the order of a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   return G->order;
+}
+
+/**
+ * int getSize(Graph G)
+ * Returns the size of the Graph T
+ */
+int getSize(Graph G){
+   if(G == NULL){
+      fprintf(stderr, "GRAPH ERROR: Getting the order of a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   return G->size;
+}
+
+/**
+ * int getParent(Graph G, int u)
+ * Returns the parent of vertex u in Graph G
+ */
+int getParent(Graph G, int u){
+   if(G == NULL){
+      fprintf(stderr, "GRAPH ERROR: Getting the parent of a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   if(u < 1 || u > getOrder(G)){
+      fprintf(stderr, "GRAPH ERROR: parent of u needs to be between 1 and getOrder(G)\n");
+      exit(EXIT_FAILURE);
+   }
+   return G->parent[u];
+}
+
+/**
+ * int getDiscover(Graph G, int u)
+ * Returns the discover time of Graph G at vertex u
+ */
+int getDiscover(Graph G, int u){
+   if(G == NULL){
+      fprintf(stderr, "GRAPH ERROR: Getting the discover time of a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   if(u < 1 || u > getOrder(G)){
+      fprintf(stderr, "GRAPH ERROR: discover time of u needs to be between 1 and getOrder(G)\n");
+      exit(EXIT_FAILURE);
+   }
+   return G->discover[u];
+}
+
+int getFinish(Graph G, int u){
+   if(G == NULL){
+      fprintf(stderr, "GRAPH ERROR: Getting the finish time of a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   if(u < 1 || u > getOrder(G)){
+      fprintf(stderr, "GRAPH ERROR: finish time of u needs to be between 1 and getOrder(G)\n");
+      exit(EXIT_FAILURE);
+   }
+   return G->finish[u];
 }
