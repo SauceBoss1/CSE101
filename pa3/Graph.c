@@ -134,6 +134,10 @@ int getDiscover(Graph G, int u){
    return G->discover[u];
 }
 
+/**
+ * int getFinish(Graph G, int u)
+ * Returns the finish time of Graph G at vertex u
+ */
 int getFinish(Graph G, int u){
    if(G == NULL){
       fprintf(stderr, "GRAPH ERROR: Getting the finish time of a NULL Graph\n");
@@ -145,3 +149,4 @@ int getFinish(Graph G, int u){
    }
    return G->finish[u];
 }
+
