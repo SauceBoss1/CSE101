@@ -175,7 +175,7 @@ Pre: None -> public functions that use this function should handle the precondit
 */
 void addArcHelper(Graph G, int u, int v){
    List curr_list = G->adj[u];
-
+   
    int prev_len = length(curr_list);
 
    if(prev_len == 0){
