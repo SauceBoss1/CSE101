@@ -239,6 +239,8 @@ void addEdge(Graph G, int u, int v){
 }
 
 /**
+ * Private helper function
+ * 
  * void Visit(Grapg G, List S, int x, int* time)
  * Vists the adjacent Vertices of x
  * This also updates Graph G
@@ -269,10 +271,18 @@ void Visit(Graph G, List S, int x, int* time){
    }
    G->color[x] = BLACK;
    G->finish[x] = ++(*time);
-   append(S, x); // this should already set the list into decreasing order 
+   prepend(S, x); // this should already set the list into decreasing order 
+   //TODO: change prepend if needed
    return;
 }
 
+/**
+ * void DFS(Graph G, List S)
+ * Runs the DFS algorithm on Graph G and
+ * manipulates List S with decreasing starting times
+ * 
+ * Pre: G !- NULL && length(S) != getOrder(G)
+ */
 void DFS(Graph G, List S){
    if(G == NULL){
       fprintf(stderr, "GRAPH ERROR: Cannot Visit x when G is NULL\n");
@@ -304,5 +314,65 @@ void DFS(Graph G, List S){
    }
 
    freeList(&cpy_s);
+   return;
+}
+
+/*** Other Functions ***/
+
+/**
+ * Graph transpose(Graph G)
+ * Returns a transposed graph of G
+ * 
+ * Pre: G != NULL
+ */
+Graph transpose(Graph G){
+   if(G == NULL){
+      fprintf(stderr, "GRAPH ERROR: Can't transpose a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+
+   Graph new_g = newGraph(getOrder(G));
+
+   for(int i = 1; i < getOrder(new_g) + 1; ++i){
+      List adj_x = G->adj[i];
+      for(moveFront(adj_x); index(adj_x) >= 0; moveNext(adj_x)){
+         addArc(new_g, get(adj_x), i);
+      }
+   }
+   return new_g;
+}
+
+/**
+ * Graph copyGraph(Graph G)
+ * Returns a copy of Graph G
+ * 
+ * Pre: G != NULL
+ */
+Graph copyGraph(Graph G){
+   if(G == NULL){
+      fprintf(stderr, "GRAPH ERROR: Can't copy a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   Graph new_g = newGraph(getOrder(G));
+
+   for(int i = 1; i < getOrder(G) + 1; ++i){
+      List adj_x = G->adj[i];
+      for(moveFront(adj_x); index >= 0; moveNext(adj_x)){
+         addArc(new_g, i, get(adj_x));
+      }
+   }
+   return new_g;
+}
+
+/**
+ * printGraph(FILE* out, Graph G)
+ * Prints out the adjacency list of Graph G
+ */
+void printGraph(FILE* out, Graph G){
+   for(int i = 1; i < getOrder(G) + 1; ++i){
+      fprintf(out, "%d: ",i);
+      printList(out, G->adj[i]);
+      fprintf(out,"\n");
+   }
    return;
 }
