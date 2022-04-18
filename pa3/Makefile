@@ -18,7 +18,7 @@ CFLAGS = -std=c17 -Wall
 COMPILE = $(CC) $(CFLAGS) -c -g
 LINK = $(CC) $(CFLAGS) -o
 
-deps := $(patsubst %.o,%.d, $(objs))
+deps = $(patsubst %.o,%.d, $(objs))
 -include $(deps)
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 
