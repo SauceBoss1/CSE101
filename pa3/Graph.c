@@ -39,9 +39,6 @@ Graph newGraph(int n){
    G->discover = calloc(n+1, sizeof(int));
    G->finish = calloc(n+1,sizeof(int));
 
-   G->order = n;
-   G->size = 0;
-
    for(int i = 1; i < n+1; ++i){
       G->adj[i] = newList();
       G->color[i] = WHITE;
@@ -49,6 +46,9 @@ Graph newGraph(int n){
       G->discover[i] = UNDEF;
       G->finish[i] = UNDEF;
    }
+
+   G->order = n;
+   G->size = 0;
 
    return G;
 }
@@ -182,13 +182,13 @@ void addArcHelper(Graph G, int u, int v){
       prepend(curr_list, v);
    } else {
       for(moveFront(curr_list); index(curr_list) >=0 && prev_len == length(curr_list); moveNext(curr_list)){
-         if(v < get(curr_list) && v != u){ //we need to make sure we don't add the same vertex twice
+         if(v < get(curr_list)){ //we need to make sure we don't add the same vertex twice
             insertBefore(curr_list, v);
          }
       }
 
       int new_len = length(curr_list);
-      if (new_len == prev_len && v > back(curr_list) && v != u){
+      if (new_len == prev_len && v > back(curr_list)){
          append(curr_list, v);
       }
    }
@@ -202,7 +202,7 @@ void addArcHelper(Graph G, int u, int v){
  * Pre: G != NULL && u must be 1 <= u <= getOrder(G)
  */
 void addArc(Graph G, int u, int v){
-   if(G==NULL){
+   if(G == NULL){
       printf("GRAPH ERROR: Adding an Arc to a NULL Graph\n");
       exit(EXIT_FAILURE);
    }
