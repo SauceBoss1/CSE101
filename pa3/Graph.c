@@ -31,7 +31,7 @@ typedef struct GraphObj{
  * Creates a new instance of the Graph ADT and returns it
  */
 Graph newGraph(int n){
-   Graph G = malloc(sizeof(Graph));
+   Graph G = malloc(sizeof(GraphObj));
 
    G->adj = calloc(n+1, sizeof(List));
    G->color = calloc(n+1, sizeof(int));
@@ -175,7 +175,7 @@ Pre: None -> public functions that use this function should handle the precondit
 */
 void addArcHelper(Graph G, int u, int v){
    List curr_list = G->adj[u];
-   
+
    int prev_len = length(curr_list);
 
    if(prev_len == 0){
@@ -295,7 +295,7 @@ void DFS(Graph G, List S){
 
    List cpy_s = copyList(S); //Let's use a copy as a reference
    clear(S); //Clear S so we can update it in the DFS algorithm
-
+   
    /*** INITALIZATION ***/
    for(moveFront(cpy_s); index(cpy_s) >= 0; moveNext(cpy_s)){
       int x = get(cpy_s);
@@ -306,9 +306,9 @@ void DFS(Graph G, List S){
    int time = 0;
 
    /*** MAIN DFS LOOP ***/
-   for(moveFront(cpy_s); index>=0; moveNext(cpy_s)){
+   for(moveFront(cpy_s); index(cpy_s) >=0; moveNext(cpy_s)){
       int x = get(cpy_s);
-      if(G->color == WHITE){
+      if(length(G->adj[x]) > 0 && G->color[x] == WHITE){
          Visit(G, S, x, &time);
       }
    }
@@ -357,7 +357,7 @@ Graph copyGraph(Graph G){
 
    for(int i = 1; i < getOrder(G) + 1; ++i){
       List adj_x = G->adj[i];
-      for(moveFront(adj_x); index >= 0; moveNext(adj_x)){
+      for(moveFront(adj_x); index(adj_x) >= 0; moveNext(adj_x)){
          addArc(new_g, i, get(adj_x));
       }
    }
