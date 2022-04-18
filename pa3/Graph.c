@@ -308,7 +308,7 @@ void DFS(Graph G, List S){
    /*** MAIN DFS LOOP ***/
    for(moveFront(cpy_s); index(cpy_s) >=0; moveNext(cpy_s)){
       int x = get(cpy_s);
-      if(length(G->adj[x]) > 0 && G->color[x] == WHITE){
+      if(G->color[x] == WHITE){
          Visit(G, S, x, &time);
       }
    }
