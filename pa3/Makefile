@@ -1,12 +1,10 @@
 #------------------------------------------------------------------------------
 #  Makefile for CMPS 101 Programming Assignment 3
 #
-#  make                     makes FindPath
+#  make                     makes FindComponents
 #  make GraphClient         makes GraphClient
 #  make GraphTest           makes GraphTest
 #  make clean               removes binaries
-#  make checkFind           tests FindPath for memory leaks on in7
-#  make checkClient         tests GraphClient for memory leaks
 #------------------------------------------------------------------------------
 
 targets = GraphClient FindComponents GraphTest

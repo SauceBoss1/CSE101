@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA3 
+* FindComponents.c 
+* Main client for DFS Graph ADT 
+*********************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -81,7 +87,6 @@ int main(int argc, char * argv[]){
    int components = 0;
    for(moveBack(S); index(S) >= 0; movePrev(S)){
       int i = get(S);
-      //fprintf(stdout,"Vertex parent of %d is %d\n",i, getParent(T,i));
       if(getParent(T, i) == NIL){
          ++components;
       }
@@ -102,6 +107,8 @@ int main(int argc, char * argv[]){
          clear(output);
       }
    }
+
+   /*** CLOSING PROCEDURES ***/
 
    freeList(&output);
    freeList(&S);

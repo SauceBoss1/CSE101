@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA3 
+* Graph.h 
+* Header file for the DFS Graph ADT
+*********************************************************************************/
 #pragma once
 
 #include <stdio.h>

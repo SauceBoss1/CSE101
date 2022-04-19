@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA3 
+* GraphTest.c 
+* Main testing harness for DFS Graph ADT 
+*********************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
