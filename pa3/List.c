@@ -623,3 +623,22 @@ List copyList(List l){
 
   return newL;
 }
+
+/**
+ * bool contains(List L, int x)
+ * Returns true if item x is in list l otherwise false
+ */
+bool contains(List L, int x){
+   if(L == NULL){
+      printf("ERROR: trying to see if x is in L of a null List\n");
+      exit(EXIT_FAILURE);
+   }
+   
+   for(moveFront(L); index(L) >=0; moveNext(L)){
+      int i = get(L);
+      if(x == i){
+         return true;
+      }
+   }
+   return false;
+}

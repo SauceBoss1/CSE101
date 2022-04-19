@@ -9,7 +9,7 @@
 #  make checkClient         tests GraphClient for memory leaks
 #------------------------------------------------------------------------------
 
-targets = GraphClient FindComponents
+targets = GraphClient FindComponents GraphTest
 objs = Graph.o List.o
 
 CC = gcc
@@ -26,6 +26,9 @@ FindComponents: FindComponents.o $(objs)
 	$(LINK) $@ $^
 
 GraphClient: GraphClient.o $(objs)
+	$(LINK) $@ $^
+
+GraphTest: GraphTest.o $(objs)
 	$(LINK) $@ $^
 
 %.o: %.c

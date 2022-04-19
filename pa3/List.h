@@ -28,6 +28,7 @@ int front(List l);
 int back(List l);
 int get(List l);
 bool equals(List A, List B);
+bool contains(List L, int x);
 
 // Manipulation procedures ----------------------------------------------------
 

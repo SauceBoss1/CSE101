@@ -211,9 +211,12 @@ void addArc(Graph G, int u, int v){
       printf("GRAPH ERROR: addArc(): u or v is not between 1 and %d\n", getOrder(G));
       exit(EXIT_FAILURE);
    }
+   
 
-   addArcHelper(G,u,v);
-   G->size++;
+   if(contains(G->adj[u],v) == false){
+      addArcHelper(G,u,v);
+      G->size++;
+   }
    return;
 }
 
@@ -232,6 +235,7 @@ void addEdge(Graph G, int u, int v){
       printf("GRAPH ERROR: addEdge(): u or v is not between 1 and %d\n", getOrder(G));
       exit(EXIT_FAILURE);
    }
+
    addArcHelper(G,u,v);
    addArcHelper(G,v,u);
    G->size++;
