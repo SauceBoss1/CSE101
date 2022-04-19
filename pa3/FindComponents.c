@@ -65,6 +65,7 @@ int main(int argc, char * argv[]){
 
    fprintf(out, "Adjacency list representation of G:\n");
    printGraph(out, G);
+   fprintf(out,"\n");
 
    /*** DFS ***/
 
@@ -74,9 +75,35 @@ int main(int argc, char * argv[]){
 
    /*** SCC OUTPUT ***/
 
-   printList(stdout, S);
-   printf("\n");
+   List output = newList();
 
+   //Get the number of components
+   int components = 0;
+   for(moveBack(S); index(S) >= 0; movePrev(S)){
+      int i = get(S);
+      //fprintf(stdout,"Vertex parent of %d is %d\n",i, getParent(T,i));
+      if(getParent(T, i) == NIL){
+         ++components;
+      }
+   }
+
+   fprintf(out, "G contains %d strongly connected components:\n",components);
+   
+   components = 0;
+   for(moveBack(S); index(S) >= 0; movePrev(S)){
+      int i = get(S);
+
+      prepend(output, i);
+      if(getParent(T, i) == NIL){
+         fprintf(out,"Component %d: ", ++components);
+         printList(out, output);
+         fprintf(out,"\n");
+
+         clear(output);
+      }
+   }
+
+   freeList(&output);
    freeList(&S);
    freeGraph(&G);
    freeGraph(&T);

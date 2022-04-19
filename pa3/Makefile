@@ -32,4 +32,4 @@ GraphClient: GraphClient.o $(objs)
 	$(COMPILE) $< $(DEPFLAGS)
 
 clean:
-	rm -rf $(targets) *.o $(deps) *.txt
+	rm -rf $(targets) *.o *.d *.txt
