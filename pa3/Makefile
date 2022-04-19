@@ -9,8 +9,8 @@
 #  make checkClient         tests GraphClient for memory leaks
 #------------------------------------------------------------------------------
 
-targets = GraphClient
-objs = Graph.o List.o GraphClient.o
+targets = GraphClient FindComponents
+objs = Graph.o List.o
 
 CC = gcc
 CFLAGS = -std=c17 -Wall
@@ -22,11 +22,14 @@ deps = $(patsubst %.o,%.d, $(objs))
 -include $(deps)
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 
-GraphClient: $(objs)
+FindComponents: FindComponents.o $(objs)
+	$(LINK) $@ $^
+
+GraphClient: GraphClient.o $(objs)
 	$(LINK) $@ $^
 
 %.o: %.c
 	$(COMPILE) $< $(DEPFLAGS)
 
 clean:
-	rm -rf $(targets) *.o $(deps)
+	rm -rf $(targets) *.o $(deps) *.txt
