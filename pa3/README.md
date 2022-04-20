@@ -16,7 +16,7 @@ This program was tested with around 1000 vertices and it works perfectly.
 - Graph.c
   - A C file that contains all the definitions and implementations of the Graph ADT.
 - GraphTest.c
-  - A C file that contains the main testing harness of the Graph ADT
+  - A C file that contains the main testing harness of the Graph ADT.
 - FindComponents.c
   - A C file that contains the main() function of the program. This will be where the user inputs a file and receives the output file.
 - Makefile
