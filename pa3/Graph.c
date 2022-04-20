@@ -379,6 +379,11 @@ Graph copyGraph(Graph G){
  * Prints out the adjacency list of Graph G
  */
 void printGraph(FILE* out, Graph G){
+   if(G == NULL){
+      fprintf(stderr, "GRAPH ERROR: Can't print a NULL Graph\n");
+      exit(EXIT_FAILURE);
+   }
+   
    for(int i = 1; i < getOrder(G) + 1; ++i){
       fprintf(out, "%d: ",i);
       printList(out, G->adj[i]);
