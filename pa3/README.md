@@ -1,6 +1,5 @@
 # Programming Assignment 3:
-## Building a Graph ADT to find the strongest connected components
-## Building the DFS algorithm
+## Building a Graph ADT to find the strongest connected components using DFS
 
 ### Description/Synopsis:
 This program takes in a file with the number of vertices and pairs of integers that will be used to create the graph. The program then find the strongest connected components using the DFS algorithm. The results of its findings will be outputted to the `<output file>`.
