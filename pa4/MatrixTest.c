@@ -9,7 +9,7 @@ int main(){
    int n=100000;
    Matrix A = newMatrix(n);
    Matrix B = newMatrix(n);
-   Matrix C, T;
+   Matrix C, T, S;
 
    changeEntry(A, 1,1,1); changeEntry(B, 1,1,1);
    changeEntry(A, 1,2,2); changeEntry(B, 1,2,0);
@@ -32,6 +32,7 @@ int main(){
 
    C = copy(A);
    T = transpose(A);
+   S = scalarMult(2, C);
 
    printf("%d\n", NNZ(C));
    printMatrix(stdout, C);
@@ -41,10 +42,15 @@ int main(){
    printMatrix(stdout, T);
    printf("\n");
 
+   printf("%d\n", NNZ(S));
+   printMatrix(stdout, S);
+   printf("\n");
+
    freeMatrix(&A);
    freeMatrix(&B);
    freeMatrix(&C);
    freeMatrix(&T);
+   freeMatrix(&S);
 
    return EXIT_SUCCESS;
 }

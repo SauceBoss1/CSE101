@@ -251,6 +251,31 @@ Matrix transpose(Matrix A){
    return M;
 }
 
+Matrix scalarMult(double x, Matrix A){
+   if(A == NULL){
+      printf("MATRIX ERROR: Calling scalarMult() on a NULL list\n");
+      exit(EXIT_FAILURE);
+   }
+
+   Matrix M = newMatrix(size(A));
+   M->size = size(A);
+
+   for(int i = 1; i < size(A) + 1; ++i){
+      List A_row = A->m_body[i];
+      if(length(A_row) == 0){
+         continue;
+      }
+
+      List M_row = M->m_body[i];
+      for(moveFront(A_row); index(A_row) >= 0; moveNext(A_row)){
+         Entry curr_ent = (Entry)get(A_row);
+         append(M_row, newEntry(curr_ent->col, (curr_ent->val * x)));
+         M->NNZ++;
+      }
+   }
+   return M;
+} 
+
 /*** DEBUG FUNCTIONS ***/
 
 void printMatrix(FILE* out, Matrix M){
