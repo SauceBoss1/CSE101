@@ -58,11 +58,15 @@ void freeMatrix(Matrix* pM){
    if(pM != NULL && *pM != NULL){
       Matrix M = (*pM);
 
-      makeZero(M);
-      for(int i = 1; i < size(M)+1; ++i){
-         List curr = M->m_body[i];
-         freeList(&curr);
-         curr = NULL;
+      for(int i = 1; i < size(M) + 1; ++i){
+         List row = M->m_body[i];
+         for(moveFront(row); index(row) >= 0; moveNext(row)){
+            Entry curr_entry = (Entry)get(row);
+            freeEntry(&curr_entry);
+            curr_entry = NULL;
+         }
+         freeList(&row);
+         row = NULL;
       }
       free(M->m_body);
       M->m_body = NULL;
@@ -196,6 +200,56 @@ void changeEntry(Matrix M, int i, int j, double x){
 }
 
 /*** ARITHMETIC OPERATIONS ***/
+
+Matrix copy(Matrix A){
+   if(A == NULL){
+      printf("MATRIX ERROR: Calling copy() on a NULL matrix\n");
+      exit(EXIT_FAILURE);
+   }
+   Matrix M = newMatrix(size(A));
+   M->size = size(A);
+   
+   for(int i = 1; i < size(A) + 1; ++i){
+      List row = A->m_body[i];
+      if(length(row) == 0){
+         continue;
+      }
+
+      List new_row = M->m_body[i];
+      for(moveFront(row); index(row) >= 0; moveNext(row)){
+         Entry curr_ent = (Entry)get(row);
+         append(new_row, newEntry(curr_ent->col, curr_ent->val));
+         M->NNZ++;
+      }
+   }
+
+   return M;
+}
+
+Matrix transpose(Matrix A){
+   if(A == NULL){
+      printf("MATRIX ERROR: Calling transpose() on a NULL list\n");
+      exit(EXIT_FAILURE);
+   }
+   Matrix M = newMatrix(size(A));
+   M->size = size(A);
+
+   for(int i = 1; i < size(A) + 1; ++i){
+      List row = A->m_body[i];
+      if(length(row) == 0){
+         continue;
+      }
+
+      for(moveFront(row); index(row) >= 0; moveNext(row)){
+         Entry curr_ent = (Entry)get(row);
+         List new_row = M->m_body[curr_ent->col];
+         append(new_row, newEntry(i, curr_ent->val));
+         M->NNZ++;
+      }
+   }
+
+   return M;
+}
 
 /*** DEBUG FUNCTIONS ***/
 

@@ -25,9 +25,11 @@ void freeMatrix(Matrix* pM);
 // size()
 // Return the size of square Matrix M.
 int size(Matrix M);
+
 // NNZ()
 // Return the number of non-zero elements in M.
 int NNZ(Matrix M);
+
 // equals()
 // Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B);
@@ -37,10 +39,26 @@ int equals(Matrix A, Matrix B);
 // makeZero()
 // Re-sets M to the zero Matrix state.
 void makeZero(Matrix M);
+
 // changeEntry()
 // Changes the ith row, jth column of M to the value x.
 // Pre: 1<=i<=size(M), 1<=j<=size(M)
 void changeEntry(Matrix M, int i, int j, double x);
+
+/*** ARITHMETIC FUNCTIONS ***/
+
+// copy()
+// Returns a reference to a new Matrix object having the same entries as A.
+Matrix copy(Matrix A);
+
+// transpose()
+// Returns a reference to a new Matrix object representing the transpose
+// of A.
+Matrix transpose(Matrix A);
+
+// scalarMult()
+// Returns a reference to a new Matrix object representing xA.
+Matrix scalarMult(double x, Matrix A);
 
 /*** DEBUG FUNCTIONS ***/
 
