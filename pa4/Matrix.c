@@ -429,6 +429,7 @@ Matrix product(Matrix A, Matrix B){
             continue;
          }
          double dot_prod = vectorDot(A_row, B_row);
+         
          if (dot_prod != 0){
             append(new_row, newEntry(j, dot_prod));
             M->NNZ++;
