@@ -370,6 +370,37 @@ Matrix diff(Matrix A, Matrix B){
    return M;
 }
 
+double vectorDot(List A, List B){
+   if(A == NULL || B == NULL){
+      printf("VECTOR DOT ERROR: List A or List B is NULL\n");
+      exit(EXIT_FAILURE);
+   }
+   double sum = 0;
+
+   moveFront(A);
+   moveFront(B);
+   while(index(A) >= 0 && index(B) >= 0){
+      Entry ent_A = (Entry)get(A);
+      Entry ent_B = (Entry)get(B);
+      int i = ent_A->col; double i_val = ent_A->val;
+      int j = ent_B->col; double j_val = ent_B->val;
+
+      if(i < j){
+         moveNext(A);
+         continue;
+      } else if(j < i){
+         moveNext(B);
+         continue;
+      } else if(i == j){
+         sum += (i_val * j_val);
+         moveNext(A);
+         moveNext(B);
+         continue;
+      }
+   }
+   return sum;
+}
+
 /*** DEBUG FUNCTIONS ***/
 
 void printMatrix(FILE* out, Matrix M){
