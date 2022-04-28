@@ -276,6 +276,100 @@ Matrix scalarMult(double x, Matrix A){
    return M;
 } 
 
+List vectorSum(Matrix M, List A, List B){
+   if(A == NULL || B == NULL){
+      printf("VECTORSUM ERROR: Calling vectorSum() when A or B is NULL\n");
+      exit(EXIT_FAILURE);
+   }
+
+   List final = newList();
+
+   moveFront(A);
+   moveFront(B);
+   while(index(A) >= 0 && index(B) >= 0){
+      Entry ent_A = (Entry)get(A);
+      Entry ent_B = (Entry)get(B);
+      int i = ent_A->col; double i_val = ent_A->val;
+      int j = ent_B->col; double j_val = ent_B->val;
+
+      if(i < j){
+         append(final, newEntry(i, i_val));
+         M->NNZ++;
+         moveNext(A);
+         continue;
+      } else if(j < i){
+         append(final, newEntry(j, j_val));
+         M->NNZ++;
+         moveNext(B);
+         continue;
+      } else if(j == i){
+         if(j_val + i_val != 0){
+            append(final, newEntry(j, j_val + i_val));
+            M->NNZ++;
+         }
+         moveNext(A);
+         moveNext(B);
+         continue;
+      }
+   }
+
+   while(index(A) >= 0){
+      Entry ent_A = (Entry)get(A);
+      append(final, newEntry(ent_A->col, ent_A->val));
+      M->NNZ++;
+      moveNext(A);
+   }
+
+   while(index(B) >= 0){
+      Entry ent_B = (Entry)get(B);
+      append(final, newEntry(ent_B->col, ent_B->val));
+      M->NNZ++;
+      moveNext(B);
+   }
+
+   return final;
+}
+
+Matrix sum(Matrix A, Matrix B){
+   if(A == NULL || B == NULL){
+      printf("MATRIX ERROR: Calling sum() when A or B is NULL\n");
+      exit(EXIT_FAILURE);
+   }
+   if(size(A) != size(B)){
+      printf("MATRIX ERROR: sum(): size(A) != size(B)\n");
+      exit(EXIT_FAILURE);
+   }
+
+   Matrix final_M = newMatrix(size(A));
+   for(int i = 1; i < size(B) + 1; ++i){
+      List row_A = A->m_body[i];
+      List row_B = B->m_body[i];
+      if(length(row_A) == 0 && length(row_B) == 0){
+         continue;
+      }
+      freeList(&(final_M->m_body[i]));
+      final_M->m_body[i] = NULL;
+      final_M->m_body[i] = vectorSum(final_M, row_A, row_B);
+   }
+   return final_M;
+}
+
+Matrix diff(Matrix A, Matrix B){
+   if(A == NULL || B == NULL){
+      printf("MATRIX ERROR: Calling diff() when A or B is NULL\n");
+      exit(EXIT_FAILURE);
+   }
+   if(size(A) != size(B)){
+      printf("MATRIX ERROR: diff(): size(A) != size(B)\n");
+      exit(EXIT_FAILURE);
+   }
+   Matrix S = scalarMult(-1, B);
+   Matrix M = sum(A,S);
+
+   freeMatrix(&S);
+   return M;
+}
+
 /*** DEBUG FUNCTIONS ***/
 
 void printMatrix(FILE* out, Matrix M){

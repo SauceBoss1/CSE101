@@ -46,11 +46,23 @@ int main(){
    printMatrix(stdout, S);
    printf("\n");
 
+   Matrix D = sum(A, B);
+   printf("%d\n", NNZ(D));
+   printMatrix(stdout, D);
+   printf("\n");
+
+   Matrix E = diff(A, B);
+   printf("%d\n", NNZ(E));
+   printMatrix(stdout, E);
+   printf("\n");
+
    freeMatrix(&A);
    freeMatrix(&B);
    freeMatrix(&C);
    freeMatrix(&T);
    freeMatrix(&S);
+   freeMatrix(&D);
+   freeMatrix(&E);
 
    return EXIT_SUCCESS;
 }

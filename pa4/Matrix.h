@@ -60,6 +60,16 @@ Matrix transpose(Matrix A);
 // Returns a reference to a new Matrix object representing xA.
 Matrix scalarMult(double x, Matrix A);
 
+// sum()
+// Returns a reference to a new Matrix object representing A+B.
+// pre: size(A)==size(B)
+Matrix sum(Matrix A, Matrix B);
+
+// diff()
+// Returns a reference to a new Matrix object representing A-B.
+// pre: size(A)==size(B)
+Matrix diff(Matrix A, Matrix B);
+
 /*** DEBUG FUNCTIONS ***/
 
 // printMatrix()
