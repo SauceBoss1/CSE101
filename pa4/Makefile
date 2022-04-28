@@ -1,4 +1,4 @@
-targets = ListClient MatrixTest
+targets = ListClient MatrixTest MatrixClient
 objs = List.o Matrix.o
 
 CC = gcc
@@ -12,6 +12,9 @@ deps = $(patsubst %.o,%.d, $(objs))
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 
 MatrixTest: MatrixTest.o $(objs)
+	$(LINK) $@ $^
+
+MatrixClient: MatrixClient.o $(objs)
 	$(LINK) $@ $^
 
 ListClient: ListClient.o $(objs)

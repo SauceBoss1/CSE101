@@ -70,6 +70,11 @@ Matrix sum(Matrix A, Matrix B);
 // pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B);
 
+// product()
+// Returns a reference to a new Matrix object representing AB
+// pre: size(A)==size(B)
+Matrix product(Matrix A, Matrix B);
+
 /*** DEBUG FUNCTIONS ***/
 
 // printMatrix()

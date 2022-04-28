@@ -401,6 +401,45 @@ double vectorDot(List A, List B){
    return sum;
 }
 
+Matrix product(Matrix A, Matrix B){
+   if(A == NULL || B == NULL){
+      printf("MATRIX ERROR: Calling product() when A or B is NULL\n");
+      exit(EXIT_FAILURE);
+   }
+
+   if(size(A) != size(B)){
+      printf("MATRIX ERROR: product(): size(A) != size(B)\n");
+      exit(EXIT_FAILURE);
+   }
+
+   Matrix T = transpose(B);
+   Matrix M = newMatrix(size(A));
+
+   for(int i = 1; i <= size(A); ++i){
+      List A_row = A->m_body[i];
+      List new_row = M->m_body[i];
+
+      if(length(A_row) == 0){
+         continue;
+      }
+
+      for(int j = 1; j <= size(B); ++j){
+         List B_row = T->m_body[j];
+         if(length(B_row) == 0){
+            continue;
+         }
+         double dot_prod = vectorDot(A_row, B_row);
+         if (dot_prod != 0){
+            append(new_row, newEntry(j, dot_prod));
+            M->NNZ++;
+         }
+      }
+   }
+
+   freeMatrix(&T);
+   return M;
+}
+
 /*** DEBUG FUNCTIONS ***/
 
 void printMatrix(FILE* out, Matrix M){
