@@ -104,17 +104,16 @@ bool vectorEquals(List P, List Q){
       printf("vectorEquals ERROR: List P or Q is NULL!\n");
       exit(EXIT_FAILURE);
    }
-   if( length(P) != length(Q)){
+   if( length(P) != length(Q) ){
       return false;
    }
 
-   for(moveFront(P), moveFront(Q); index(P) >= 0 && index(Q) >=0; moveNext(P), moveNext(Q)){
+   for(moveFront(P), moveFront(Q); index(P) >= 0; moveNext(P), moveNext(Q)){
       Entry ent_p = (Entry)get(P);
       Entry ent_q = (Entry)get(Q);
       if(!(ent_p->col == ent_q->col && ent_p->val == ent_q->val)){
          return false;
       }
-      return true;
    }
    return true;
 }
@@ -128,7 +127,15 @@ int equals(Matrix A, Matrix B){
       return 0;
    }
 
+   if( A == B ){
+      return 1;
+   }
+
    for(int i = 1; i < size(A) + 1; ++i){
+      if(length(A->m_body[i]) == 0 || length(B->m_body[i]) == 0){
+         continue;
+      }
+
       if(!(vectorEquals(A->m_body[i], B->m_body[i]))){
          return 0;
       }
