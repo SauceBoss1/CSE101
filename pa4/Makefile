@@ -1,4 +1,4 @@
-targets = ListClient MatrixTest MatrixClient
+targets = ListClient MatrixTest MatrixClient Sparse
 objs = List.o Matrix.o
 
 CC = gcc
@@ -10,6 +10,9 @@ LINK = $(CC) $(CFLAGS) -o
 deps = $(patsubst %.o,%.d, $(objs))
 -include $(deps)
 DEPFLAGS = -MMD -MF $(@:.o=.d)
+
+Sparse: Sparse.o $(objs)
+	$(LINK) $@ $^
 
 MatrixTest: MatrixTest.o $(objs)
 	$(LINK) $@ $^

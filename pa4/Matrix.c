@@ -341,6 +341,12 @@ Matrix sum(Matrix A, Matrix B){
    }
 
    Matrix final_M = newMatrix(size(A));
+   
+   if( A == B){
+      freeMatrix(&final_M);
+      return scalarMult(2, A);
+   }
+
    for(int i = 1; i < size(B) + 1; ++i){
       List row_A = A->m_body[i];
       List row_B = B->m_body[i];
