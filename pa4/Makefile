@@ -6,7 +6,7 @@
 #  make GraphTest           makes MatrixTest
 #  make clean               removes binaries and executables
 #------------------------------------------------------------------------------
-targets = ListClient MatrixTest MatrixClient Sparse
+targets = ListClient MatrixTest MatrixClient Sparse ListTest
 objs = List.o Matrix.o
 
 CC = gcc
@@ -23,6 +23,9 @@ Sparse: Sparse.o $(objs)
 	$(LINK) $@ $^
 
 MatrixTest: MatrixTest.o $(objs)
+	$(LINK) $@ $^
+
+ListTest: ListTest.o $(objs)
 	$(LINK) $@ $^
 
 MatrixClient: MatrixClient.o $(objs)
