@@ -29,7 +29,8 @@ int main(void){
    A = newList(); B = newList();
 
    ListEle X[] = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
-
+   ListEle w,z;
+   w = -50; z = -69;
    for(int i = 1; i < 21; ++i){
       append(A,&X[i]);
       prepend(B,&X[i]);
@@ -46,6 +47,22 @@ int main(void){
    printf("Front of B: %d\n", *(ListEle *)front(B));
    printf("Front of B: %d\n", *(ListEle *)back(B));
 
+   for(moveBack(B); index(B) >= 5; movePrev(B)){}
+
+   insertAfter(B, &w);
+   insertBefore(B, &z);
+
+   printf("\nIndex of B: %d\n",index(B));
+   printList(B);
+
+   deleteFront(A);
+   deleteBack(B);
+
+   for(moveFront(B); index(B) <= 3; moveNext(B)){}
+   delete(B);
+
+   printList(A);
+   printList(B);
 
    freeList(&A);
    freeList(&B);
