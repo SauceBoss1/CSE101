@@ -31,14 +31,23 @@ typedef struct MatrixObj{
 
 /*** CONSTRUCTOR-DESTRUCTORS ***/
 
+// newEntry()
+// Creates a new entry struct
 Entry newEntry(int column, double value){
    Entry E = malloc(sizeof(EntryObj));
-   //TODO: add the if null part
+   if(E == NULL){
+      free(E);
+      E = NULL;
+      printf("ERROR: Cannot allocate enough memory to create an Entry\n");
+      exit(EXIT_FAILURE);
+   }
    E->col = column;
    E->val = value;
    return E;
 }
 
+// freeEntry()
+// Frees heap memory that's pointing to *pE, also sets *pE to NULL
 void freeEntry(Entry *pE){
    if(pE != NULL && (*pE) != NULL){
       free(*pE);
@@ -47,9 +56,16 @@ void freeEntry(Entry *pE){
    return;
 }
 
+// newMatrix()
+// Returns a reference to a new nXn Matrix object in the zero state.
 Matrix newMatrix(int n){
    Matrix M = malloc(sizeof(MatrixObj));
-   //TODO: Add if null check
+   if(M == NULL){
+      free(M);
+      M = NULL;
+      printf("ERROR: Cannot allocate enough memory to create a Matrix\n");
+      exit(EXIT_FAILURE);
+   }
 
    M->m_body = calloc(n+1, sizeof(List));
    for(int i = 1; i < n+1; ++i){
@@ -60,6 +76,8 @@ Matrix newMatrix(int n){
    return M;
 }
 
+// freeMatrix()
+// Frees heap memory associated with *pM, sets *pM to NULL.
 void freeMatrix(Matrix* pM){
    if(pM != NULL && *pM != NULL){
       Matrix M = (*pM);
@@ -84,6 +102,8 @@ void freeMatrix(Matrix* pM){
 
 /*** ACCESS FUNCTIONS ***/
 
+// size()
+// Return the size of square Matrix M.
 int size(Matrix M){
    if(M == NULL){
       printf("MATRIX ERROR: Calling size() on a NULL Matrix\n");
@@ -92,6 +112,8 @@ int size(Matrix M){
    return M->size;
 }
 
+// NNZ()
+// Return the number of non-zero elements in M.
 int NNZ(Matrix M){
    if(M ==  NULL){
       printf("MATRIX ERROR: Calling NNS() on a NULL Matrix\n");
@@ -124,6 +146,8 @@ bool vectorEquals(List P, List Q){
    return true;
 }
 
+// equals()
+// Return true (1) if matrices A and B are equal, false (0) otherwise.
 int equals(Matrix A, Matrix B){
    if(A == NULL || B == NULL){
       printf("MATRIX ERROR: Either A or B is NULL when calling equals()\n");
@@ -151,6 +175,8 @@ int equals(Matrix A, Matrix B){
 
 /***  MANIPULATION PROCEDURES ***/
 
+// makeZero()
+// Re-sets M to the zero Matrix state.
 void makeZero(Matrix M){
    if(M == NULL){
       printf("MATRIX ERROR: Calling makeZero on a NULL matrix\n");
@@ -170,6 +196,9 @@ void makeZero(Matrix M){
    return;
 }
 
+// changeEntry()
+// Changes the ith row, jth column of M to the value x.
+// Pre: 1<=i<=size(M), 1<=j<=size(M)
 void changeEntry(Matrix M, int i, int j, double x){
    if(M == NULL){
       printf("MATRIX ERROR: Calling changeEntry() on a NULL Matrix");
@@ -214,6 +243,8 @@ void changeEntry(Matrix M, int i, int j, double x){
 
 /*** ARITHMETIC OPERATIONS ***/
 
+// copy()
+// Returns a reference to a new Matrix object having the same entries as A.
 Matrix copy(Matrix A){
    if(A == NULL){
       printf("MATRIX ERROR: Calling copy() on a NULL matrix\n");
@@ -239,6 +270,9 @@ Matrix copy(Matrix A){
    return M;
 }
 
+// transpose()
+// Returns a reference to a new Matrix object representing the transpose
+// of A.
 Matrix transpose(Matrix A){
    if(A == NULL){
       printf("MATRIX ERROR: Calling transpose() on a NULL list\n");
@@ -264,6 +298,8 @@ Matrix transpose(Matrix A){
    return M;
 }
 
+// scalarMult()
+// Returns a reference to a new Matrix object representing xA.
 Matrix scalarMult(double x, Matrix A){
    if(A == NULL){
       printf("MATRIX ERROR: Calling scalarMult() on a NULL list\n");
@@ -343,6 +379,9 @@ List vectorSum(Matrix M, List A, List B){
    return final;
 }
 
+// sum()
+// Returns a reference to a new Matrix object representing A+B.
+// pre: size(A)==size(B)
 Matrix sum(Matrix A, Matrix B){
    if(A == NULL || B == NULL){
       printf("MATRIX ERROR: Calling sum() when A or B is NULL\n");
@@ -373,6 +412,9 @@ Matrix sum(Matrix A, Matrix B){
    return final_M;
 }
 
+// diff()
+// Returns a reference to a new Matrix object representing A-B.
+// pre: size(A)==size(B)
 Matrix diff(Matrix A, Matrix B){
    if(A == NULL || B == NULL){
       printf("MATRIX ERROR: Calling diff() when A or B is NULL\n");
@@ -420,6 +462,9 @@ double vectorDot(List A, List B){
    return sum;
 }
 
+// product()
+// Returns a reference to a new Matrix object representing AB
+// pre: size(A)==size(B)
 Matrix product(Matrix A, Matrix B){
    if(A == NULL || B == NULL){
       printf("MATRIX ERROR: Calling product() when A or B is NULL\n");
@@ -462,6 +507,14 @@ Matrix product(Matrix A, Matrix B){
 
 /*** DEBUG FUNCTIONS ***/
 
+/*
+printMatrix()
+Prints a string representation of Matrix M to filestream out. Zero rows
+are not printed. Each non-zero row is represented as one line consisting
+of the row number, followed by a colon, a space, then a space separated
+list of pairs "(col, val)" giving the column numbers and non-zero values
+in that row. The double val will be rounded to 1 decimal point.
+*/
 void printMatrix(FILE* out, Matrix M){
    if(M == NULL){
       printf("MATRIX ERROR: calling printMatrix on a NULL matrix\n");
