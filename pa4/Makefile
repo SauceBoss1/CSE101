@@ -1,3 +1,11 @@
+#------------------------------------------------------------------------------
+#  Makefile for CMPS 101 Programming Assignment 3
+#
+#  make                     makes Sparse
+#  make GraphClient         makes MatrixClient
+#  make GraphTest           makes MatrixTest
+#  make clean               removes binaries and executables
+#------------------------------------------------------------------------------
 targets = ListClient MatrixTest MatrixClient Sparse
 objs = List.o Matrix.o
 

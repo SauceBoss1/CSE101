@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA4 
+* Sparse.c 
+* Main client file to use the Matrix ADT
+*********************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

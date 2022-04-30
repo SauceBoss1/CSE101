@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA4 
+* Matrix.c 
+* Implementation for the Matrix ADT
+*********************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>

@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA4 
+* MatrixTest.c 
+* Main test harness for the Matrix ADT
+*********************************************************************************/
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -56,6 +62,16 @@ int main(){
    printMatrix(stdout, E);
    printf("\n");
 
+   Matrix P = product(A, B);
+   printf("%d\n", NNZ(P));
+   printMatrix(stdout, P);
+   printf("\n");
+
+   Matrix X = product(B, A);
+   printf("%d\n", NNZ(P));
+   printMatrix(stdout, P);
+   printf("\n");
+
    freeMatrix(&A);
    freeMatrix(&B);
    freeMatrix(&C);
@@ -63,6 +79,8 @@ int main(){
    freeMatrix(&S);
    freeMatrix(&D);
    freeMatrix(&E);
+   freeMatrix(&P);
+   freeMatrix(&X);
 
    return EXIT_SUCCESS;
 }
