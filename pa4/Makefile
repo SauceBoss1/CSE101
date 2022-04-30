@@ -31,6 +31,8 @@ MatrixClient: MatrixClient.o $(objs)
 ListClient: ListClient.o $(objs)
 	$(LINK) $@ $^
 
+all: $(targets)
+
 %.o: %.c
 	$(COMPILE) $< $(DEPFLAGS)
 
