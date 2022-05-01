@@ -217,14 +217,14 @@ void changeEntry(Matrix M, int i, int j, double x){
       int prev_len = length(row);
       for(moveFront(row); index(row) >= 0; moveNext(row)){
          Entry curr_ent = (Entry)get(row);
-         if(curr_ent->col > j && x != 0){
+         if(curr_ent->col > j && x != 0){ //is the curreny column is bigger than the target, then insert before
             insertBefore(row, newEntry(j, x));
             M->NNZ++;
             return;
-         } else if(curr_ent->col == j && x != 0){
+         } else if(curr_ent->col == j && x != 0){ //replace value of current index if we find a target
             curr_ent->val = x;
             return;
-         } else if(curr_ent->col == j && x == 0){
+         } else if(curr_ent->col == j && x == 0){ //delete an already existing node
             freeEntry(&curr_ent);
             curr_ent = NULL;
             delete(row);
@@ -233,7 +233,7 @@ void changeEntry(Matrix M, int i, int j, double x){
          }
       }
       int new_len = length(row);
-      if(new_len == prev_len && x != 0){
+      if(new_len == prev_len && x != 0){ //if by chance the target is supposed to be at the end, then append it
          append(row, newEntry(j, x));
          M->NNZ++;
       }
@@ -287,7 +287,7 @@ Matrix transpose(Matrix A){
          continue;
       }
 
-      for(moveFront(row); index(row) >= 0; moveNext(row)){
+      for(moveFront(row); index(row) >= 0; moveNext(row)){ //same as copy but reverse the order
          Entry curr_ent = (Entry)get(row);
          List new_row = M->m_body[curr_ent->col];
          append(new_row, newEntry(i, curr_ent->val));
@@ -316,7 +316,7 @@ Matrix scalarMult(double x, Matrix A){
       }
 
       List M_row = M->m_body[i];
-      for(moveFront(A_row); index(A_row) >= 0; moveNext(A_row)){
+      for(moveFront(A_row); index(A_row) >= 0; moveNext(A_row)){ //same as copy and transpose but multiply all entries
          Entry curr_ent = (Entry)get(A_row);
          append(M_row, newEntry(curr_ent->col, (curr_ent->val * x)));
          M->NNZ++;
@@ -325,6 +325,10 @@ Matrix scalarMult(double x, Matrix A){
    return M;
 } 
 
+/**
+ * vectorSum()
+ * Returns the sum of 2 vectors that are the same size
+ */
 List vectorSum(Matrix M, List A, List B){
    if(A == NULL || B == NULL){
       printf("VECTORSUM ERROR: Calling vectorSum() when A or B is NULL\n");
@@ -362,14 +366,14 @@ List vectorSum(Matrix M, List A, List B){
       }
    }
 
-   while(index(A) >= 0){
+   while(index(A) >= 0){ //if there are still entries left, append the to the vector
       Entry ent_A = (Entry)get(A);
       append(final, newEntry(ent_A->col, ent_A->val));
       M->NNZ++;
       moveNext(A);
    }
 
-   while(index(B) >= 0){
+   while(index(B) >= 0){ //if there are still entries left, append the to the vector
       Entry ent_B = (Entry)get(B);
       append(final, newEntry(ent_B->col, ent_B->val));
       M->NNZ++;
@@ -431,6 +435,10 @@ Matrix diff(Matrix A, Matrix B){
    return M;
 }
 
+/**
+ * vectorDot()
+ * Returns the dot product of two vectors that are the same size
+ */
 double vectorDot(List A, List B){
    if(A == NULL || B == NULL){
       printf("VECTOR DOT ERROR: List A or List B is NULL\n");
