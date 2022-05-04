@@ -87,3 +87,27 @@ ListElement List::peekPrev() const{
    return beforeCursor->data;
 }
 
+/*** MANIPULATION PROCEDURES ***/
+
+void List::clear(){
+   while( length() > 0){
+      eraseBefore();
+   }
+   num_elements = 0;
+   pos_cursor = 0;
+   return;
+}
+
+void List::moveFront(){
+   beforeCursor = frontDummy;
+   afterCursor = frontDummy->next;
+   pos_cursor = 0;
+   return;
+}
+
+void List::moveBack(){
+   afterCursor = backDummy;
+   beforeCursor = backDummy->prev;
+   pos_cursor = length();
+}
+
