@@ -111,3 +111,30 @@ void List::moveBack(){
    pos_cursor = length();
 }
 
+ListElement List::moveNext(){
+   if(position() > length()){
+      throw std::length_error("List: moveNext(): position > length\n");
+   }
+   if(afterCursor != backDummy){
+      afterCursor = afterCursor->next;
+      beforeCursor = beforeCursor->next;
+      pos_cursor++;
+      return beforeCursor->data;
+   }
+   return beforeCursor->data;
+}
+
+ListElement List::movePrev(){
+   if(position() < 0){
+      throw std::length_error("List: moveNext(): position < 0\n");
+   }
+   if(beforeCursor != frontDummy){
+      afterCursor = afterCursor->prev;
+      beforeCursor = beforeCursor->prev;
+      pos_cursor--;
+      return afterCursor->data;
+   }
+   return afterCursor->data;
+}
+
+
