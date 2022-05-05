@@ -119,7 +119,6 @@ ListElement List::moveNext(){
       afterCursor = afterCursor->next;
       beforeCursor = beforeCursor->next;
       pos_cursor++;
-      return beforeCursor->data;
    }
    return beforeCursor->data;
 }
@@ -132,7 +131,6 @@ ListElement List::movePrev(){
       afterCursor = afterCursor->prev;
       beforeCursor = beforeCursor->prev;
       pos_cursor--;
-      return afterCursor->data;
    }
    return afterCursor->data;
 }
