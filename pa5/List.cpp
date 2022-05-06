@@ -292,57 +292,38 @@ int List::findPrev(ListElement x){
 
 //TODO: CLEANUP
 void List::cleanup(){
-   //std::cout <<"Pos: " << this->pos_cursor << std::endl;
-   for(Node *N = frontDummy->next; N != backDummy; N=N->next){
-      std::cout << "this = " << this->to_string() << std::endl;
-      std::cout <<"Pos: " << this->pos_cursor << std::endl;
-
-      for(Node* M = N->next; M != backDummy && M->next != nullptr; M=M->next){
-         std::cout << "M: " << M->data << std::endl;
-         
-         if(M->data == N->data && beforeCursor == M){
-            Node* X = M;
-            beforeCursor = M->prev;
-            M->prev->next = M->next;
-            M->next->prev = M->prev;
-            pos_cursor--;
-            num_elements--;
-            if(M->next == backDummy){
-               delete X;
-               break;
+   int pseudo_pos = 0;
+   for(Node* N = frontDummy->next; N != backDummy; N=N->next){
+      Node* M = N->next;
+      int pseudo_pos_inner = pseudo_pos;
+      while(M != backDummy){
+         if(M->data == N->data){
+            if(M==beforeCursor){
+               M=M->next;
+               eraseBefore();
+            } else if(M==afterCursor){
+               M=M->next;
+               eraseAfter();
+            } else {
+               Node* prev_M = M;
+               M = M->next;
+               prev_M->prev->next = prev_M->next;
+               prev_M->next->prev = prev_M->prev;
+               prev_M->next = nullptr;
+               prev_M->prev = nullptr;
+               delete prev_M;
+               num_elements--;
+               if(pseudo_pos_inner < position()){
+                  pos_cursor--;
+               }
             }
-            delete X;
-         } else if (M->data == N->data && afterCursor == M){
-            Node* X = M;
-            afterCursor = M->next;
-            M->prev->next = M->next;
-            M->next->prev = M->prev;
-            num_elements--;
-            pos_cursor--;
-            if(M->next == backDummy){
-               delete X;
-               break;
-            }
-            delete X;
-         }else if(M->data == N->data && M->next == backDummy){
-            Node* X = M;
-            M->prev->next = M->next;
-            M->next->prev = M->prev;
-            num_elements--;
-            delete X;
-            break;
-         } else if(M->data == N->data){
-            Node* X = M;
-            M->prev->next = M->next;
-            M->next->prev = M->prev;
-            num_elements--;
-            if(M->next == backDummy){
-               delete X;
-               break;
-            }
-            delete X;
+         } else {
+            M = M->next;
          }
+         
+         pseudo_pos_inner++;
       }
+      pseudo_pos++;
    }
 }
 
