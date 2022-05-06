@@ -1,11 +1,12 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include <limits>
 
 #include "List.h"
 
-#define FRONT_NIL -9999
-#define BACK_NIL -8888
+#define FRONT_NIL -2147483647 - 1
+#define BACK_NIL 2147483647
 
 /*** PRIVATE CONSTRUCTOR(S) ***/
 
@@ -52,6 +53,8 @@ List::~List(){
    }
    beforeCursor = nullptr;
    afterCursor = nullptr;
+   frontDummy->next = nullptr;
+   backDummy->prev = nullptr;
    delete frontDummy;
    delete backDummy;
 }
@@ -243,6 +246,7 @@ void List::eraseBefore(){
       beforeCursor = frontDummy;
       num_elements--;
       pos_cursor--;
+      delete N;
    } else if(beforeCursor != frontDummy){
       Node *N = beforeCursor;
       beforeCursor->prev->next = afterCursor;
@@ -354,16 +358,19 @@ List List::concat(const List& L) const{
 
 std::string List::to_string() const{
    Node *N = nullptr;
-   std::string s = "(";
-   for(N = frontDummy->next; N != backDummy; N=N->next){
-      if(N->next == backDummy){
-         s += std::to_string(N->data)+") ";
-      } else{
-         s += std::to_string(N->data)+", ";
+   if(length() > 0){
+      std::string s = "(";
+      for(N = frontDummy->next; N != backDummy; N=N->next){
+         if(N->next == backDummy){
+            s += std::to_string(N->data)+") ";
+         } else{
+            s += std::to_string(N->data)+", ";
+         }
       }
+      return s;
    }
 
-   return s;
+   return "";
 }
 
 bool List::equals(const List& R) const{
