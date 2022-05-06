@@ -294,9 +294,12 @@ int List::findPrev(ListElement x){
 void List::cleanup(){
    //std::cout <<"Pos: " << this->pos_cursor << std::endl;
    for(Node *N = frontDummy->next; N != backDummy; N=N->next){
-      //std::cout << "this = " << this->to_string() << std::endl;
-      for(Node* M = N->next; M != backDummy; M=M->next){
-         //std::cout << "M: " << M->data << std::endl;
+      std::cout << "this = " << this->to_string() << std::endl;
+      std::cout <<"Pos: " << this->pos_cursor << std::endl;
+
+      for(Node* M = N->next; M != backDummy && M->next != nullptr; M=M->next){
+         std::cout << "M: " << M->data << std::endl;
+         
          if(M->data == N->data && beforeCursor == M){
             Node* X = M;
             beforeCursor = M->prev;
@@ -308,7 +311,6 @@ void List::cleanup(){
                delete X;
                break;
             }
-            std::cout <<"Pos: " << this->pos_cursor << std::endl;
             delete X;
          } else if (M->data == N->data && afterCursor == M){
             Node* X = M;
@@ -316,6 +318,7 @@ void List::cleanup(){
             M->prev->next = M->next;
             M->next->prev = M->prev;
             num_elements--;
+            pos_cursor--;
             if(M->next == backDummy){
                delete X;
                break;
@@ -333,6 +336,10 @@ void List::cleanup(){
             M->prev->next = M->next;
             M->next->prev = M->prev;
             num_elements--;
+            if(M->next == backDummy){
+               delete X;
+               break;
+            }
             delete X;
          }
       }
