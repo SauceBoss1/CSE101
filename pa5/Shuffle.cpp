@@ -47,7 +47,7 @@ int main(int argc, char* argv[]){
 
    List Deck;
    List cpy_deck = Deck; //we will use this to determine when to stop shuffling
-   for(int i = 0; i <= deck_size; ++i){
+   for(int i = 0; i < deck_size; ++i){
       Deck.insertBefore(i);
    }
 
