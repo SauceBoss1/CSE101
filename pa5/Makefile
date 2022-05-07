@@ -12,7 +12,7 @@ Shuffle : Shuffle.o List.o
 	g++ -std=c++17 -Wall -o Shuffle Shuffle.o List.o 
 
 Shuffle.o : List.h Shuffle.cpp
-	g++ -std=c++17 -Wall -c Shuffle.cpp
+	g++ -std=c++17 -Wall -c -g Shuffle.cpp
 
 ListClient : ListClient.o List.o
 	g++ -std=c++17 -Wall -o ListClient ListClient.o List.o 

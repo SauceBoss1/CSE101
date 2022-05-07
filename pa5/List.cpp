@@ -103,11 +103,14 @@ void List::clear(){
    if(length() == 0){
       throw std::length_error("List: clear(): length == 0");
    }
+   moveBack();
    while( length() > 0){
       eraseBefore();
    }
    num_elements = 0;
    pos_cursor = 0;
+   beforeCursor = frontDummy;
+   afterCursor = backDummy;
    return;
 }
 
@@ -235,7 +238,7 @@ void List::eraseAfter(){
 
 void List::eraseBefore(){
    if(position() <= 0){
-      throw std::range_error("List(): eraseAfter(): position < 0");
+      throw std::range_error("List(): eraseBefore(): position < 0");
    }
    if(length() == 1 && beforeCursor != frontDummy){
       Node* N = beforeCursor;
@@ -290,7 +293,7 @@ int List::findPrev(ListElement x){
    return -1;
 }
 
-//TODO: CLEANUP
+
 void List::cleanup(){
    int pseudo_pos = 0;
    for(Node* N = frontDummy->next; N != backDummy; N=N->next){
