@@ -100,9 +100,6 @@ ListElement List::peekPrev() const{
 /*** MANIPULATION PROCEDURES ***/
 
 void List::clear(){
-   if(length() == 0){
-      throw std::length_error("List: clear(): length == 0");
-   }
    moveBack();
    while( length() > 0){
       eraseBefore();

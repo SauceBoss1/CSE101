@@ -45,8 +45,8 @@ int main(int argc, char* argv[]){
 
    int deck_size = stoi(argv[1]);
    
-   cout<< "deck size\t\tshuffle count" << endl;
-   cout<< "-------------------------------------" << endl;
+   cout<< "deck size       shuffle count" << endl;
+   cout<< "------------------------------" << endl;
    for(int i = 1; i <= deck_size; ++i){
       List Deck;
       Deck.moveFront();

@@ -30,7 +30,7 @@ List.o : List.h List.cpp
 	g++ -std=c++17 -Wall -c -g List.cpp
 
 clean :
-	rm -f Shuffle ListClient ListTest *.o
+	rm -f Shuffle ListClient ListTest *.o *.txt
 
 check1 : ListClient
 	valgrind --leak-check=full ListClient
