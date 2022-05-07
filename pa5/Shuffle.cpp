@@ -31,10 +31,7 @@ void shuffle(List &D){
       if(first_half.position() < first_half.length()){
          D.insertBefore(first_half.moveNext());
       }
-
    }
-
-   
 }
 
 int main(int argc, char* argv[]){
@@ -61,7 +58,6 @@ int main(int argc, char* argv[]){
          shuffles++;
       }
       cout<< i << "\t\t\t" << shuffles <<endl;
-
    }  
 
    return EXIT_SUCCESS;
