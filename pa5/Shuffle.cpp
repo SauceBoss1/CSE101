@@ -44,16 +44,25 @@ int main(int argc, char* argv[]){
    }
 
    int deck_size = stoi(argv[1]);
+   
+   cout<< "deck size\t\tshuffle count" << endl;
+   cout<< "-------------------------------------" << endl;
+   for(int i = 1; i <= deck_size; ++i){
+      List Deck;
+      Deck.moveFront();
+      for(int j = 1; j <= i; ++j){
+         Deck.insertBefore(j);
+      }
+      int shuffles = 1;
+      List cpy_deck = Deck; //we will use this to determine when to stop shuffling
+      shuffle(Deck);
+      while( !(Deck == cpy_deck) ){
+         shuffle(Deck);
+         shuffles++;
+      }
+      cout<< i << "\t\t\t" << shuffles <<endl;
 
-   List Deck;
-   List cpy_deck = Deck; //we will use this to determine when to stop shuffling
-   for(int i = 0; i < deck_size; ++i){
-      Deck.insertBefore(i);
-   }
+   }  
 
-
-   shuffle(Deck);
-   Deck.moveFront();
-   cout<< Deck << endl;
    return EXIT_SUCCESS;
 }
