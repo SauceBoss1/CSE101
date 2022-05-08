@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA5
+* Shuffle.c 
+* Source file that contains the implmentations for the List ADT
+*********************************************************************************/
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -5,8 +11,8 @@
 
 #include "List.h"
 
-#define FRONT_NIL -2147483647 - 1
-#define BACK_NIL 2147483647
+#define FRONT_NIL -2147483647 - 1 //smallest integer
+#define BACK_NIL 2147483647 //biggest integer
 
 /*** PRIVATE CONSTRUCTOR(S) ***/
 
