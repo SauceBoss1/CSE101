@@ -2,9 +2,9 @@ targets = ListClient Arithmetic ListTest BigIntegerTest *Client
 objs = List.o BigInteger.o
 
 CC = g++
-CFLAGS = -std=c++17 -Wall
+CFLAGS = -std=c++17 -Wall 
 
-COMPILE = $(CC) $(CFLAGS) -g -c 
+COMPILE = $(CC) $(CFLAGS) -g -c  
 LINK = $(CC) $(CFLAGS) -o
 
 deps = $(patsubst %.o,%.d, $(objs))
@@ -14,7 +14,7 @@ DEPFLAGS = -MMD -MF $(@:.o=.d)
 BigIntegerTest: BigIntegerTest.o $(objs)
 	$(LINK) $@ $^
 
-%.o: %.c
+%.o: %.cpp
 	$(COMPILE) $< $(DEPFLAGS)
 
 clean:

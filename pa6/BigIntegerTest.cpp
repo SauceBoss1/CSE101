@@ -11,5 +11,6 @@ int main(){
    string y = "-1234567898";
    string z = "0";
    BigInteger A = BigInteger(y);
+   cout << A.sign() <<endl;
    return EXIT_SUCCESS;
 }
