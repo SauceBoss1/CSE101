@@ -22,7 +22,8 @@ BigInteger::BigInteger(std::string s){
    if(s.empty()){
       throw std::invalid_argument("BigInteger: FromString contructor: s is empty");
    }
-   
+   signum = 0;
+
    if (s[0] == '+'){
       signum = 1;
       s.erase(0,1);
@@ -72,4 +73,54 @@ BigInteger::BigInteger(const BigInteger& N){
 
 int BigInteger::sign() const{
    return signum;
+}
+
+int BigInteger::compare(const BigInteger& N) const{
+   if (signum > N.signum){
+      return 1;
+   } else if(signum < N.signum){
+      return -1;
+   }
+
+   int this_length = digits.length();
+   int N_length = N.digits.length();
+   if(this_length > N_length){
+      return 1;
+   } else if (this_length < N_length){
+      return -1;
+   }
+
+   if(digits == N.digits){
+      return 0;
+   }
+
+   List A = digits;
+   List B = N.digits;
+
+   A.moveFront();
+   B.moveFront();
+   while(A.position() < A.length() && B.position() < B.length()){
+      long x = A.moveNext();
+      long y = B.moveNext();
+      if(x > y){
+         return 1;
+      }
+      if(x < y){
+         return -1;
+      }
+   }
+   return 0;
+}
+
+/*** MAINPULATION PROCEDURES ***/
+
+void BigInteger::makeZero(){
+   signum = 0;
+   digits.clear();
+}
+
+void BigInteger::negate(){
+   if(signum != 0){
+      signum *= -1;
+   }
 }
