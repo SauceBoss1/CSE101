@@ -9,6 +9,8 @@
 #define POWER 2
 #define DIGITS "0123456789"
 
+#define SUB_ABS(a,b) ((a-b) > 0) ? (a-b) : -1*(a-b)
+
 /*** CLASS CONSTRUCTORS AND DESTRUCTORS ***/
 
 // Creates the BigInteger ADT in its empty state
@@ -61,6 +63,7 @@ BigInteger::BigInteger(std::string s){
    if(signum == 0){
       signum = 1;
    }
+   //std::cout << digits << std::endl;
    return;
 }
 
@@ -124,3 +127,52 @@ void BigInteger::negate(){
       signum *= -1;
    }
 }
+
+/*** HELPER FUNCTIONS ***/
+
+void negateList(List &L){
+   if(L.length() > 0){
+      for(L.moveFront(); L.position() < L.length(); L.moveNext()){
+         L.setAfter(L.peekNext() * -1);
+      }
+   }
+}
+
+void sumList(List &S, List A, List B, int sign){
+   S.clear();
+   int len_diff = SUB_ABS(A.length(), B.length());
+
+   List big, little;
+
+   if(A.length() < B.length()){
+      big = B;
+      little = A;
+   } else {
+      big = A;
+      little = B;
+   }
+
+   big.moveFront();
+   little.moveFront();
+   S.moveFront();
+   while(big.position() < big.length()){
+      if(big.position() < len_diff){
+         if(B == big){
+            S.insertBefore(-1 * B.peekNext());
+         }else {
+            S.insertBefore(B.peekNext());
+         }
+         big.moveNext();
+      } else {
+         if(B == big){
+            S.insertBefore(little.peekNext() + (sign * big.peekNext()));
+         } else{
+            S.insertBefore(big.peekNext() + (sign * little.peekNext()));
+         }
+         big.moveNext();
+         little.moveNext();
+      }
+   }
+   return;
+}
+

@@ -8,7 +8,7 @@ using namespace std;
 
 int main(){
    string x = "-123456788";
-   string y = "123456788";
+   string y = "123456708";
    string z = "0";
    BigInteger A = BigInteger(x);
    BigInteger B = BigInteger(y);
