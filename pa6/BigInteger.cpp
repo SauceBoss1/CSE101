@@ -71,7 +71,7 @@ BigInteger::BigInteger(std::string s){
       signum = 1;
    }
 
-   std::cout << "digits: " << digits << std::endl;
+   //std::cout << "digits: " << digits << std::endl;
    return;
 }
 
@@ -284,23 +284,33 @@ BigInteger BigInteger::add(const BigInteger& N) const{
     */
 
    List ans;
+   BigInteger x;
+
 
    if(signum == -1 && N.signum == 1){
       BigInteger y = N.add(*this);
       return y;
+   }
+   
+   if(signum == -1 && N.signum == -1){
+      BigInteger left = *this;
+      BigInteger right = N;
+      left.signum = 1;
+      right.signum = 1;
+      x = left.add(right);
+      x.signum = -1;
+      return x;
    }
 
    sumList(ans, left_op, right_op, N.signum);
    int final_sign = normalize(ans);
 
 
-   BigInteger x;
-
    x.signum = final_sign;
    x.digits = ans;
 
 
-   std::cout << "Add: " <<ans << std::endl;
+   //std::cout << "Add: " <<ans << std::endl;
    return x;
 }
 
@@ -345,7 +355,7 @@ BigInteger BigInteger::sub(const BigInteger &N) const{
    x.signum = final_sign;
    x.digits = ans;
 
-   std::cout << "Sub: " <<ans << std::endl;
+   //std::cout << "Sub: " <<ans << std::endl;
    return x;
 
 }
@@ -368,13 +378,47 @@ BigInteger BigInteger::mult(const BigInteger &N) const{
    }
 
    BigInteger x;
-   if (signum == -1 || N.signum == -1){
+   if ((signum == -1 && N.signum == -1)){
+      x.signum = 1;
+   }else if (signum == -1 || N.signum == -1){
       x.signum = -1;
    } else {
       x.signum = 1;
    }
 
    x.digits = ans;
-   std::cout << "Mult: " << ans << std::endl;
+   //std::cout << "Mult: " << ans << std::endl;
    return x;
+}
+
+/*** OTHER FUNCTIONS ***/
+
+std::string BigInteger::to_string(){
+   std::string final_output = "";
+   if(digits.length() > 0){
+      if(signum == -1){
+         final_output += "-";
+      }
+      for(digits.moveFront(); digits.position() < digits.length(); digits.moveNext()){
+         std::string quick_convert = std::to_string(digits.peekNext());
+         if(digits.position() == 0){
+            final_output += quick_convert;
+         } else if (quick_convert.length() < POWER){
+            int num_of_chars = POWER - quick_convert.length();
+            quick_convert.insert(0,num_of_chars,'0');
+
+            final_output += quick_convert;
+         } else {
+            final_output += quick_convert;
+         }
+      }
+      return final_output;
+   }
+   return "0";
+}
+
+/*** OVERRIDEN OPERATORS ***/
+
+std::ostream& operator<<(std::ostream& stream, BigInteger N){
+   return stream<< N.BigInteger::to_string();
 }
