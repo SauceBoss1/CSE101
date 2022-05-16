@@ -257,6 +257,6 @@ BigInteger BigInteger::add(const BigInteger& N) const{
    x.signum = final_sign;
    x.digits = ans;
 
-   std::cout << ans << std::endl;
+   //std::cout << ans << std::endl;
    return x;
 }

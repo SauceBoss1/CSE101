@@ -14,7 +14,7 @@ int main(){
    y = "905860";
    BigInteger A = BigInteger(x);
    BigInteger B = BigInteger(y);
-   A.add(B);
+   BigInteger X = A.add(B);
    cout << A.compare(B) << endl;
    cout << A.sign() <<endl;
    return EXIT_SUCCESS;
