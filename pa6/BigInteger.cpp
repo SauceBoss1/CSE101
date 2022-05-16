@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <cmath>
 
 #include "List.h"
 #include "BigInteger.h"
@@ -140,6 +141,13 @@ void negateList(List &L){
 
 void sumList(List &S, List A, List B, int sign){
    S.clear();
+
+   if(A.length() == 0 && B.length() != 0){
+      S = B;
+   } else if (A.length() != 0 && B.length() == 0){
+      S = A;
+   }
+
    int len_diff = SUB_ABS(A.length(), B.length());
 
    List big, little;
@@ -158,9 +166,9 @@ void sumList(List &S, List A, List B, int sign){
    while(big.position() < big.length()){
       if(big.position() < len_diff){
          if(B == big){
-            S.insertBefore(-1 * B.peekNext());
+            S.insertBefore(sign * big.peekNext());
          }else {
-            S.insertBefore(B.peekNext());
+            S.insertBefore(big.peekNext());
          }
          big.moveNext();
       } else {
@@ -176,3 +184,79 @@ void sumList(List &S, List A, List B, int sign){
    return;
 }
 
+int normalize(List &L){
+   if(L.length() == 0){
+      return 0;
+   }
+
+   L.moveBack();  
+
+   while(L.position() > 0){
+      L.movePrev();
+      long ele = L.peekNext();
+      if(ele >= BASE){
+         L.setAfter(ele % BASE);
+         if(L.position() == 0){
+            L.insertBefore(1);
+            return 1;
+         } else {
+            long prev_ele = L.peekPrev();
+            L.setBefore(prev_ele + 1);
+         }
+      } else if(ele < 0){
+         L.setAfter(ele % BASE);
+         if(L.position() == 0){
+            L.insertBefore(1);
+            return -1;
+         } else {
+            long prev_ele = L.peekPrev();
+            L.setBefore(prev_ele - 1);
+         }
+      }
+   }
+   return 1;
+}
+
+void shiftList(List &L, int p){
+   int ele_nums = ceil(p/POWER);
+
+   L.moveBack();
+   for(int i = 0; i < ele_nums; ++i){
+      L.insertBefore(0);
+   }
+   L.moveFront();
+   return;
+}
+
+void scalarMultiList(List &L, long m){
+   if(m == 1){
+      return;
+   }
+   if(m == 0){
+      L.clear();
+      return;
+   }
+   L.moveFront();
+   while (L.position() < L.length()){
+      L.setBefore(L.moveNext() * m);
+   }
+   return;
+}
+
+BigInteger BigInteger::add(const BigInteger& N) const{
+   List right_op = N.digits;
+   List left_op = digits;
+
+   List ans;
+
+   sumList(ans, left_op, right_op, N.signum);
+   int final_sign = normalize(ans);
+
+
+   BigInteger x;
+   x.signum = final_sign;
+   x.digits = ans;
+
+   std::cout << ans << std::endl;
+   return x;
+}
