@@ -6,8 +6,8 @@
 #include "List.h"
 #include "BigInteger.h"
 
-#define BASE 10
-#define POWER 1
+#define BASE 100
+#define POWER 2
 #define DIGITS "0123456789"
 
 #define SUB_ABS(a,b) ((a-b) > 0) ? (a-b) : -1*(a-b)
@@ -300,7 +300,7 @@ BigInteger BigInteger::add(const BigInteger& N) const{
    x.digits = ans;
 
 
-   std::cout << ans << std::endl;
+   std::cout << "Add: " <<ans << std::endl;
    return x;
 }
 
@@ -345,7 +345,7 @@ BigInteger BigInteger::sub(const BigInteger &N) const{
    x.signum = final_sign;
    x.digits = ans;
 
-   std::cout << ans << std::endl;
+   std::cout << "Sub: " <<ans << std::endl;
    return x;
 
 }
