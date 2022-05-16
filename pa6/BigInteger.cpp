@@ -202,6 +202,9 @@ void sumList(List &S, List A, List B, int sign){
       while(S.moveNext() == 0 && S.position() < S.length()){
          S.eraseBefore();
       }
+      if( S.length() == 1 && S.front() == 0){
+         S.clear();
+      }
    }
    return;
 }
