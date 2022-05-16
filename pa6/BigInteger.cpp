@@ -6,8 +6,8 @@
 #include "List.h"
 #include "BigInteger.h"
 
-#define BASE 100
-#define POWER 2
+#define BASE 10
+#define POWER 1
 #define DIGITS "0123456789"
 
 #define SUB_ABS(a,b) ((a-b) > 0) ? (a-b) : -1*(a-b)
@@ -71,7 +71,7 @@ BigInteger::BigInteger(std::string s){
       signum = 1;
    }
 
-   //std::cout << "digits: " << digits << std::endl;
+   std::cout << "digits: " << digits << std::endl;
    return;
 }
 
@@ -157,8 +157,10 @@ void sumList(List &S, List A, List B, int sign){
 
    if(A.length() == 0 && B.length() != 0){
       S = B;
+      return;
    } else if (A.length() != 0 && B.length() == 0){
       S = A;
+      return;
    }
 
    int len_diff = SUB_ABS(A.length(), B.length());
@@ -197,7 +199,7 @@ void sumList(List &S, List A, List B, int sign){
 
    if(S.front() == 0){
       S.moveFront();
-      while(S.moveNext() == 0){
+      while(S.moveNext() == 0 && S.position() < S.length()){
          S.eraseBefore();
       }
    }
@@ -215,26 +217,29 @@ int normalize(List &L){
       L.movePrev();
       long ele = L.peekNext();
       if(ele >= BASE){
-         L.setAfter(ele % BASE);
+         long multiple = floor(ele / BASE);
+         L.setAfter(ele % (multiple * BASE));
          if(L.position() == 0){
-            L.insertBefore(1);
+            L.insertBefore(multiple);
             return 1;
          } else {
             long prev_ele = L.peekPrev();
-            L.setBefore(prev_ele + 1);
+            L.setBefore(prev_ele + multiple);
          }
       } else if(ele < 0){
+         long multiple = (-1 * floor(ele / BASE)) == 0 ? 1 : (-1 * (ele / BASE));
          if(L.front() == ele){
-            L.setAfter(ele *-1);
+            negateList(L);
+            normalize(L);
             return -1;
          }
-         L.setAfter(BASE % ele);
+         L.setAfter( (multiple * BASE) % ele);
          if(L.position() == 0){
-            L.insertBefore(1);
+            L.insertBefore(multiple);
             return -1;
          } else {
             long prev_ele = L.peekPrev();
-            L.setBefore(prev_ele - 1);
+            L.setBefore(prev_ele - multiple);
          }
       }
    }
@@ -242,7 +247,7 @@ int normalize(List &L){
 }
 
 void shiftList(List &L, int p){
-   int ele_nums = ceil(p/POWER);
+   int ele_nums = p;
 
    L.moveBack();
    for(int i = 0; i < ele_nums; ++i){
@@ -252,7 +257,7 @@ void shiftList(List &L, int p){
    return;
 }
 
-void scalarMultiList(List &L, long m){
+void scalarMultiList(List &L, ListElement m){
    if(m == 1){
       return;
    }
@@ -292,7 +297,7 @@ BigInteger BigInteger::add(const BigInteger& N) const{
    x.digits = ans;
 
 
-   //std::cout << ans << std::endl;
+   std::cout << ans << std::endl;
    return x;
 }
 
@@ -337,7 +342,36 @@ BigInteger BigInteger::sub(const BigInteger &N) const{
    x.signum = final_sign;
    x.digits = ans;
 
-   //std::cout << ans << std::endl;
+   std::cout << ans << std::endl;
    return x;
 
+}
+
+BigInteger BigInteger::mult(const BigInteger &N) const{
+   List left_op = this->digits;
+   List right_op = N.digits;
+   List ans;
+   List prev_answer;
+
+   int shift = 0;
+   for(right_op.moveBack(); right_op.position() > 0; right_op.movePrev()){
+      List temp_vector = left_op;
+      shiftList(temp_vector, shift);
+      scalarMultiList(temp_vector, right_op.peekPrev());
+      sumList(ans, temp_vector, prev_answer,1);
+      normalize(ans);
+      prev_answer = ans;
+      shift++;
+   }
+
+   BigInteger x;
+   if (signum == -1 || N.signum == -1){
+      x.signum = -1;
+   } else {
+      x.signum = 1;
+   }
+
+   x.digits = ans;
+   std::cout << "Mult: " << ans << std::endl;
+   return x;
 }
