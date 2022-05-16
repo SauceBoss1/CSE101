@@ -106,11 +106,17 @@ int BigInteger::compare(const BigInteger& N) const{
    while(A.position() < A.length() && B.position() < B.length()){
       long x = A.moveNext();
       long y = B.moveNext();
-      if(x > y){
+      if(x > y && signum == 1 && N.signum == 1){
          return 1;
       }
-      if(x < y){
+      if(x < y && signum == 1 && N.signum == 1){
          return -1;
+      }
+      if (signum == -1 && N.signum == -1 && x > y){
+         return -1;
+      }
+      if (signum == -1 && N.signum == -1 && x < y){
+         return 1;
       }
    }
    return 0;
@@ -181,6 +187,13 @@ void sumList(List &S, List A, List B, int sign){
          little.moveNext();
       }
    }
+
+   if(S.front() == 0){
+      S.moveFront();
+      while(S.moveNext() == 0){
+         S.eraseBefore();
+      }
+   }
    return;
 }
 
@@ -204,7 +217,11 @@ int normalize(List &L){
             L.setBefore(prev_ele + 1);
          }
       } else if(ele < 0){
-         L.setAfter(ele % BASE);
+         if(L.front() == ele){
+            L.setAfter(ele *-1);
+            return -1;
+         }
+         L.setAfter(BASE % ele);
          if(L.position() == 0){
             L.insertBefore(1);
             return -1;
@@ -247,16 +264,73 @@ BigInteger BigInteger::add(const BigInteger& N) const{
    List right_op = N.digits;
    List left_op = digits;
 
+   /**
+    * TODO: fix the case of -A + B = B - A
+    */
+
    List ans;
+
+   if(signum == -1 && N.signum == 1){
+      BigInteger y = N.add(*this);
+      return y;
+   }
 
    sumList(ans, left_op, right_op, N.signum);
    int final_sign = normalize(ans);
 
 
    BigInteger x;
+
    x.signum = final_sign;
    x.digits = ans;
 
+
    //std::cout << ans << std::endl;
    return x;
+}
+
+BigInteger BigInteger::sub(const BigInteger &N) const{
+   /**
+    * things to watch out for:
+    *    A-B <-good!
+    *    -A - -B <- fixed!
+    *    -A -B <-good!
+    *     A -- B <- good!
+    *     A-B when A<B <-works!
+    */
+   List left_op = digits;
+   List right_op = N.digits;
+
+   int comparison = this->compare(N); //this = left op, N = right op
+   //-1 -> this < N
+   //1 -> this > N
+   //0 -> this == N
+   BigInteger x;
+
+   //this = A
+   //N = B
+   if( comparison == -1){
+      x = N.sub(*this);
+      x.signum = -1;
+      return x;
+   }
+   if(N.signum == -1 && signum == -1){
+      BigInteger y = N; //B
+      BigInteger z = *this;
+      y.signum = 1;
+      z.signum = 1;
+      x = y.sub(z);
+      return x;
+   }
+   List ans;
+
+   sumList(ans, left_op, right_op, -1*N.signum);
+   int final_sign = normalize(ans);
+
+   x.signum = final_sign;
+   x.digits = ans;
+
+   std::cout << ans << std::endl;
+   return x;
+
 }
