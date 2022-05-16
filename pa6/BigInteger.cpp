@@ -40,13 +40,19 @@ BigInteger::BigInteger(std::string s){
       return;
    }
 
-   int s_len = s.length();
+
    if(s.find_first_not_of(DIGITS,1) != std::string::npos){
       throw std::invalid_argument("BigInteger: FromString contructor: invalid input s");
    }
    
+
+   s.erase(0, s.find_first_not_of('0'));
+   int s_len = s.length();
+
+
    std::string x = "";
    int count = 0;
+   digits.moveFront();
    for(int i = s_len - 1; i >= 0; --i){
       if(count == POWER){
          long final = stol(x);
@@ -60,11 +66,12 @@ BigInteger::BigInteger(std::string s){
    if(x.empty() == false){
       this->digits.insertAfter(stol(x));
    }
-
+   
    if(signum == 0){
       signum = 1;
    }
-   //std::cout << digits << std::endl;
+
+   //std::cout << "digits: " << digits << std::endl;
    return;
 }
 
@@ -330,7 +337,7 @@ BigInteger BigInteger::sub(const BigInteger &N) const{
    x.signum = final_sign;
    x.digits = ans;
 
-   std::cout << ans << std::endl;
+   //std::cout << ans << std::endl;
    return x;
 
 }

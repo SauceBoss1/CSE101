@@ -10,6 +10,7 @@ int main(){
    string x = "123456788";
    string y = "123456708";
    string z = "0";
+   //x = "00000000000000000000000000000101";
    //x = "968509";
    //y = "905860";
    BigInteger A = BigInteger(x);
