@@ -11,6 +11,9 @@ deps = $(patsubst %.o,%.d, $(objs))
 -include $(deps)
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 
+BigIntegerClient: BigIntegerClient.o $(objs)
+	$(LINK) $@ $^
+
 BigIntegerTest: BigIntegerTest.o $(objs)
 	$(LINK) $@ $^
 

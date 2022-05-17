@@ -6,8 +6,8 @@
 #include "List.h"
 #include "BigInteger.h"
 
-#define BASE 100
-#define POWER 2
+#define BASE 1000000000
+#define POWER 9
 #define DIGITS "0123456789"
 
 #define SUB_ABS(a,b) ((a-b) > 0) ? (a-b) : -1*(a-b)
@@ -40,7 +40,9 @@ BigInteger::BigInteger(std::string s){
       return;
    }
 
-
+   if(s.length() == 0){
+      throw std::invalid_argument("BigInteger: FromString contructor: invalid input s");
+   }
    if(s.find_first_not_of(DIGITS,1) != std::string::npos){
       throw std::invalid_argument("BigInteger: FromString contructor: invalid input s");
    }
@@ -236,7 +238,7 @@ int normalize(List &L){
             normalize(L);
             return -1;
          }
-         L.setAfter( (multiple * BASE) % ele);
+         L.setAfter( ele + (multiple * BASE));
          if(L.position() == 0){
             L.insertBefore(multiple);
             return -1;
@@ -305,7 +307,9 @@ BigInteger BigInteger::add(const BigInteger& N) const{
    sumList(ans, left_op, right_op, N.signum);
    int final_sign = normalize(ans);
 
-
+   if(ans.length() == 0){
+      final_sign = 0;
+   }
    x.signum = final_sign;
    x.digits = ans;
 
@@ -350,6 +354,7 @@ BigInteger BigInteger::sub(const BigInteger &N) const{
    List ans;
 
    sumList(ans, left_op, right_op, -1*N.signum);
+   //std::cout << "Sub: " <<ans << std::endl;
    int final_sign = normalize(ans);
 
    x.signum = final_sign;
@@ -365,6 +370,11 @@ BigInteger BigInteger::mult(const BigInteger &N) const{
    List right_op = N.digits;
    List ans;
    List prev_answer;
+   BigInteger x;
+   if(signum == 0 || N.signum == 0){
+      x.signum = 0;
+      return x;
+   }
 
    int shift = 0;
    for(right_op.moveBack(); right_op.position() > 0; right_op.movePrev()){
@@ -377,7 +387,6 @@ BigInteger BigInteger::mult(const BigInteger &N) const{
       shift++;
    }
 
-   BigInteger x;
    if ((signum == -1 && N.signum == -1)){
       x.signum = 1;
    }else if (signum == -1 || N.signum == -1){
@@ -421,4 +430,53 @@ std::string BigInteger::to_string(){
 
 std::ostream& operator<<(std::ostream& stream, BigInteger N){
    return stream<< N.BigInteger::to_string();
+}
+
+bool operator==(const BigInteger &A, const BigInteger &B){
+   return (A.compare(B) == 0) ? true : false;
+}
+
+bool operator<(const BigInteger &A, const BigInteger &B){
+   return (A.compare(B) == -1) ? true : false;
+}
+
+bool operator<=(const BigInteger &A, const BigInteger &B){
+   int comparison = A.compare(B);
+   return (comparison == -1 || comparison == 0) ? true : false;
+}
+
+bool operator>(const BigInteger &A, const BigInteger &B){
+   return (A.compare(B) == 1) ? true : false;
+}
+
+bool operator>=(const BigInteger &A, const BigInteger &B){
+   int comparison = A.compare(B);
+   return (comparison == 1 || comparison == 0) ? true : false;
+}
+
+BigInteger operator+(const BigInteger &A, const BigInteger &B){
+   return A.add(B);
+}
+
+BigInteger operator+=( BigInteger& A, const BigInteger& B ){
+   A = A.add(B);
+   return A;
+}
+
+BigInteger operator-(const BigInteger &A, const BigInteger &B){
+   return A.sub(B);
+}
+
+BigInteger operator-=(BigInteger &A, const BigInteger &B){
+   A = A.sub(B);
+   return A;
+}
+
+BigInteger operator*(const BigInteger &A, const BigInteger &B){
+   return A.mult(B);
+}
+
+BigInteger operator*=(BigInteger &A, const BigInteger &B){
+   A = A.mult(B);
+   return A;
 }
