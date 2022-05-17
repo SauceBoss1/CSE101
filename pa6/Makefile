@@ -11,6 +11,9 @@ deps = $(patsubst %.o,%.d, $(objs))
 -include $(deps)
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 
+Arithmetic: Arithmetic.o $(objs)
+	$(LINK) $@ $^
+
 BigIntegerClient: BigIntegerClient.o $(objs)
 	$(LINK) $@ $^
 
