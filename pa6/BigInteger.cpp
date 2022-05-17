@@ -23,7 +23,7 @@ BigInteger::BigInteger(){
 BigInteger::BigInteger(std::string s){
 
    if(s.empty()){
-      throw std::invalid_argument("BigInteger: FromString contructor: s is empty");
+      throw std::invalid_argument("BigInteger: Constructor: empty string");
    }
    signum = 0;
 
@@ -41,10 +41,10 @@ BigInteger::BigInteger(std::string s){
    }
 
    if(s.length() == 0){
-      throw std::invalid_argument("BigInteger: FromString contructor: invalid input s");
+      throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
    }
    if(s.find_first_not_of(DIGITS,1) != std::string::npos){
-      throw std::invalid_argument("BigInteger: FromString contructor: invalid input s");
+      throw std::invalid_argument("BigInteger: Constructor: non-numeric string");
    }
    
 
