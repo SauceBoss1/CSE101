@@ -17,6 +17,12 @@ Arithmetic: Arithmetic.o $(objs)
 BigIntegerClient: BigIntegerClient.o $(objs)
 	$(LINK) $@ $^
 
+ListClient: ListClient.o $(objs)
+	$(LINK) $@ $^
+
+ListTest: ListTest.o $(objs)
+	$(LINK) $@ $^
+
 BigIntegerTest: BigIntegerTest.o $(objs)
 	$(LINK) $@ $^
 
