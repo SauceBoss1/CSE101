@@ -11,9 +11,9 @@ int main(){
    string y = "9876545439000000000000000200000000000006543654365346534";
    string z = "0";
    //x = "00000000000000000000000000000";
-   //y = "968509";
-   //x = "905860";
-
+   y = "968509";
+   x = "905860";
+   x = "-968509";
    //x = "999";
    //y = "999";
    BigInteger A = BigInteger(x);
@@ -21,9 +21,9 @@ int main(){
    BigInteger B = BigInteger(y);
    cout << "B: " << B << endl;
 
-   BigInteger X = A.add(B);
+   BigInteger X = A + B;
    cout << "X add: " << X << endl;
-
+   cout << "X.sign ==" << X.sign() << endl;
    X = B - A;
    cout << "X sub: " << X << endl;
 

@@ -157,6 +157,7 @@ void negateList(List &L){
 void sumList(List &S, List A, List B, int sign){
    S.clear();
 
+
    if(A.length() == 0 && B.length() != 0){
       S = B;
       return;
@@ -164,38 +165,27 @@ void sumList(List &S, List A, List B, int sign){
       S = A;
       return;
    }
-
-   int len_diff = SUB_ABS(A.length(), B.length());
-
-   List big, little;
-
-   if(A.length() < B.length()){
-      big = B;
-      little = A;
-   } else {
-      big = A;
-      little = B;
+   
+   A.moveBack();
+   B.moveBack();
+   S.moveBack();
+   while(A.position() != 0 && B.position() != 0){
+      S.insertAfter(A.peekPrev() + (sign * B.peekPrev()));
+      B.movePrev();
+      A.movePrev();
+   }
+   
+   if(A.position() != 0){
+      while(A.position() != 0){
+         S.insertAfter(A.peekPrev());
+         A.movePrev();
+      }
    }
 
-   big.moveFront();
-   little.moveFront();
-   S.moveFront();
-   while(big.position() < big.length()){
-      if(big.position() < len_diff){
-         if(B == big){
-            S.insertBefore(sign * big.peekNext());
-         }else {
-            S.insertBefore(big.peekNext());
-         }
-         big.moveNext();
-      } else {
-         if(B == big){
-            S.insertBefore(little.peekNext() + (sign * big.peekNext()));
-         } else{
-            S.insertBefore(big.peekNext() + (sign * little.peekNext()));
-         }
-         big.moveNext();
-         little.moveNext();
+   if(B.position() != 0){
+      while(B.position() != 0){
+         S.insertAfter(sign * B.peekPrev());
+         B.movePrev();
       }
    }
 
@@ -208,6 +198,7 @@ void sumList(List &S, List A, List B, int sign){
          S.clear();
       }
    }
+   
    return;
 }
 
