@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA6
+* BigInteger.cpp 
+* Main Testing harness for the Big Integer ADT
+*********************************************************************************/
 #include <iostream>
 #include <stdexcept>
 #include <string>

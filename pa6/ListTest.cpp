@@ -1,7 +1,7 @@
 /********************************************************************************* 
 * Derfel Terciano, dtercian 
-* 2022 Spring CSE101 PA5
-* ListTest.c 
+* 2022 Spring CSE101 PA6
+* ListTest.cpp
 * Main testing harness for the List ADT
 *********************************************************************************/
 #include <iostream>

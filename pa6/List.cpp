@@ -1,8 +1,8 @@
 /********************************************************************************* 
 * Derfel Terciano, dtercian 
-* 2022 Spring CSE101 PA5
+* 2022 Spring CSE101 PA6
 * Shuffle.c 
-* Source file that contains the implmentations for the List ADT
+* Source file that contains the implmentations for the List ADT (NOTE: ListElement is long now)
 *********************************************************************************/
 #include <iostream>
 #include <string>

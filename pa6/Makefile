@@ -1,3 +1,10 @@
+#------------------------------------------------------------------------------------------------------------------------------
+# COMMANDS:
+# make -> creates Arithmetic executable
+# make clean -> removes all .o, .d, .txt, and executables
+# make BigIntegerTest -> creates testing harness for BigInteger ADT
+# make ListTest -> creates testing harness for the long ADT
+#------------------------------------------------------------------------------------------------------------------------------
 targets = ListClient Arithmetic ListTest BigIntegerTest *Client
 objs = List.o BigInteger.o
 

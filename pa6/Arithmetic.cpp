@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA6
+* Arithmetic.cpp 
+* Main Client file that uses the Big Integer ADT
+*********************************************************************************/
 #include <iostream>
 #include <stdexcept>
 #include <string>
