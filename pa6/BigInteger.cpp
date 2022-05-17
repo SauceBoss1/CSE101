@@ -223,7 +223,7 @@ int normalize(List &L){
       long ele = L.peekNext();
       if(ele >= BASE){
          long multiple = floor(ele / BASE);
-         L.setAfter(ele % (multiple * BASE));
+         L.setAfter(ele - (multiple * BASE));
          if(L.position() == 0){
             L.insertBefore(multiple);
             return 1;
