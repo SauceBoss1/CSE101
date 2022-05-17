@@ -42,9 +42,58 @@ int main(int argc, char* argv[]){
    
    BigInteger A = BigInteger(num_1);
    BigInteger B = BigInteger(num_2);
-
-   cout << A << endl;
-   cout << B << endl;
    
+   BigInteger temp_A, temp_B, ans;
+   temp_A = A; temp_B = B;
+
+   outFile << A << endl;
+   outFile << B << endl;
+
+   /*** A + B ***/
+   ans = temp_A + temp_B;
+   outFile << ans << endl;
+
+   /*** A - B ***/
+   ans = temp_A - temp_B;
+   outFile << ans << endl;
+
+   /*** A - A ***/
+   ans = temp_A - temp_A;
+   outFile << ans << endl;
+
+   /*** 3A - 2B ***/ 
+   BigInteger three = BigInteger("3");
+   BigInteger two = BigInteger("2");
+
+   ans = (three * temp_A) - (two * temp_B);
+   outFile << ans << endl;
+   temp_A = A; temp_B = B;
+
+   /*** AB ***/
+   ans = temp_A * temp_B;
+   outFile << ans << endl;
+
+   /*** A^2 ***/
+   temp_A *= temp_A;
+   outFile << temp_A << endl;
+   temp_A = A;
+
+   /*** B^2 ***/
+   temp_B *= temp_B;
+   outFile << temp_B << endl;
+   temp_B = B;
+
+   /*** 9A^4 + 16B^5***/ //wrong
+   BigInteger nine = BigInteger("9");
+   BigInteger sixteen = BigInteger("16");
+
+   temp_A = A * A * A * A;
+   temp_B = B * B * B * B * B;
+
+   ans = (nine * temp_A) + (sixteen * temp_B);
+
+   outFile << ans << endl;
+   temp_A = A; temp_B = B;
+
    return EXIT_SUCCESS;
 }
