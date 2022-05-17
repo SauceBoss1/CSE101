@@ -45,8 +45,8 @@ The program was tested with in5 which is the biggest BI file given to use for te
   - `make clean`
 
 ### Bonus commands:
-   -`make ListTest`
-   -`make BigIntegerTest`
+- `make ListTest`
+- `make BigIntegerTest`
 The above commands create the test harnesses for the List ADT and the BI ADT
 
 ### Errors/Problems:
