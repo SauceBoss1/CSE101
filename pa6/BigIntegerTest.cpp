@@ -17,9 +17,9 @@ int main(){
    string y = "9876545439000000000000000200000000000006543654365346534";
    string z = "0";
    //x = "00000000000000000000000000000";
-   y = "968509";
-   x = "905860";
-   x = "-968509";
+   //y = "968509";
+   //x = "905860";
+   //x = "-968509";
    //x = "999";
    //y = "999";
    BigInteger A = BigInteger(x);
@@ -29,15 +29,37 @@ int main(){
 
    BigInteger X = A + B;
    cout << "X add: " << X << endl;
-   cout << "X.sign ==" << X.sign() << endl;
+   cout << "X.sign() = " << X.sign() << endl;
+
    X = B - A;
    cout << "X sub: " << X << endl;
 
-   cout << A << endl;
    X = A * B;
    cout << "X mult: " << X << endl;
-   cout << A.compare(B) << endl;
-   cout << X.sign() <<endl;
+
+   cout << "(B == A)? " << ((B == A) ? "true" : "false") << endl;
+   cout << "B.sign() = "<< B.sign() <<endl;
+   cout << "(A <= B)? " << ((A <= B) ? "true" : "false") << endl;
+   cout << "(A >= B)? " << ((A >= B) ? "true" : "false") << endl;
+   cout << "(B < A)? " << ((B < A)? "true" : "false") << endl;
+   cout << "(B > A)? " << ((B > A)? "true" : "false") << endl;
+
+   cout << endl;
+
+   A += A;
+   cout << "A += A: " << A << endl;
+
+   B -= B;
+   cout << "B -= B: " << B << endl;
+
+   X *= X;
+   cout << "X *= X: " << X << endl;
+
+   X.makeZero();
+   cout << "X.makeZero() = " << X << endl;
+
+   A.negate();
+   cout << "A.negate() = " << A << endl;
 
    return EXIT_SUCCESS;
 }
