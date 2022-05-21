@@ -24,3 +24,34 @@ Dictionary::Dictionary(){
    current = nullptr;
    num_pairs = 0;
 }
+
+Dictionary::Dictionary(const Dictionary &D){
+   nil = new Node("", NIL_VAL);
+   root = nullptr;
+   current = nullptr;
+   num_pairs = 0;
+   preOrderCopy(D.root, nullptr);
+}
+
+Dictionary::~Dictionary(){
+   postOrderDelete(root);
+   nil->left = nullptr;
+   nil->right = nullptr;
+   nil->parent = nullptr;
+   root = nullptr;
+   current = nullptr;
+   delete nil;
+
+}
+/*** HELPER FUNCTIONS ***/
+
+void Dictionary::postOrderDelete(Node *R){
+   if( R != nil ){
+      postOrderDelete(R->left);
+      postOrderDelete(R->right);
+      R->parent = nullptr;
+      R->left = nullptr;
+      R->left = nullptr;
+      delete R;
+   }
+}
