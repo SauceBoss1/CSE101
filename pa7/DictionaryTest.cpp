@@ -26,7 +26,8 @@ int main(){
    B = A;
 
    cout << "B\n" <<B << endl;
-
+   B.clear();
+   cout << "B.size() = " << B.size() << endl;
 
    return EXIT_SUCCESS;
 }
