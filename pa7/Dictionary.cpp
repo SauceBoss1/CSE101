@@ -21,22 +21,22 @@ Dictionary::Node::Node(keyType k, valType v){
 Dictionary::Dictionary(){
    nil = new Node("\0\0",NIL_VAL);
    root = nil;
-   current = nullptr;
+   current = nil;
    num_pairs = 0;
 }
 
 Dictionary::Dictionary(const Dictionary &D){
    clear();
    nil = new Node("\0\0", NIL_VAL);
-   root = nullptr;
-   current = nullptr;
+   root = nil;
+   current = nil;
    num_pairs = 0;
-   preOrderCopy(D.root, nullptr);
+   preOrderCopy(D.root, nil);
 }
 
 Dictionary::~Dictionary(){
-   //postOrderDelete(root);
-   clear();
+   postOrderDelete(root);
+   //clear();
    nil->left = nullptr;
    nil->right = nullptr;
    nil->parent = nullptr;
@@ -72,7 +72,6 @@ void Dictionary::preOrderCopy(Node *R, Node *N){
 }
 
 void Dictionary::postOrderDelete(Node *R){
-   std::cout << R->key << std::endl;
    if( R != nil ){
       postOrderDelete(R->left);
       postOrderDelete(R->right);
@@ -342,9 +341,9 @@ Dictionary& Dictionary::operator=(const Dictionary& D){
    if(this != &D){
       Dictionary temp = D;
       std::swap(num_pairs, temp.num_pairs);
-      std::swap(nil,temp.nil);
-      std::swap(root,temp.root);
-      std::swap(current,temp.current);
+      std::swap(nil, temp.nil);
+      std::swap(root, temp.root);
+      std::swap(current, temp.current);
    }
 
    return *this;
