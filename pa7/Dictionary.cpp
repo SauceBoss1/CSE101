@@ -29,7 +29,6 @@ Dictionary::Dictionary(){
 }
 
 Dictionary::Dictionary(const Dictionary &D){
-   clear();
    nil = new Node("\0\0", NIL_VAL);
    nil->parent = nullptr;
    nil->left = nullptr;
@@ -80,9 +79,8 @@ void Dictionary::postOrderDelete(Node *R){
    if( R != nil ){
       postOrderDelete(R->left);
       postOrderDelete(R->right);
-      R->parent = nullptr;
-      R->left = nullptr;
-      R->left = nullptr;
+      R->left = nil;
+      R->right = nil;
       delete R;
    }
 }
@@ -350,6 +348,5 @@ Dictionary& Dictionary::operator=(const Dictionary& D){
       std::swap(root, temp.root);
       std::swap(current, temp.current);
    }
-
    return *this;
 }

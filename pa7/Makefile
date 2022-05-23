@@ -14,6 +14,9 @@ DEPFLAGS = -MMD -MF $(@:.o=.d)
 DictionaryClient: DictionaryClient.o $(objs)
 	$(LINK) $@ $^
 
+DictionaryTest: DictionaryTest.o $(objs)
+	$(LINK) $@ $^
+
 %.o: %.cpp
 	$(COMPILE) $< $(DEPFLAGS)
 
