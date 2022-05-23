@@ -21,8 +21,12 @@ int main(){
    for(A.begin(); A.hasCurrent(); A.next()){
       cout << A.currentKey() << endl;
    }
+   cout << endl;
+   Dictionary B;
+   B = A;
 
-   Dictionary B = A;
+   cout << "B\n" <<B << endl;
+
 
    return EXIT_SUCCESS;
 }

@@ -61,14 +61,14 @@ void Dictionary::inOrderString(std::string &s, Node* R) const{
 
 void Dictionary::preOrderString(std::string &s, Node *R) const{
    if( R != nil){
-      s += R->key;
+      s += R->key +"\n";
       preOrderString(s, R->left);
       preOrderString(s, R->right);
    }
 }
 
 void Dictionary::preOrderCopy(Node *R, Node *N){
-   if(R != nil && R != N){
+   if(R != nil && R->key != N->key){
       setValue(R->key, R->val);
       preOrderCopy(R->left, N);
       preOrderCopy(R->right, N);
@@ -76,12 +76,13 @@ void Dictionary::preOrderCopy(Node *R, Node *N){
 }
 
 void Dictionary::postOrderDelete(Node *R){
-   if( R != nil ){
+   if( R != nil && num_pairs > 0){
       postOrderDelete(R->left);
       postOrderDelete(R->right);
       R->left = nil;
       R->right = nil;
       delete R;
+      num_pairs--;
    }
 }
 
@@ -192,7 +193,9 @@ valType& Dictionary::currentVal() const{
 /*** Manipulation procedures ***/
 
 void Dictionary::clear(){
-   postOrderDelete(root);
+   if(num_pairs > 0){
+      postOrderDelete(root);
+   }
    current = nil;
    num_pairs = 0;
    root = nil;
@@ -239,7 +242,6 @@ void Dictionary::transplant(Node* U, Node* V){
    } else {
       U->parent->right = V;
    }
-
    if(V != nil){
       V->parent = U->parent;
    }
@@ -256,7 +258,7 @@ void Dictionary::remove(keyType k){
    } else if (z->right == nil){ //case 2.2 (left only)
       transplant(z,z->left);
    } else {
-      Node *y = findNext(z->right);
+      Node *y = findNext(z);
       if(y->parent != z){
          transplant(y,y->right);
          y->right = z->right;
