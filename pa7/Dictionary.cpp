@@ -20,6 +20,9 @@ Dictionary::Node::Node(keyType k, valType v){
 
 Dictionary::Dictionary(){
    nil = new Node("\0\0",NIL_VAL);
+   nil->parent = nullptr;
+   nil->left = nullptr;
+   nil->right = nullptr;
    root = nil;
    current = nil;
    num_pairs = 0;
@@ -28,6 +31,9 @@ Dictionary::Dictionary(){
 Dictionary::Dictionary(const Dictionary &D){
    clear();
    nil = new Node("\0\0", NIL_VAL);
+   nil->parent = nullptr;
+   nil->left = nullptr;
+   nil->right = nullptr;
    root = nil;
    current = nil;
    num_pairs = 0;
@@ -36,12 +42,11 @@ Dictionary::Dictionary(const Dictionary &D){
 
 Dictionary::~Dictionary(){
    postOrderDelete(root);
-   //clear();
    nil->left = nullptr;
    nil->right = nullptr;
    nil->parent = nullptr;
-   root = nullptr;
-   current = nullptr;
+   root = nil;
+   current = nil;
    delete nil;
 
 }
