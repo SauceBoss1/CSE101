@@ -163,7 +163,7 @@ valType& Dictionary::getValue(keyType k) const{
       Node* x = search(root, k);
       return x->val;
    } else {
-      throw std::logic_error("Dictionary: getValue(): key "+ k +" does not exist");
+      throw std::logic_error("Dictionary: getValue(): key \""+ k + "\" does not exist");
    }
 }
 
@@ -249,7 +249,7 @@ void Dictionary::transplant(Node* U, Node* V){
 
 void Dictionary::remove(keyType k){
    if(!contains(k)){
-      throw std::logic_error("Dictionary: remove(): key "+ k +" does not exist");
+      throw std::logic_error("Dictionary: remove(): key \""+ k +"\" does not exist");
    }
    Node *z = search(root, k);
 
