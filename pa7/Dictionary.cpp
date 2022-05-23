@@ -35,7 +35,8 @@ Dictionary::Dictionary(const Dictionary &D){
 }
 
 Dictionary::~Dictionary(){
-   postOrderDelete(root);
+   //postOrderDelete(root);
+   clear();
    nil->left = nullptr;
    nil->right = nullptr;
    nil->parent = nullptr;
@@ -71,6 +72,7 @@ void Dictionary::preOrderCopy(Node *R, Node *N){
 }
 
 void Dictionary::postOrderDelete(Node *R){
+   std::cout << R->key << std::endl;
    if( R != nil ){
       postOrderDelete(R->left);
       postOrderDelete(R->right);
