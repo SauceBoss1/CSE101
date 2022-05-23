@@ -19,14 +19,14 @@ Dictionary::Node::Node(keyType k, valType v){
 /*** CLASS CONSTRUCTORS AND DESTRUCTORS ***/
 
 Dictionary::Dictionary(){
-   nil = new Node("",NIL_VAL);
+   nil = new Node("\0\0",NIL_VAL);
    root = nullptr;
    current = nullptr;
    num_pairs = 0;
 }
 
 Dictionary::Dictionary(const Dictionary &D){
-   nil = new Node("", NIL_VAL);
+   nil = new Node("\0\0", NIL_VAL);
    root = nullptr;
    current = nullptr;
    num_pairs = 0;
@@ -44,6 +44,30 @@ Dictionary::~Dictionary(){
 
 }
 /*** HELPER FUNCTIONS ***/
+
+void Dictionary::inOrderString(std::string &s, Node* R) const{
+   if( R != nil ){
+      inOrderString(s, R->left);
+      s += R->key + " : " + std::to_string(R->val) + "\n";
+      inOrderString(s,R->right);
+   }
+}
+
+void Dictionary::preOrderString(std::string &s, Node *R) const{
+   if( R != nil){
+      s += R->key;
+      preOrderString(s, R->left);
+      preOrderString(s, R->right);
+   }
+}
+
+void Dictionary::preOrderCopy(Node *R, Node *N){
+   if(R != nil && R != N){
+      setValue(R->key, R->val);
+      preOrderCopy(R->left, N);
+      preOrderCopy(R->right, N);
+   }
+}
 
 void Dictionary::postOrderDelete(Node *R){
    if( R != nil ){
