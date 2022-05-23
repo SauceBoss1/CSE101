@@ -79,3 +79,35 @@ void Dictionary::postOrderDelete(Node *R){
       delete R;
    }
 }
+
+Dictionary::Node* Dictionary::search(Node* R, keyType k) const{
+   if(R == nil || R->key == k){
+      return R;
+   } else if(k < R->key){
+      return search(R->left, k);
+   } else {
+      return search(R->right, k);
+   }
+}
+
+Dictionary::Node* Dictionary::findMin(Node *R){
+   if(num_pairs <=0){
+      throw std::range_error("Dictionary: findMin(): empty tree");
+   }
+   Node* x = R;
+   while(x->left != nil){
+      x = x->left;
+   }
+   return x;
+}
+
+Dictionary::Node* Dictionary::findMax(Node *R){
+   if(num_pairs <=0){
+      throw std::range_error("Dictionary: findMin(): empty tree");
+   }
+   Node* x = R;
+   while(x->right != nil){
+      x = x->right;
+   }
+   return x;
+}
