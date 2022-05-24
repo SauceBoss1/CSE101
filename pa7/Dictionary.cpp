@@ -204,36 +204,33 @@ void Dictionary::clear(){
 }
 
 void Dictionary::setValue(keyType k, valType v){
-   Node *n = search(root, k);
+   Node *z = new Node(k,v);
+   Node *y = nil;
+   Node *x = root;
 
-   if(n != nil){
-      n->val = v;
-   } else {
-      Node *z = new Node(k,v);
-      Node *y = nil;
-      Node *x = root;
-
-      while(x != nil){
-         y = x;
-         if(z->key < x->key){
-            x = x->left;
-         } else {
-            x = x->right;
-         }
-      }
-
-      z->parent = y;
-      z->left = nil;
-      z->right = nil;
-      if(y == nil){
-         root = z; //if tree is empty
-      } else if(z->key < y->key){
-         y->left = z;
+   while(x != nil){
+      y = x;
+      if(z->key < x->key){
+         x = x->left;
+      } else if(x->key == z->key){
+         x->val = v;
+         delete z;
       } else {
-         y->right = z;
+         x = x->right;
       }
-      num_pairs++;
-   }  
+   }
+
+   z->parent = y;
+   z->left = nil;
+   z->right = nil;
+   if(y == nil){
+      root = z; //if tree is empty
+   } else if(z->key < y->key){
+      y->left = z;
+   } else {
+      y->right = z;
+   }
+   num_pairs++;
 }
 
 void Dictionary::transplant(Node* U, Node* V){
