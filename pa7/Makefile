@@ -11,6 +11,9 @@ deps = $(patsubst %.o,%.d, $(objs))
 -include $(deps)
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 
+Order: Order.o $(objs)
+	$(LINK) $@ $^
+
 DictionaryClient: DictionaryClient.o $(objs)
 	$(LINK) $@ $^
 
