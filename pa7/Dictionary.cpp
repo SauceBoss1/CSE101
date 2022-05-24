@@ -215,6 +215,7 @@ void Dictionary::setValue(keyType k, valType v){
       } else if(x->key == z->key){
          x->val = v;
          delete z;
+         return;
       } else {
          x = x->right;
       }
