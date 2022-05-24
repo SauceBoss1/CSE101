@@ -29,5 +29,8 @@ int main(){
    B.clear();
    cout << "B.size() = " << B.size() << endl;
 
+   B.end();
+   B.currentKey();
+
    return EXIT_SUCCESS;
 }

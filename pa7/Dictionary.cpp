@@ -98,7 +98,8 @@ Dictionary::Node* Dictionary::search(Node* R, keyType k) const{
 
 Dictionary::Node* Dictionary::findMin(Node *R){
    if(num_pairs <=0){
-      throw std::range_error("Dictionary: findMin(): empty tree");
+      //throw std::range_error("Dictionary: findMin(): empty tree");
+      return nil;
    }
    Node* x = R;
    while(x->left != nil){
@@ -109,7 +110,8 @@ Dictionary::Node* Dictionary::findMin(Node *R){
 
 Dictionary::Node* Dictionary::findMax(Node *R){
    if(num_pairs <=0){
-      throw std::range_error("Dictionary: findMin(): empty tree");
+      //throw std::range_error("Dictionary: findMin(): empty tree");
+      return nil;
    }
    Node* x = R;
    while(x->right != nil){
@@ -252,7 +254,9 @@ void Dictionary::remove(keyType k){
       throw std::logic_error("Dictionary: remove(): key \""+ k +"\" does not exist");
    }
    Node *z = search(root, k);
-
+   if(z == current){
+      current = nil;
+   }
    if(z->left == nil){ //case 1 or 2.1 (right only)
       transplant(z,z->right);
    } else if (z->right == nil){ //case 2.2 (left only)
