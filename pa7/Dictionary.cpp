@@ -1,9 +1,15 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA7
+* Dictionary.cpp 
+* Source file that contains the implementation of the Dictionary ADT
+*********************************************************************************/
 #include <iostream>
 #include <string>
 
 #include "Dictionary.h"
 
-#define NIL_VAL 2147483647
+#define NIL_VAL 2147483647 //used for the nil node
 
 /*** PRIVATE CONSTRUCTORS ***/
 
@@ -18,6 +24,7 @@ Dictionary::Node::Node(keyType k, valType v){
 
 /*** CLASS CONSTRUCTORS AND DESTRUCTORS ***/
 
+//public dictionary constructor
 Dictionary::Dictionary(){
    nil = new Node("\0\0",NIL_VAL);
    nil->parent = nullptr;
@@ -28,6 +35,7 @@ Dictionary::Dictionary(){
    num_pairs = 0;
 }
 
+//public dictionary copy constructor
 Dictionary::Dictionary(const Dictionary &D){
    nil = new Node("\0\0", NIL_VAL);
    nil->parent = nullptr;
@@ -39,6 +47,7 @@ Dictionary::Dictionary(const Dictionary &D){
    preOrderCopy(D.root, nil);
 }
 
+//public dictionary destructor
 Dictionary::~Dictionary(){
    postOrderDelete(root);
    nil->left = nullptr;
@@ -47,10 +56,14 @@ Dictionary::~Dictionary(){
    root = nil;
    current = nil;
    delete nil;
-
 }
 /*** HELPER FUNCTIONS ***/
 
+/******************************************************
+ * inOrderString()
+ * prints out the string representation of the 
+ * BST in an in-order walk
+ ******************************************************/
 void Dictionary::inOrderString(std::string &s, Node* R) const{
    if( R != nil ){
       inOrderString(s, R->left);
@@ -59,6 +72,11 @@ void Dictionary::inOrderString(std::string &s, Node* R) const{
    }
 }
 
+/******************************************************
+ * preOrderString()
+ * prints out the string representation of the
+ * BST in an pre-order walk
+ ******************************************************/
 void Dictionary::preOrderString(std::string &s, Node *R) const{
    if( R != nil){
       s += R->key +"\n";
@@ -67,6 +85,11 @@ void Dictionary::preOrderString(std::string &s, Node *R) const{
    }
 }
 
+/******************************************************
+ * preOrderCopy()
+ * copys the BST from Node R to Node N recursively
+ * to this Dictionary using a pre-order tree walk
+ ******************************************************/
 void Dictionary::preOrderCopy(Node *R, Node *N){
    if(R != nil && R->key != N->key){
       setValue(R->key, R->val);
@@ -75,6 +98,10 @@ void Dictionary::preOrderCopy(Node *R, Node *N){
    }
 }
 
+/******************************************************
+ * postOrderDelete()
+ * deletes the BST using a post-order walk
+ ******************************************************/
 void Dictionary::postOrderDelete(Node *R){
    if( R != nil && num_pairs > 0){
       postOrderDelete(R->left);
@@ -86,6 +113,11 @@ void Dictionary::postOrderDelete(Node *R){
    }
 }
 
+/******************************************************
+ * search()
+ * searches the BST to tree to see where key k is
+ * if k is not in the tree then it returns nil
+ ******************************************************/
 Dictionary::Node* Dictionary::search(Node* R, keyType k) const{
    if(R == nil || R->key == k){
       return R;
@@ -96,9 +128,14 @@ Dictionary::Node* Dictionary::search(Node* R, keyType k) const{
    }
 }
 
+/******************************************************
+ * findMin()
+ * finds the minimum of the BST
+ * returns the minimum node else it returns nil
+ * if the tree is empty
+ ******************************************************/
 Dictionary::Node* Dictionary::findMin(Node *R){
    if(num_pairs <=0){
-      //throw std::range_error("Dictionary: findMin(): empty tree");
       return nil;
    }
    Node* x = R;
@@ -108,9 +145,14 @@ Dictionary::Node* Dictionary::findMin(Node *R){
    return x;
 }
 
+/******************************************************
+ * findMax()
+ * finds the maximum node of the BST
+ * returns the maximum node else it returns nil
+ * if the tree is empty
+ ******************************************************/
 Dictionary::Node* Dictionary::findMax(Node *R){
    if(num_pairs <=0){
-      //throw std::range_error("Dictionary: findMin(): empty tree");
       return nil;
    }
    Node* x = R;
@@ -120,6 +162,11 @@ Dictionary::Node* Dictionary::findMax(Node *R){
    return x;
 }
 
+/******************************************************
+ * findNext()
+ * finds the successor from the subtree of Node N
+ * and returns its corresponding node
+ ******************************************************/
 Dictionary::Node* Dictionary::findNext(Node *N){
    if(N->right != nil){ //case 1
       return findMin(N->right);
@@ -133,6 +180,11 @@ Dictionary::Node* Dictionary::findNext(Node *N){
    return y;
 }
 
+/******************************************************
+ * findPrev()
+ * finds the predecessor from the subtree of Node N
+ * and returns its corresponding node
+ ******************************************************/
 Dictionary::Node* Dictionary::findPrev(Node *N){
    if(N->left != nil){
       return findMax(N->left);
@@ -148,10 +200,19 @@ Dictionary::Node* Dictionary::findPrev(Node *N){
 
 /*** ACCESS FUNCTIONS ***/
 
+/******************************************************
+ * size()
+ * returns the size or the number of pairs (key, value)
+ * in the tree
+ ******************************************************/
 int Dictionary::size() const{
    return num_pairs;
 }
 
+/******************************************************
+ * conatins()
+ * returns true of key k exists in the tree else false
+ ******************************************************/
 bool Dictionary::contains(keyType k) const{
    Node *x = search(root, k);
    if( x == nil ){
@@ -160,6 +221,12 @@ bool Dictionary::contains(keyType k) const{
    return true;
 }
 
+/******************************************************
+ * getValue()
+ * returns a reference of the value at key k
+ * 
+ * pre: the BST must contain k
+ ******************************************************/
 valType& Dictionary::getValue(keyType k) const{
    if(contains(k)){
       Node* x = search(root, k);
@@ -169,6 +236,11 @@ valType& Dictionary::getValue(keyType k) const{
    }
 }
 
+/******************************************************
+ * hasCurrent()
+ * returns true if the current field if not nil
+ * else false
+ ******************************************************/
 bool Dictionary::hasCurrent() const{
    if(current != nil){
       return true;
@@ -176,6 +248,13 @@ bool Dictionary::hasCurrent() const{
    return false;
 }
 
+/******************************************************
+ * currentKey()
+ * returns the key that is currently in the current
+ * field
+ * 
+ * pre: hasCurrent() must be true
+ ******************************************************/
 keyType Dictionary::currentKey() const{
    if(hasCurrent()){
       return current->key;
@@ -184,6 +263,13 @@ keyType Dictionary::currentKey() const{
    }
 }
 
+/******************************************************
+ * currentVal()
+ * returns the value in the current field as a
+ * reference
+ * 
+ * pre: hasCurrent() must be true
+ ******************************************************/
 valType& Dictionary::currentVal() const{
    if(hasCurrent()){
       return current->val;
@@ -194,6 +280,12 @@ valType& Dictionary::currentVal() const{
 
 /*** Manipulation procedures ***/
 
+/******************************************************
+ * clear()
+ * deletes all nodes in the BST using a 
+ * post-order walk
+ * it then resets the Dictionay into its empty state
+ ******************************************************/
 void Dictionary::clear(){
    if(num_pairs > 0){
       postOrderDelete(root);
@@ -203,6 +295,12 @@ void Dictionary::clear(){
    root = nil;
 }
 
+/******************************************************
+ * setValue()
+ * If a pair with key==k exists, overwrites the 
+ * corresponding value with v, otherwise inserts the 
+ * new pair (k, v).
+ ******************************************************/
 void Dictionary::setValue(keyType k, valType v){
    Node *z = new Node(k,v);
    Node *y = nil;
@@ -215,7 +313,8 @@ void Dictionary::setValue(keyType k, valType v){
       } else if(x->key == z->key){
          x->val = v;
          delete z;
-         return;
+         return; //short-circuit the algorithm if we are only
+                 //editing the current key
       } else {
          x = x->right;
       }
@@ -234,6 +333,12 @@ void Dictionary::setValue(keyType k, valType v){
    num_pairs++;
 }
 
+
+/******************************************************
+ * transplant()
+ * swaps two nodes in the tree while keeping the
+ * properties of the BST
+ ******************************************************/
 void Dictionary::transplant(Node* U, Node* V){
    if(U->parent == nil){
       root = V;
@@ -247,6 +352,13 @@ void Dictionary::transplant(Node* U, Node* V){
    }
 }
 
+/******************************************************
+ * remove()
+ * Deletes the pair for which key==k. If the pair
+ * is current, then current becomes undefined
+ * 
+ * pre: contains(k)
+ ******************************************************/
 void Dictionary::remove(keyType k){
    if(!contains(k)){
       throw std::logic_error("Dictionary: remove(): key \""+ k +"\" does not exist");
@@ -259,7 +371,7 @@ void Dictionary::remove(keyType k){
       transplant(z,z->right);
    } else if (z->right == nil){ //case 2.2 (left only)
       transplant(z,z->left);
-   } else {
+   } else { //case 3
       Node *y = findNext(z);
       if(y->parent != z){
          transplant(y,y->right);
@@ -277,14 +389,32 @@ void Dictionary::remove(keyType k){
    num_pairs--;
 }
 
+/******************************************************
+ * If non-empty, places current iterator at the first
+ * (key, value) pair.
+ * Otherwise do nothing.
+ ******************************************************/
 void Dictionary::begin(){
    current = findMin(root);
 }
 
+/******************************************************
+ * If non-empty, places current iterator at the last
+ * (key, value) pair, otherwise do nothing
+ ******************************************************/
 void Dictionary::end(){
    current = findMax(root);
 }
 
+/******************************************************
+ * next()
+ * If the current iterator is not at the last pair, 
+ * advance to the next pair.
+ * If the current iterator is at the last pair,
+ * makes current undefined.
+ * 
+ * pre: hasCurrent() must be true
+ ******************************************************/
 void Dictionary::next(){
    if(!hasCurrent()){
       throw std::logic_error("Dictionary: next(): current not defined");
@@ -292,6 +422,15 @@ void Dictionary::next(){
    current = findNext(current);
 }
 
+/******************************************************
+ * prev()
+ * if the current iterator is not at the first pair,
+ * moves current to the previous pair.
+ * if the current iterator is at the first pair,
+ * makes the current undefined
+ * 
+ * pre: hasCurrent() must be true
+ ******************************************************/
 void Dictionary::prev(){
    if(!hasCurrent()){
       throw std::logic_error("Dictionary: prev(): current not defined");
@@ -301,18 +440,34 @@ void Dictionary::prev(){
 
 /*** OTHER FUNCTIONS ***/
 
+/******************************************************
+ * to_string()
+ * Returns a string representation of the dictionary
+ * using an in-order tree walk
+ * NOTE: the value of the node is also printed
+ ******************************************************/
 std::string Dictionary::to_string() const{
    std::string s = "";
    inOrderString(s,root);
    return s;
 }
 
+/******************************************************
+ * pre_string()
+ * Returns a string representation of the dictionary
+ * using an pre-order tree walk
+ ******************************************************/
 std::string Dictionary::pre_string() const{
    std::string s = "";
    preOrderString(s,root);
    return s;
 }
 
+/******************************************************
+ * equals()
+ * Returns true iff this dictionary contains
+ * the same (key, value) pairs as Dictionary D
+ ******************************************************/
 bool Dictionary::equals(const Dictionary &D) const{
    Dictionary x = D;
    Dictionary y = *this;
@@ -336,14 +491,30 @@ bool Dictionary::equals(const Dictionary &D) const{
 
 /*** OVERLOADS ***/
 
+/******************************************************
+ * operator<<()
+ * Inserts a string representation of Dictionary D
+ * into the stream.
+ * Here, we will use out to_string function
+ ******************************************************/
 std::ostream& operator<<( std::ostream& stream, Dictionary& D){
    return stream<< D.Dictionary::to_string();
 }
 
+/******************************************************
+ * operator==()
+ * Returns true iff Dictionary A equals Dictionay B.
+ * Here, we will use the equals() function
+ ******************************************************/
 bool operator==( const Dictionary& A, const Dictionary& B ){
    return A.Dictionary::equals(B);
 }
 
+/******************************************************
+ * operator=
+ * Overwrites the state of this dictionary with state
+ * of D, and returns a reference of this Dictionary.
+ ******************************************************/
 Dictionary& Dictionary::operator=(const Dictionary& D){
    if(this != &D){
       Dictionary temp = D;

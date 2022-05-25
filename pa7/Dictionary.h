@@ -87,6 +87,9 @@ private:
    // Node, or is nil, returns nil.
    Node* findPrev(Node* N);
 
+   // transplant()
+   // swaps two nodes in the tree
+   // and keeps the properties of the binary search tree
    void transplant(Node* U, Node* V);
 
 public:

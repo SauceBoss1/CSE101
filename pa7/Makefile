@@ -1,3 +1,10 @@
+#--------------------------------------------------------------
+# make -> creates the Order executable
+# make DictionaryTest -> creates Dictionary ADT test
+# 								 harness
+# make DictionaryClient -> creates Dictionary ADT client file
+# make clean -> removes all executables
+#--------------------------------------------------------------
 targets = DictionaryClient DictionaryTest Order
 objs = Dictionary.o
 
@@ -22,6 +29,8 @@ DictionaryTest: DictionaryTest.o $(objs)
 
 %.o: %.cpp
 	$(COMPILE) $< $(DEPFLAGS)
+
+all: $(targets)
 
 clean:
 	rm -rf $(targets) *.o *.d *.txt
