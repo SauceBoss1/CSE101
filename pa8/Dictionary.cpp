@@ -34,6 +34,7 @@ Dictionary::Dictionary(){
    nil->parent = nullptr;
    nil->left = nullptr;
    nil->right = nullptr;
+   nil->color = BLACK;
    root = nil;
    current = nil;
    num_pairs = 0;
@@ -45,6 +46,7 @@ Dictionary::Dictionary(const Dictionary &D){
    nil->parent = nullptr;
    nil->left = nullptr;
    nil->right = nullptr;
+   nil->color = BLACK;
    root = nil;
    current = nil;
    num_pairs = 0;
@@ -275,7 +277,7 @@ void Dictionary::RB_InsertFixUp(Node* N){
             }
             z->parent->color = BLACK; //case 3
             z->parent->parent->color = RED; //case 3
-            RightRotate(z->right->parent);
+            RightRotate(z->parent->parent);
          }
       } else {
          Node *y = z->parent->parent->left;
@@ -528,6 +530,10 @@ void Dictionary::setValue(keyType k, valType v){
    } else {
       y->right = z;
    }
+   z->left = nil;
+   z->right = nil;
+   z->color = RED;
+   RB_InsertFixUp(z);
    num_pairs++;
 }
 
@@ -565,21 +571,7 @@ void Dictionary::remove(keyType k){
    if(z == current){
       current = nil;
    }
-   if(z->left == nil){ //case 1 or 2.1 (right only)
-      transplant(z,z->right);
-   } else if (z->right == nil){ //case 2.2 (left only)
-      transplant(z,z->left);
-   } else { //case 3
-      Node *y = findNext(z);
-      if(y->parent != z){
-         transplant(y,y->right);
-         y->right = z->right;
-         y->right->parent = y;
-      }
-      transplant(z,y);
-      y->left = z->left;
-      y->left->parent = y;
-   }
+   RB_Delete(z);
    z->parent = nullptr;
    z->left = nullptr;
    z->right = nullptr;
