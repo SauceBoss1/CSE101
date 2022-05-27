@@ -607,7 +607,7 @@ void Dictionary::end(){
  ******************************************************/
 void Dictionary::next(){
    if(!hasCurrent()){
-      throw std::logic_error("Dictionary: next(): current not defined");
+      throw std::logic_error("Dictionary: next(): current undefined");
    }
    current = findNext(current);
 }
@@ -623,7 +623,7 @@ void Dictionary::next(){
  ******************************************************/
 void Dictionary::prev(){
    if(!hasCurrent()){
-      throw std::logic_error("Dictionary: prev(): current not defined");
+      throw std::logic_error("Dictionary: prev(): current undefined");
    }
    current = findPrev(current);
 }
