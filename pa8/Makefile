@@ -11,6 +11,9 @@ deps = $(patsubst %.o,%.d, $(objs))
 -include $(deps)
 DEPFLAGS = -MMD -MF $(@:.o=.d)
 
+WordFrequency: WordFrequency.o $(objs)
+	$(LINK) $@ $^
+
 Order: Order.o $(objs)
 	$(LINK) $@ $^
 
