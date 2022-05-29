@@ -44,17 +44,12 @@ int main(int argc, char* argv[]){
 
       while( token != ""){
          //update dictionary 
-         if(freq.contains(token)){
+         
+         try{
             freq.getValue(token) += 1;
-         } else {
+         } catch(logic_error& e){
             freq.setValue(token, 1);
          }
-         
-         // try{
-         //    freq.getValue(token) += 1;
-         // } catch(logic_error& e){
-         //    freq.setValue(token, 1);
-         // }
 
          //get next token
          begin = min(line.find_first_not_of(delim, end+1), len);
