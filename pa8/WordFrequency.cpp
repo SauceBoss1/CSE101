@@ -44,7 +44,6 @@ int main(int argc, char* argv[]){
 
       while( token != ""){
          //update dictionary 
-         
          try{
             freq.getValue(token) += 1;
          } catch(logic_error& e){
