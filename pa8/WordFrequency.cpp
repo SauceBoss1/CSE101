@@ -1,3 +1,9 @@
+/********************************************************************************* 
+* Derfel Terciano, dtercian 
+* 2022 Spring CSE101 PA8
+* Dictionary.cpp 
+* Source file that contains the second top-client file for the Dictionary ADT
+*********************************************************************************/
 #include <iostream>
 #include <string>
 #include <stdexcept>

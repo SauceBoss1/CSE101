@@ -1,6 +1,6 @@
 /********************************************************************************* 
 * Derfel Terciano, dtercian 
-* 2022 Spring CSE101 PA7
+* 2022 Spring CSE101 PA8
 * DictionaryTest.cpp
 * Source file that contains the main test harness for the Dictionary ADT
 *********************************************************************************/

@@ -1,6 +1,6 @@
 /********************************************************************************* 
 * Derfel Terciano, dtercian 
-* 2022 Spring CSE101 PA7
+* 2022 Spring CSE101 PA8
 * Dictionary.cpp 
 * Source file that contains the implementation of the Dictionary ADT
 *********************************************************************************/
@@ -206,6 +206,11 @@ Dictionary::Node* Dictionary::findPrev(Node *N){
 
 /*** RB HELPER FUNCTIONS ***/
 
+/******************************************************
+ * LeftRotate()
+ * Rotates the BST to the left in order
+ * to help satisfy the RB tree properties
+ ******************************************************/
 void Dictionary::LeftRotate(Node *N){
    Node *x = N;
 
@@ -233,6 +238,11 @@ void Dictionary::LeftRotate(Node *N){
    x->parent = y;
 }
 
+/******************************************************
+ * RightRotate()
+ * Rotates the BST to the right in order
+ * to help satisfy the RB tree properties
+ ******************************************************/
 void Dictionary::RightRotate(Node *N){
    Node *x = N;
 
@@ -260,6 +270,11 @@ void Dictionary::RightRotate(Node *N){
    x->parent = y;
 }
 
+/******************************************************
+ * RB_InsertFixUp()
+ * Fixes the BST in order to satisfy the 
+ * the properties of the RB tree
+ ******************************************************/
 void Dictionary::RB_InsertFixUp(Node* N){
    Node *z = N;
    while(z->parent->color == RED){
@@ -300,6 +315,12 @@ void Dictionary::RB_InsertFixUp(Node* N){
    root->color = BLACK;
 }
 
+/******************************************************
+ * RB_Transplant()
+ * Swaps two nodes from the RB tree.
+ * This DOES NOT take into account the RB
+ * tree properties.
+ ******************************************************/
 void Dictionary::RB_Transplant(Node *u, Node *v){
    if(u->parent == nil){
       root = v;
@@ -311,6 +332,12 @@ void Dictionary::RB_Transplant(Node *u, Node *v){
    v->parent = u->parent;
 }
 
+/******************************************************
+ * RB_DeleteFixUp()
+ * Fixes the BST in order to satisfy
+ * the RB tree properties when a node
+ * is deleted
+ ******************************************************/
 void Dictionary::RB_DeleteFixUp(Node *n){
    Node *x = n;
    while(x != root && x->color == BLACK){
@@ -367,6 +394,12 @@ void Dictionary::RB_DeleteFixUp(Node *n){
    x->color = BLACK;
 }
 
+/******************************************************
+ * RB_Delete()
+ * Deletes a Node in a RB tree. Therefore,
+ * this function maintains the properties of the
+ * RB tree
+ ******************************************************/
 void Dictionary::RB_Delete(Node *N){
    Node *z = N;
    Node *y = z;

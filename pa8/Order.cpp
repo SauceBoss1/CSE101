@@ -1,8 +1,8 @@
 /********************************************************************************* 
 * Derfel Terciano, dtercian 
-* 2022 Spring CSE101 PA7
+* 2022 Spring CSE101 PA8
 * Order.cpp 
-* Source file that contains the top-client program of the Dictionary ADT
+* Source file that contains the first top-client program of the Dictionary ADT
 *********************************************************************************/
 #include <iostream>
 #include <stdexcept>
