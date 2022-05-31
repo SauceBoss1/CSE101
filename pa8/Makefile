@@ -4,6 +4,7 @@
 # make DictionaryClient -> creates the executable for the Dictionary ADT
 # make DictionaryTest -> creates the test harness executable for the Dict ADT
 #*************************************************************************************
+
 targets = DictionaryClient DictionaryTest Order WordFrequency
 objs = Dictionary.o
 
