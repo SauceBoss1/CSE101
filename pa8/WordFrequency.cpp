@@ -39,6 +39,8 @@ int main(int argc, char* argv[]){
       cerr << "Unable to open file " << argv[1] << " for writng" << endl;
    }
 
+   /*** INPUT PARSING ***/
+
    while( getline(inFile, line) ){
       len = line.length();
 
@@ -64,7 +66,8 @@ int main(int argc, char* argv[]){
       }
    }
 
-   //print results
+   /*** OUTPUT ***/
+
    outFile << freq << endl;
 
    //closing procedures
