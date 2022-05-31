@@ -20,6 +20,9 @@ Order: Order.o $(objs)
 DictionaryClient: DictionaryClient.o $(objs)
 	$(LINK) $@ $^
 
+DictionaryTest: DictionaryTest.o $(objs)
+	$(LINK) $@ $^
+
 %.o: %.cpp
 	$(COMPILE) $< $(DEPFLAGS)
 
